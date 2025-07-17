@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comunidade ASTDX</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #1c1c3c;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      width: 100%;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: #292963;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    nav a {
+      padding: 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background-color: #3a3a8f;
+    }
+    .discord-top {
+      margin-top: 20px;
+      text-align: center;
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .discord-top img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(114, 137, 218, 0.8);
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+    .discord-top p {
+      font-weight: bold;
+      font-size: 1.3em;
+      color: #7289da;
+      margin: 0 0 10px 0;
+    }
+    a.discord-link {
+      display: inline-block;
+      background-color: #7289da;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    a.discord-link:hover {
+      background-color: #5b6eae;
+    }
+    .section {
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      max-width: 720px;
+    }
+    .section img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      margin: 10px 0;
+    }
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+    /* VIP server button */
+    .vip-btn {
+      display: inline-block;
+      background-color: #ffcc00;
+      color: #333;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .vip-btn:hover {
+      background-color: #e6b800;
+    }
+    @media screen and (max-width: 600px) {
+      iframe {
+        height: 220px;
+      }
+      .discord-top img {
+        width: 90px;
+        height: 90px;
+      }
+      .discord-top p {
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Comunidade ASTDX
+  </header>
+
+  <nav>
+    <a href="#live">🔴 Live</a>
+    <a href="#meta">📋 Personagens Meta</a>
+    <a href="#traits">💎 Traits Meta</a>
+  </nav>
+
+  <div class="discord-top">
+    <img src="https://cdn.discordapp.com/icons/1384335086656159788/b6328b1a1cd895b2d0496900f0ba7e8e.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
+    <p>Servidor ASTDX</p>
+    <a class="discord-link" href="https://discord.gg/t5HUNGPWkf" target="_blank">Entrar no Discord</a>
+  </div>
+
+  <section id="live" class="section">
+    <h2>🔴 Live Ao Vivo</h2>
+    <iframe src="https://www.youtube.com/embed/NRLS1Acozgw?si=3LQb5Giwg3E4ZsxY" allowfullscreen></iframe>
+  </section>
+
+  <section id="meta" class="section">
+    <h2>📋 Personagens Meta</h2>
+    <img src="https://cdn.discordapp.com/attachments/1393965857775947850/1395479662209142814/Imagem_do_WhatsApp_de_2025-07-17_as_15.52.20_6e5aa1ae.jpg?ex=687a9936&is=687947b6&hm=27d8cbed80ab4fd9e0c7067749ebd95deeffcc702573bf039b74aecb612b12f2&" alt="Personagens Meta" />
+    <p>Lista atualizada com os melhores personagens do meta.</p>
+  </section>
+
+  <section id="traits" class="section">
+    <h2>💎 Traits Meta</h2>
+    <img src="https://cdn.discordapp.com/attachments/1393965857775947850/1395479060603342979/Imagem_do_WhatsApp_de_2025-07-17_as_15.52.19_38401d0c.jpg?ex=687a98a6&is=68794726&hm=e669c7455129d02201c3b2a2c11defb4593c9b69a2ee044faf231d031550c3ab&" alt="Trait 1" />
+    <img src="https://cdn.discordapp.com/attachments/1393965857775947850/1395479101091086407/Imagem_do_WhatsApp_de_2025-07-17_as_15.54.23_36ca423d.jpg?ex=687a98b0&is=68794730&hm=c40c3ea67db4920444568f0f04c845f197cbd4d86f4d6feab80296202ea1f43c&" alt="Trait 2" />
+    <p>Confira os melhores traits para farm, dano e suporte.</p>
+  </section>
+
+  <section id="vip" class="section">
+    <h2>👑 Servidor VIP</h2>
+    <p>Entre no servidor VIP do discord!</p>
+    <a href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" class="vip-btn">Entrar no Servidor VIP</a>
+  </section>
+</body>
+</html>
