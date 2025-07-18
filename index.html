@@ -1,34 +1,368 @@
-4:16:19 PM: Build ready to start
-4:16:20 PM: build-image version: b0a88a8cc12eba43e7105e6a2545bedea4c65a48 (noble)
-4:16:20 PM: buildbot version: b0a88a8cc12eba43e7105e6a2545bedea4c65a48
-4:16:20 PM: Fetching cached dependencies
-4:16:20 PM: Failed to fetch cache, continuing with build
-4:16:20 PM: Starting to prepare the repo for build
-4:16:21 PM: No cached dependencies found. Cloning fresh repo
-4:16:21 PM: git clone --filter=blob:none https://github.com/Guszzsz/astdx
-4:16:21 PM: Preparing Git Reference refs/heads/main
-4:16:22 PM: Starting to install dependencies
-4:16:23 PM: Using PHP version
-4:16:23 PM: v22.17.1 is already installed.
-4:16:24 PM: Starting post processing
-4:16:24 PM: Skipping form detection
-4:16:24 PM: Post processing - header rules
-4:16:24 PM: Post processing - redirect rules
-4:16:24 PM: Post processing done
-4:16:24 PM: Section completed: postprocessing
-4:16:24 PM: Now using node v22.17.1 (npm v10.9.2)
-4:16:24 PM: Enabling Node.js Corepack
-4:16:24 PM: Started restoring cached build plugins
-4:16:24 PM: Finished restoring cached build plugins
-4:16:24 PM: Successfully installed dependencies
-4:16:24 PM: No build steps found, continuing to publishing
-4:16:24 PM: Starting to deploy site from '/'
-4:16:24 PM: Calculating files to upload
-4:16:24 PM: 2 new file(s) to upload
-4:16:24 PM: 0 new function(s) to upload
-4:16:24 PM: Section completed: deploying
-4:16:24 PM: Section completed: building
-4:16:24 PM: Uploading Cache of size 8.1KB
-4:16:24 PM: Section completed: cleanup
-4:16:24 PM: Finished processing build request in 3.901s
-4:16:25 PM: Site is live ✨
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comunidade ASTDX</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      min-height: 100vh;
+      padding-bottom: 80px; /* espaço para o rodapé fixo */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Tela de carregamento */
+    #preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #0f2027;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+    }
+    .estrela {
+      width: 60px;
+      height: 60px;
+      background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
+      background-size: contain;
+      animation: fadeInStar 2s ease-in-out infinite;
+    }
+    @keyframes fadeInStar {
+      0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.1) rotate(180deg); }
+      100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
+    }
+
+    header {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      padding: 20px 0 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      background-color: #1c1c3c;
+      flex-shrink: 0;
+    }
+
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: 0 0 20px #7289da;
+      object-fit: cover;
+      /* brilho da imagem mantido */
+    }
+
+    header h1 {
+      margin-top: 12px;
+      font-size: 2rem;
+      color: #7289da;
+      /* removido text-shadow para tirar brilho */
+    }
+
+    .discord-btn {
+      display: inline-block;
+      margin-top: 10px;
+      background-color: #7289da;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px #7289da;
+      transition: background-color 0.3s ease;
+      /* removido text-shadow */
+    }
+    .discord-btn:hover {
+      background-color: #5b6eae;
+    }
+
+    section {
+      max-width: 720px;
+      width: 95%;
+      background-color: #1e1e2f;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px 0;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+      text-align: center;
+    }
+
+    section h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #ffcc00;
+      /* removido text-shadow para tirar brilho */
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255,255,0,0.6);
+      border: none;
+      transition: box-shadow 0.3s ease;
+    }
+    iframe:hover {
+      box-shadow: 0 0 40px rgba(255,255,0,0.9);
+    }
+
+    .image-gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .image-gallery img {
+      max-width: 320px;
+      width: 100%;
+      border-radius: 15px;
+      box-shadow:
+        0 0 8px #fff,
+        0 0 15px #ffcc00,
+        0 0 30px #ffcc00;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .image-gallery img:hover {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 15px #fff,
+        0 0 30px #ffcc00,
+        0 0 50px #ffcc00;
+    }
+
+    ul {
+      list-style: none;
+      text-align: left;
+      max-width: 400px;
+      margin: 0 auto;
+      padding-left: 0;
+    }
+    ul li {
+      padding: 8px 0;
+      font-weight: bold;
+      border-bottom: 1px solid #444;
+      color: #ffd700;
+    }
+
+    /* Rodapé fixo com navegação */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-width: 720px;
+      background-color: #292963;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
+      z-index: 100;
+      margin: 0 auto;
+      right: 0;
+      left: 0;
+    }
+    footer button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    footer button:hover, footer button.active {
+      color: #ffcc00;
+    }
+    footer button span {
+      font-size: 1.5rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+      iframe {
+        height: 200px;
+      }
+      .image-gallery img {
+        max-width: 100%;
+      }
+      header img {
+        width: 90px;
+        height: 90px;
+      }
+      header h1 {
+        font-size: 1.5rem;
+      }
+      footer button {
+        font-size: 1rem;
+      }
+      footer button span {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tela de carregamento -->
+  <div id="preloader">
+    <div class="estrela"></div>
+  </div>
+
+  <header>
+    <img src="https://cdn.discordapp.com/icons/1384335086656159788/b6328b1a1cd895b2d0496900f0ba7e8e.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
+    <h1>Comunidade ASTDX</h1>
+    <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
+  </header>
+
+  <main>
+    <section id="live">
+      <h2>🔴 Live Ao Vivo</h2>
+      <iframe src="https://www.youtube.com/embed/NRLS1Acozgw?autoplay=0" allowfullscreen></iframe>
+    </section>
+
+    <section id="meta">
+      <h2>📋 Personagens Meta</h2>
+      <div class="image-gallery">
+        <a href="https://ibb.co/Y402qzYY" target="_blank" rel="noopener">
+          <img src="https://i.ibb.co/fVDMPhBB/Imagem-do-Whats-App-de-2025-07-17-s-15-52-20-6e5aa1ae.jpg" alt="Personagens Meta" />
+        </a>
+      </div>
+      <p>Lista atualizada com os melhores personagens do meta.</p>
+    </section>
+
+    <section id="traits">
+      <h2>💎 Traits Meta</h2>
+      <div class="image-gallery">
+        <a href="https://imgbb.com/" target="_blank" rel="noopener">
+          <img src="https://i.ibb.co/rKmLDCcn/Imagem-do-Whats-App-de-2025-07-17-s-15-52-19-38401d0c.jpg" alt="Trait Meta 1" />
+        </a>
+        <a href="https://ibb.co/9krb4jqL" target="_blank" rel="noopener">
+          <img src="https://i.ibb.co/wFzSQ1KX/Imagem-do-Whats-App-de-2025-07-17-s-15-54-23-36ca423d.jpg" alt="Trait Meta 2" />
+        </a>
+      </div>
+      <p>Confira os melhores traits para farm, dano e suporte.</p>
+    </section>
+
+    <section id="novidades">
+      <h2>📰 Novidades e Postagens</h2>
+      <p>Mais atualizações em breve, se atualize no nosso servidor.</p>
+    </section>
+
+    <section id="codigos">
+      <h2>🎁 Códigos do Jogo</h2>
+      <ul>
+        <li>FREENIMBUSMOUNT</li>
+        <li>AFIRSTTIME3001</li>
+        <li>VERYHIGHLIKEB</li>
+        <li>THREEHUNDREDTHOUSANDPLAYERS</li>
+        <li>THANKYOUFORSUPPORT</li>
+        <li>LIKEF5</li>
+        <li>UPD1</li>
+        <li>FOLLOWS10KBREAD</li>
+        <li>MADAO90YAY</li>
+      </ul>
+    </section>
+
+    <section id="vip">
+      <h2>👑 Servidor VIP</h2>
+      <p>Entre no servidor VIP do discord!</p>
+      <a href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" class="discord-btn">Entrar no Servidor VIP</a>
+    </section>
+  </main>
+
+  <footer>
+    <button data-section="live" class="active"><span>🔴</span> Live</button>
+    <button data-section="meta"><span>📋</span> Meta</button>
+    <button data-section="traits"><span>💎</span> Traits</button>
+    <button data-section="novidades"><span>📰</span> Novidades</button>
+    <button data-section="codigos"><span>🎁</span> Códigos</button>
+    <button data-section="vip"><span>👑</span> VIP</button>
+  </footer>
+
+  <!-- Player YouTube invisível para áudio -->
+  <div id="player" style="display:none;"></div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    // YouTube Player API
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: '1zS6mkAUmvA',
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: '1zS6mkAUmvA',
+          controls: 0,
+          modestbranding: 1,
+          iv_load_policy: 3,
+          disablekb: 1,
+          rel: 0,
+          fs: 0,
+          mute: 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+    function onPlayerReady(event) {
+      event.target.setVolume(15); // volume baixo
+      event.target.playVideo();
+    }
+    function onPlayerStateChange(event) {
+      if(event.data === YT.PlayerState.ENDED) {
+        event.target.playVideo();
+      }
+    }
+
+    // Remove loader depois do carregamento
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById('preloader');
+      preloader.style.opacity = '0';
+      setTimeout(() => preloader.style.display = 'none', 800);
+    });
+
+    // Navegação por rodapé
+    const buttons = document.querySelectorAll('footer button');
+    const sections = document.querySelectorAll('main section');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.getAttribute('data-section');
+        sections.forEach(sec => {
+          if (sec.id === target) {
+            sec.scrollIntoView({behavior: 'smooth'});
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
