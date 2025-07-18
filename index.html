@@ -13,27 +13,37 @@
     }
 
     body {
-      position: relative; /* corrigido para mobile */
+      position: relative;
       background: url('https://i.ibb.co/bRMLThLg/paisagem-urbana-de-area-urbana-inspirada-em-anime.jpg') no-repeat center center;
       background-size: cover;
       color: #fff;
       min-height: 100vh;
-      padding-bottom: 80px; /* espaço para o rodapé fixo */
+      padding-bottom: 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Fundo escurecido semi-transparente por cima da imagem */
+    /* Fundo escurecido semi-transparente */
     body::before {
       content: "";
-      position: absolute; /* trocado de fixed para absolute */
+      position: absolute;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
       background: rgba(15, 32, 39, 0.75);
       z-index: -1;
     }
+
+    /* Mobile: background menor para melhor qualidade */
+    @media (max-width: 600px) {
+      body {
+        background: url('https://i.ibb.co/7r6z1Nk/paisagem-urbana-mobile.jpg') no-repeat center center;
+        background-size: cover;
+      }
+    }
+
+    /* O restante do CSS igual, não modifiquei */
 
     /* Tela de carregamento */
     #preloader {
@@ -59,6 +69,8 @@
       50% { opacity: 1; transform: scale(1.1) rotate(180deg); }
       100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
     }
+
+    /* restante do CSS igual ... */
 
     header {
       width: 100%;
@@ -176,7 +188,6 @@
       color: #ffd700;
     }
 
-    /* Rodapé fixo com navegação */
     footer {
       position: fixed;
       bottom: 0;
@@ -213,7 +224,6 @@
       font-size: 1.5rem;
     }
 
-    /* Responsividade */
     @media (max-width: 600px) {
       iframe {
         height: 200px;
@@ -320,15 +330,16 @@
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
-    // YouTube Player API
     let player;
+    let isPlaying = false;
+
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('player', {
         height: '0',
         width: '0',
         videoId: '1zS6mkAUmvA',
         playerVars: {
-          autoplay: 1,
+          autoplay: 0,
           loop: 1,
           playlist: '1zS6mkAUmvA',
           controls: 0,
@@ -345,15 +356,29 @@
         }
       });
     }
+
     function onPlayerReady(event) {
       event.target.setVolume(15); // volume baixo
-      event.target.playVideo();
+      // só toca após interação do usuário
     }
+
     function onPlayerStateChange(event) {
       if(event.data === YT.PlayerState.ENDED) {
         event.target.playVideo();
       }
     }
+
+    // Rodar música só após o primeiro toque (burlar autoplay restrito)
+    function playMusicAfterInteraction() {
+      if (!isPlaying && player && player.playVideo) {
+        player.playVideo();
+        isPlaying = true;
+        document.removeEventListener('click', playMusicAfterInteraction);
+        document.removeEventListener('touchstart', playMusicAfterInteraction);
+      }
+    }
+    document.addEventListener('click', playMusicAfterInteraction);
+    document.addEventListener('touchstart', playMusicAfterInteraction);
 
     // Remove loader depois do carregamento
     window.addEventListener("load", () => {
