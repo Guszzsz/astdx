@@ -35,15 +35,12 @@
       z-index: -1;
     }
 
-    /* Mobile: background menor para melhor qualidade */
+    /* Mobile: mesma imagem, mas com background-size ajustado para melhor qualidade */
     @media (max-width: 600px) {
       body {
-        background: url('https://i.ibb.co/7r6z1Nk/paisagem-urbana-mobile.jpg') no-repeat center center;
-        background-size: cover;
+        background-size: contain;
       }
     }
-
-    /* O restante do CSS igual, não modifiquei */
 
     /* Tela de carregamento */
     #preloader {
