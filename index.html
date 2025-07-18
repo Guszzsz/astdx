@@ -35,10 +35,13 @@
       z-index: -1;
     }
 
-    /* Mobile: mesma imagem, mas com background-size ajustado para melhor qualidade */
+    /* Mobile: troca de fundo para imagem enviada por você */
     @media (max-width: 600px) {
       body {
-        background-size: contain;
+        background-image: url('https://i.pinimg.com/1200x/24/79/c1/2479c17119652c468be03b465f3ad214.jpg');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
       }
     }
 
@@ -368,10 +371,13 @@
     // Rodar música só após o primeiro toque (burlar autoplay restrito)
     function playMusicAfterInteraction() {
       if (!isPlaying && player && player.playVideo) {
-        player.playVideo();
-        isPlaying = true;
-        document.removeEventListener('click', playMusicAfterInteraction);
-        document.removeEventListener('touchstart', playMusicAfterInteraction);
+        player.playVideo().then(() => {
+          isPlaying = true;
+          document.removeEventListener('click', playMusicAfterInteraction);
+          document.removeEventListener('touchstart', playMusicAfterInteraction);
+        }).catch(() => {
+          // se der erro, mantém a escuta para tentar de novo em próxima interação
+        });
       }
     }
     document.addEventListener('click', playMusicAfterInteraction);
