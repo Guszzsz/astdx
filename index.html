@@ -311,6 +311,58 @@ footer {
 footer::-webkit-scrollbar {
   display: none;
 }
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 720px;
+  background: linear-gradient(90deg, #292963 60%, #7289da 100%);
+  display: flex;
+  flex-direction: column; /* empilha verticalmente */
+  align-items: center;    /* centraliza horizontalmente */
+  padding: 10px 0 6px;    /* um pouco menos embaixo */
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
+  z-index: 100;
+  margin: 0 auto;
+  right: 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: flex-start;
+  min-width: 0;
+  gap: 8px;
+  width: max-content;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+footer::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-hint {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #ffd700cc;
+  font-weight: bold;
+  user-select: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 1px 1px 3px #0008;
+  opacity: 0.8;
+  animation: pulse 2.5s infinite;
+  text-align: center;
+  width: 100%;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
 </style>
 
 <!-- Script Firebase e contagem online -->
@@ -455,6 +507,8 @@ footer::-webkit-scrollbar {
     <button data-section="vip" tabindex="0"><span>👑</span> VIP</button>
     <button data-section="doar" tabindex="0"><span>💖</span> Doar</button>
   </div>
+  <div class="scroll-hint">⬅️➡️ Role para o lado</div>
+
 </footer>
 
 <!-- Player YouTube invisível para áudio -->
