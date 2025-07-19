@@ -311,53 +311,57 @@ footer {
 footer::-webkit-scrollbar {
   display: none;
 }
- <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, onValue, increment, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyA8a-ARdGjPfQh3jDgykJL1JOUVr_80Dzk",
-      authDomain: "caramel-vim-336101.firebaseapp.com",
-      databaseURL: "https://caramel-vim-336101-default-rtdb.firebaseio.com",
-      projectId: "caramel-vim-336101",
-      storageBucket: "caramel-vim-336101.appspot.com",
-      messagingSenderId: "1000858070242",
-      appId: "1:1000858070242:web:6e8e08d02b27f7ddf582bb"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const onlineRef = ref(db, 'onlineUsers');
-
-    // Atualiza número de usuários online
-    runTransaction(onlineRef, current => (current || 0) + 1);
-
-    // Atualiza visual
-    onValue(onlineRef, snapshot => {
-      document.getElementById("contador").textContent = snapshot.val() || 0;
-    });
-
-    // Remove 1 quando o usuário sair
-    window.addEventListener("beforeunload", () => {
-      runTransaction(onlineRef, current => (current || 1) - 1);
-    });
 </style>
+
+<!-- Script Firebase e contagem online -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, onValue, onDisconnect, set, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA8a-ARdGjPfQh3jDgykJL1JOUVr_80Dzk",
+    authDomain: "caramel-vim-336101.firebaseapp.com",
+    databaseURL: "https://caramel-vim-336101-default-rtdb.firebaseio.com",
+    projectId: "caramel-vim-336101",
+    storageBucket: "caramel-vim-336101.appspot.com",
+    messagingSenderId: "1000858070242",
+    appId: "1:1000858070242:web:6e8e08d02b27f7ddf582bb"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Cria uma entrada única para este usuário na lista de online
+  const userRef = push(ref(db, 'onlineUsers'));
+
+  // Remove a entrada quando o usuário desconectar
+  onDisconnect(userRef).remove();
+
+  // Marca que o usuário está online (true)
+  set(userRef, true);
+
+  // Atualiza o contador de pessoas online no HTML
+  onValue(ref(db, 'onlineUsers'), snapshot => {
+    const users = snapshot.val();
+    const count = users ? Object.keys(users).length : 0;
+    document.getElementById("contador").textContent = count;
+  });
+</script>
+
 </head>
 <body>
 
 <!-- Tela de carregamento -->
- <div id="preloader"><div class="estrela"></div></div>
+<div id="preloader"><div class="estrela"></div></div>
 
-  <header>
-    <img src="https://cdn.discordapp.com/icons/1384335086656159788/b6328b1a1cd895b2d0496900f0ba7e8e.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
-    <h1>Comunidade ASTDX</h1>
-    <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
-    <!-- 🔴 Aqui está o contador de pessoas online -->
-    <p style="margin-top:10px; font-weight:bold; color:#ffcc00;">
-      👥 Pessoas Online Site: <span id="contador">0</span>
-    </p>
-  </header>
-
+<header>
+  <img src="https://cdn.discordapp.com/icons/1384335086656159788/b6328b1a1cd895b2d0496900f0ba7e8e.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
+  <h1>Comunidade ASTDX</h1>
+  <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
+  <!-- Contador de pessoas online -->
+  <p style="margin-top:10px; font-weight:bold; color:#ffcc00;">
+    👥 Pessoas Online Site: <span id="contador">0</span>
+  </p>
 </header>
 
 <main>
