@@ -292,13 +292,24 @@ footer {
 }
 .footer-inner {
   display: flex;
-  justify-content: space-around;
-  min-width: 700px;
+  justify-content: flex-start;
+  min-width: 0;
+  gap: 8px;
+  width: max-content;
 }
 @media (max-width: 720px) {
   .footer-inner {
-    min-width: 900px;
+    gap: 4px;
+    min-width: 0;
   }
+}
+footer {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+footer::-webkit-scrollbar {
+  display: none;
 }
 </style>
 </head>
