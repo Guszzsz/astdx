@@ -1,412 +1,486 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Comunidade ASTDX</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Comunidade ASTDX</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    body {
-      position: relative;
-      background: url('https://i.ibb.co/bRMLThLg/paisagem-urbana-de-area-urbana-inspirada-em-anime.jpg') no-repeat center center;
-      background-size: cover;
-      color: #fff;
-      min-height: 100vh;
-      padding-bottom: 80px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+body {
+  position: relative;
+  background: url('https://i.ibb.co/bRMLThLg/paisagem-urbana-de-area-urbana-inspirada-em-anime.jpg') no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  min-height: 100vh;
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    /* Fundo escurecido semi-transparente */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 32, 39, 0.75);
-      z-index: -1;
-    }
+/* Overlay escurecido com blur para legibilidade */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 32, 39, 0.85);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+}
 
-    /* Mobile: troca de fundo para imagem enviada por você */
-    @media (max-width: 600px) {
-      body {
-        background-image: url('https://i.pinimg.com/1200x/24/79/c1/2479c17119652c468be03b465f3ad214.jpg');
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-      }
-    }
+/* Mobile: troca de fundo */
+@media (max-width: 600px) {
+  body {
+    background-image: url('https://i.pinimg.com/1200x/24/79/c1/2479c17119652c468be03b465f3ad214.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+}
 
-    /* Tela de carregamento */
-    #preloader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: #0f2027;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.8s ease;
-    }
-    .estrela {
-      width: 60px;
-      height: 60px;
-      background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
-      background-size: contain;
-      animation: fadeInStar 2s ease-in-out infinite;
-    }
-    @keyframes fadeInStar {
-      0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-      50% { opacity: 1; transform: scale(1.1) rotate(180deg); }
-      100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
-    }
+/* Loader animado */
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: #0f2027;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease;
+}
+.estrela {
+  width: 60px;
+  height: 60px;
+  background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
+  background-size: contain;
+  animation: fadeInStar 2s ease-in-out infinite;
+}
+@keyframes fadeInStar {
+  0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.1) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
+}
 
-    /* restante do CSS igual ... */
+header {
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+  padding: 20px 0 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  background: linear-gradient(135deg, #1c1c3c 60%, #7289da 100%);
+  flex-shrink: 0;
+  margin: 0 auto;
+}
 
-    header {
-      width: 100%;
-      max-width: 720px;
-      text-align: center;
-      padding: 20px 0 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
-      background-color: #1c1c3c;
-      flex-shrink: 0;
-      margin: 0 auto;
-    }
+header img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #7289da;
+  object-fit: cover;
+}
 
-    header img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      box-shadow: 0 0 20px #7289da;
-      object-fit: cover;
-    }
+header h1 {
+  margin-top: 12px;
+  font-size: 2rem;
+  color: #ffcc00;
+  text-shadow: 1px 1px 8px #000;
+}
 
-    header h1 {
-      margin-top: 12px;
-      font-size: 2rem;
-      color: #7289da;
-    }
+.discord-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #7289da 60%, #5b6eae 100%);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 0 12px #7289da;
+  transition: background 0.3s, transform 0.2s;
+  border: none;
+  outline: none;
+}
+.discord-btn:hover, .discord-btn:focus {
+  background: linear-gradient(90deg, #5b6eae 60%, #7289da 100%);
+  transform: scale(1.05);
+}
 
-    .discord-btn {
-      display: inline-block;
-      margin-top: 10px;
-      background-color: #7289da;
-      color: white;
-      padding: 10px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 0 12px #7289da;
-      transition: background-color 0.3s ease;
-    }
-    .discord-btn:hover {
-      background-color: #5b6eae;
-    }
+main {
+  width: 100%;
+  max-width: 720px;
+  margin: 15px auto;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
 
-    main {
-      width: 100%;
-      max-width: 720px;
-      margin: 15px auto;
-      padding: 0 10px;
-      box-sizing: border-box;
-    }
+section {
+  background: linear-gradient(135deg, rgba(30,30,47,0.95) 80%, rgba(114,137,218,0.2) 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+  text-align: center;
+}
 
-    section {
-      background-color: rgba(30, 30, 47, 0.9);
-      border-radius: 12px;
-      padding: 20px;
-      margin: 15px 0;
-      box-shadow: 0 0 15px rgba(0,0,0,0.7);
-      text-align: center;
-    }
+section h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #ffcc00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-shadow: 1px 1px 8px #000;
+}
 
-    section h2 {
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-      color: #ffcc00;
-    }
+iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(255,255,0,0.6);
+  border: none;
+  transition: box-shadow 0.3s ease;
+}
+iframe:hover, iframe:focus {
+  box-shadow: 0 0 40px rgba(255,255,0,0.9);
+}
 
-    iframe {
-      width: 100%;
-      height: 300px;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(255,255,0,0.6);
-      border: none;
-      transition: box-shadow 0.3s ease;
-    }
-    iframe:hover {
-      box-shadow: 0 0 40px rgba(255,255,0,0.9);
-    }
+.image-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
-    .image-gallery {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+.image-gallery img {
+  max-width: 320px;
+  width: 100%;
+  border-radius: 15px;
+  box-shadow:
+    0 0 8px #fff,
+    0 0 15px #ffcc00,
+    0 0 30px #ffcc00;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+.image-gallery img:hover, .image-gallery img:focus {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 15px #fff,
+    0 0 30px #ffcc00,
+    0 0 50px #ffcc00;
+}
 
-    .image-gallery img {
-      max-width: 320px;
-      width: 100%;
-      border-radius: 15px;
-      box-shadow:
-        0 0 8px #fff,
-        0 0 15px #ffcc00,
-        0 0 30px #ffcc00;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-    .image-gallery img:hover {
-      transform: scale(1.05);
-      box-shadow:
-        0 0 15px #fff,
-        0 0 30px #ffcc00,
-        0 0 50px #ffcc00;
-    }
+ul {
+  list-style: none;
+  text-align: left;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-left: 0;
+}
+ul li {
+  padding: 8px 0;
+  font-weight: bold;
+  border-bottom: 1px solid #444;
+  color: #ffd700;
+}
 
-    ul {
-      list-style: none;
-      text-align: left;
-      max-width: 400px;
-      margin: 0 auto;
-      padding-left: 0;
-    }
-    ul li {
-      padding: 8px 0;
-      font-weight: bold;
-      border-bottom: 1px solid #444;
-      color: #ffd700;
-    }
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 720px;
+  background: linear-gradient(90deg, #292963 60%, #7289da 100%);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
+  z-index: 100;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
+}
+footer button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  outline: none;
+  position: relative;
+}
+footer button.active {
+  color: #ffcc00;
+  transform: scale(1.12);
+}
+footer button.active::after {
+  content: '';
+  display: block;
+  width: 80%;
+  height: 3px;
+  background: #ffcc00;
+  border-radius: 2px;
+  margin: 4px auto 0;
+  animation: underline 0.4s;
+}
+@keyframes underline {
+  from { width: 0; }
+  to { width: 80%; }
+}
+footer button:focus {
+  outline: 2px solid #ffcc00;
+}
+footer button:active {
+  color: #ffd700;
+  transform: scale(0.98);
+}
+footer button span {
+  font-size: 1.5rem;
+}
 
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      max-width: 720px;
-      background-color: #292963;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
-      z-index: 100;
-      margin: 0 auto;
-      right: 0;
-      left: 0;
-    }
-    footer button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.3rem;
-      cursor: pointer;
-      padding: 5px 10px;
-      transition: color 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    footer button:hover, footer button.active {
-      color: #ffcc00;
-    }
-    footer button span {
-      font-size: 1.5rem;
-    }
-
-    @media (max-width: 600px) {
-      iframe {
-        height: 200px;
-      }
-      .image-gallery img {
-        max-width: 100%;
-      }
-      header img {
-        width: 90px;
-        height: 90px;
-      }
-      header h1 {
-        font-size: 1.5rem;
-      }
-      footer button {
-        font-size: 1rem;
-      }
-      footer button span {
-        font-size: 1.2rem;
-      }
-    }
-  </style>
+@media (max-width: 600px) {
+  iframe {
+    height: 200px;
+  }
+  .image-gallery img {
+    max-width: 100%;
+  }
+  header img {
+    width: 90px;
+    height: 90px;
+  }
+  header h1 {
+    font-size: 1.5rem;
+  }
+  footer button {
+    font-size: 1rem;
+  }
+  footer button span {
+    font-size: 1.2rem;
+  }
+}
+</style>
 </head>
 <body>
 
-  <!-- Tela de carregamento -->
-  <div id="preloader">
-    <div class="estrela"></div>
+<!-- Tela de carregamento -->
+<div id="preloader">
+  <div class="estrela"></div>
+</div>
+
+<header>
+  <img src="https://cdn.discordapp.com/icons/1384335086656159788/b6328b1a1cd895b2d0496900f0ba7e8e.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
+  <h1>Comunidade ASTDX</h1>
+  <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
+</header>
+
+<main>
+  <section id="live">
+    <h2><span>🔴</span> Live Ao Vivo</h2>
+    <iframe src="https://www.youtube.com/embed/NRLS1Acozgw?autoplay=0" allowfullscreen title="Live Ao Vivo"></iframe>
+  </section>
+
+  <section id="meta">
+    <h2><span>📋</span> Personagens Meta</h2>
+    <div class="image-gallery">
+      <a href="https://ibb.co/Y402qzYY" target="_blank" rel="noopener">
+        <img src="https://i.ibb.co/fVDMPhBB/Imagem-do-Whats-App-de-2025-07-17-s-15-52-20-6e5aa1ae.jpg" alt="Personagens Meta" />
+      </a>
+    </div>
+    <p>Lista atualizada com os melhores personagens do meta.</p>
+  </section>
+
+  <section id="traits">
+    <h2><span>💎</span> Traits Meta</h2>
+    <div class="image-gallery">
+      <a href="https://imgbb.com/" target="_blank" rel="noopener">
+        <img src="https://i.ibb.co/rKmLDCcn/Imagem-do-Whats-App-de-2025-07-17-s-15-52-19-38401d0c.jpg" alt="Trait Meta 1" />
+      </a>
+      <a href="https://ibb.co/9krb4jqL" target="_blank" rel="noopener">
+        <img src="https://i.ibb.co/wFzSQ1KX/Imagem-do-Whats-App-de-2025-07-17-s-15-54-23-36ca423d.jpg" alt="Trait Meta 2" />
+      </a>
+    </div>
+    <p>Confira os melhores traits para farm, dano e suporte.</p>
+  </section>
+
+  <section id="novidades">
+    <h2><span>📰</span> Novidades e Postagens</h2>
+  <div class="image-gallery">
+    <a href="https://imgbb.com/" target="_blank" rel="noopener">
+      <img src="https://i.ibb.co/v61GHvZh/sodapdf-converted.jpg" alt="sodapdf-converted" />
+    </a>
+    <a href="https://imgbb.com/" target="_blank" rel="noopener">
+      <img src="https://i.ibb.co/wr0f1QNG/sodapdf-converted-3.jpg" alt="sodapdf-converted-3" />
+    </a>
   </div>
+  <p>Mais atualizações em breve, se atualize no nosso servidor.</p>
+  </section>
 
-  <header>
-    <img src="https://cdn.discordapp.com/icons/1384335086656159788/b6328b1a1cd895b2d0496900f0ba7e8e.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
-    <h1>Comunidade ASTDX</h1>
-    <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
-  </header>
+  <section id="codigos">
+    <h2><span>🎁</span> Códigos do Jogo</h2>
+    <ul>
+      <li>FREENIMBUSMOUNT</li>
+      <li>AFIRSTTIME3001</li>
+      <li>VERYHIGHLIKEB</li>
+      <li>THREEHUNDREDTHOUSANDPLAYERS</li>
+      <li>THANKYOUFORSUPPORT</li>
+      <li>LIKEF5</li>
+      <li>UPD1</li>
+      <li>FOLLOWS10KBREAD</li>
+      <li>MADAO90YAY</li>
+    </ul>
+  </section>
 
-  <main>
-    <section id="live">
-      <h2>🔴 Live Ao Vivo</h2>
-      <iframe src="https://www.youtube.com/embed/NRLS1Acozgw?autoplay=0" allowfullscreen></iframe>
-    </section>
+  <section id="vip">
+    <h2><span>👑</span> Servidor VIP</h2>
+    <p>Entre no servidor VIP do discord!</p>
+    <a href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" class="discord-btn">Entrar no Servidor VIP</a>
+  </section>
 
-    <section id="meta">
-      <h2>📋 Personagens Meta</h2>
-      <div class="image-gallery">
-        <a href="https://ibb.co/Y402qzYY" target="_blank" rel="noopener">
-          <img src="https://i.ibb.co/fVDMPhBB/Imagem-do-Whats-App-de-2025-07-17-s-15-52-20-6e5aa1ae.jpg" alt="Personagens Meta" />
-        </a>
-      </div>
-      <p>Lista atualizada com os melhores personagens do meta.</p>
-    </section>
+  <!-- NOVA SEÇÃO DE DOAÇÃO -->
+  <section id="doar" style="display:none;">
+    <h2><span>💖</span> Doação para Sorteios</h2>
+    <p>Contribua para os sorteios do nosso servidor Discord!<br>
+    Você pode doar via Pix ou RecargaPay:</p>
+    <div style="margin: 20px 0;">
+      <strong>Chave Pix:</strong><br>
+      <code style="word-break: break-all; background: #222; color: #ffcc00; padding: 8px 12px; border-radius: 8px; display: inline-block;">
+        00020126850014br.gov.bcb.pix01365f87e594-cecd-4273-a54e-0df6c39108ba0223Doação Discord Sorteios5204000053039865802BR5925MERIJANES ALVES DA SILVA 6011Goianapolis6211050726f78796304B1DE
+      </code>
+      <br><br>
+      <strong>Ou clique para doar via RecargaPay:</strong><br>
+      <a href="https://recargapay.com.br/pagar/zy30Vgl" target="_blank" class="discord-btn" style="margin-top:10px;">Doar com RecargaPay</a>
+    </div>
+    <p style="font-size:0.95em; color:#ffd700;">Toda doação será usada para sorteios e eventos no Discord!</p>
+  </section>
+</main>
 
-    <section id="traits">
-      <h2>💎 Traits Meta</h2>
-      <div class="image-gallery">
-        <a href="https://imgbb.com/" target="_blank" rel="noopener">
-          <img src="https://i.ibb.co/rKmLDCcn/Imagem-do-Whats-App-de-2025-07-17-s-15-52-19-38401d0c.jpg" alt="Trait Meta 1" />
-        </a>
-        <a href="https://ibb.co/9krb4jqL" target="_blank" rel="noopener">
-          <img src="https://i.ibb.co/wFzSQ1KX/Imagem-do-Whats-App-de-2025-07-17-s-15-54-23-36ca423d.jpg" alt="Trait Meta 2" />
-        </a>
-      </div>
-      <p>Confira os melhores traits para farm, dano e suporte.</p>
-    </section>
+<footer>
+  <button data-section="live" class="active" tabindex="0"><span>🔴</span> Live</button>
+  <button data-section="meta" tabindex="0"><span>📋</span> Meta</button>
+  <button data-section="traits" tabindex="0"><span>💎</span> Traits</button>
+  <button data-section="novidades" tabindex="0"><span>📰</span> Novidades</button>
+  <button data-section="codigos" tabindex="0"><span>🎁</span> Códigos</button>
+  <button data-section="vip" tabindex="0"><span>👑</span> VIP</button>
+  <button data-section="doar" tabindex="0"><span>💖</span> Doar</button>
+</footer>
 
-    <section id="novidades">
-      <h2>📰 Novidades e Postagens</h2>
-      <p>Mais atualizações em breve, se atualize no nosso servidor.</p>
-    </section>
+<!-- Player YouTube invisível para áudio -->
+<div id="player" style="display:none;"></div>
 
-    <section id="codigos">
-      <h2>🎁 Códigos do Jogo</h2>
-      <ul>
-        <li>FREENIMBUSMOUNT</li>
-        <li>AFIRSTTIME3001</li>
-        <li>VERYHIGHLIKEB</li>
-        <li>THREEHUNDREDTHOUSANDPLAYERS</li>
-        <li>THANKYOUFORSUPPORT</li>
-        <li>LIKEF5</li>
-        <li>UPD1</li>
-        <li>FOLLOWS10KBREAD</li>
-        <li>MADAO90YAY</li>
-      </ul>
-    </section>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+let player;
+let isPlaying = false;
 
-    <section id="vip">
-      <h2>👑 Servidor VIP</h2>
-      <p>Entre no servidor VIP do discord!</p>
-      <a href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" class="discord-btn">Entrar no Servidor VIP</a>
-    </section>
-  </main>
-
-  <footer>
-    <button data-section="live" class="active"><span>🔴</span> Live</button>
-    <button data-section="meta"><span>📋</span> Meta</button>
-    <button data-section="traits"><span>💎</span> Traits</button>
-    <button data-section="novidades"><span>📰</span> Novidades</button>
-    <button data-section="codigos"><span>🎁</span> Códigos</button>
-    <button data-section="vip"><span>👑</span> VIP</button>
-  </footer>
-
-  <!-- Player YouTube invisível para áudio -->
-  <div id="player" style="display:none;"></div>
-
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script>
-    let player;
-    let isPlaying = false;
-
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: '1zS6mkAUmvA',
-        playerVars: {
-          autoplay: 0,
-          loop: 1,
-          playlist: '1zS6mkAUmvA',
-          controls: 0,
-          modestbranding: 1,
-          iv_load_policy: 3,
-          disablekb: 1,
-          rel: 0,
-          fs: 0,
-          mute: 0
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '0',
+    width: '0',
+    videoId: '1zS6mkAUmvA',
+    playerVars: {
+      autoplay: 0,
+      loop: 1,
+      playlist: '1zS6mkAUmvA',
+      controls: 0,
+      modestbranding: 1,
+      iv_load_policy: 3,
+      disablekb: 1,
+      rel: 0,
+      fs: 0,
+      mute: 0
+    },
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
     }
+  });
+}
 
-    function onPlayerReady(event) {
-      event.target.setVolume(15); // volume baixo
-      // só toca após interação do usuário
+function onPlayerReady(event) {
+  event.target.setVolume(15);
+}
+
+function onPlayerStateChange(event) {
+  if(event.data === YT.PlayerState.ENDED) {
+    event.target.playVideo();
+  }
+}
+
+function playMusicAfterInteraction() {
+  if (!isPlaying && player && player.playVideo) {
+    player.playVideo().then(() => {
+      isPlaying = true;
+      document.removeEventListener('click', playMusicAfterInteraction);
+      document.removeEventListener('touchstart', playMusicAfterInteraction);
+    }).catch(() => {});
+  }
+}
+document.addEventListener('click', playMusicAfterInteraction);
+document.addEventListener('touchstart', playMusicAfterInteraction);
+
+const buttons = document.querySelectorAll('footer button');
+const sections = document.querySelectorAll('main section');
+const doarSection = document.getElementById('doar');
+const originalSections = Array.from(sections).filter(sec => sec.id !== 'doar');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const target = btn.getAttribute('data-section');
+    if (target === 'doar') {
+      // Mostra só a doação
+      originalSections.forEach(sec => sec.style.display = 'none');
+      doarSection.style.display = '';
+      doarSection.scrollIntoView({behavior: 'smooth'});
+    } else {
+      // Mostra todas as seções originais, esconde a doação
+      originalSections.forEach(sec => sec.style.display = '');
+doarSection.style.display = 'none';
+const targetSection = document.getElementById(target);
+if (targetSection) targetSection.scrollIntoView({behavior: 'smooth'});
+
     }
-
-    function onPlayerStateChange(event) {
-      if(event.data === YT.PlayerState.ENDED) {
-        event.target.playVideo();
-      }
+  });
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      btn.click();
     }
+  });
+});
 
-    // Rodar música só após o primeiro toque (burlar autoplay restrito)
-    function playMusicAfterInteraction() {
-      if (!isPlaying && player && player.playVideo) {
-        player.playVideo().then(() => {
-          isPlaying = true;
-          document.removeEventListener('click', playMusicAfterInteraction);
-          document.removeEventListener('touchstart', playMusicAfterInteraction);
-        }).catch(() => {
-          // se der erro, mantém a escuta para tentar de novo em próxima interação
-        });
-      }
-    }
-    document.addEventListener('click', playMusicAfterInteraction);
-    document.addEventListener('touchstart', playMusicAfterInteraction);
+// Ao carregar, mostra todas as seções originais e esconde a de doação
+window.addEventListener('DOMContentLoaded', () => {
+  originalSections.forEach(sec => sec.style.display = '');
+  if (doarSection) doarSection.style.display = 'none';
+});
 
-    // Remove loader depois do carregamento
-    window.addEventListener("load", () => {
-      const preloader = document.getElementById('preloader');
-      preloader.style.opacity = '0';
-      setTimeout(() => preloader.style.display = 'none', 800);
-    });
-
-    // Navegação por rodapé
-    const buttons = document.querySelectorAll('footer button');
-    const sections = document.querySelectorAll('main section');
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const target = btn.getAttribute('data-section');
-        sections.forEach(sec => {
-          if (sec.id === target) {
-            sec.scrollIntoView({behavior: 'smooth'});
-          }
-        });
-      });
-    });
-  </script>
+window.addEventListener("load", () => {
+  const preloader = document.getElementById('preloader');
+  preloader.style.opacity = '0';
+  setTimeout(() => preloader.style.display = 'none', 800);
+});
+</script>
 
 </body>
 </html>
