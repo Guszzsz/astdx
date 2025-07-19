@@ -278,6 +278,28 @@ footer button span {
     font-size: 1.2rem;
   }
 }
+
+/* --- ROLAGEM HORIZONTAL NO FOOTER --- */
+footer {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+footer::-webkit-scrollbar {
+  display: none;
+}
+footer {
+  scrollbar-width: none;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-around;
+  min-width: 700px;
+}
+@media (max-width: 720px) {
+  .footer-inner {
+    min-width: 900px;
+  }
+}
 </style>
 </head>
 <body>
@@ -375,13 +397,15 @@ footer button span {
 </main>
 
 <footer>
-  <button data-section="live" class="active" tabindex="0"><span>🔴</span> Live</button>
-  <button data-section="meta" tabindex="0"><span>📋</span> Meta</button>
-  <button data-section="traits" tabindex="0"><span>💎</span> Traits</button>
-  <button data-section="novidades" tabindex="0"><span>📰</span> Novidades</button>
-  <button data-section="codigos" tabindex="0"><span>🎁</span> Códigos</button>
-  <button data-section="vip" tabindex="0"><span>👑</span> VIP</button>
-  <button data-section="doar" tabindex="0"><span>💖</span> Doar</button>
+  <div class="footer-inner">
+    <button data-section="live" class="active" tabindex="0"><span>🔴</span> Live</button>
+    <button data-section="meta" tabindex="0"><span>📋</span> Meta</button>
+    <button data-section="traits" tabindex="0"><span>💎</span> Traits</button>
+    <button data-section="novidades" tabindex="0"><span>📰</span> Novidades</button>
+    <button data-section="codigos" tabindex="0"><span>🎁</span> Códigos</button>
+    <button data-section="vip" tabindex="0"><span>👑</span> VIP</button>
+    <button data-section="doar" tabindex="0"><span>💖</span> Doar</button>
+  </div>
 </footer>
 
 <!-- Player YouTube invisível para áudio -->
