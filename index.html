@@ -362,6 +362,21 @@ footer::-webkit-scrollbar {
   0%, 100% { opacity: 0.8; }
   50% { opacity: 1; }
 }
+.footer-inner {
+  display: flex;
+  justify-content: flex-start;
+  min-width: 0;
+  gap: 8px;
+  width: max-content;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  scroll-snap-type: x mandatory; /* ativa snap no eixo X */
+}
+
+.footer-inner > button {
+  scroll-snap-align: start; /* snap em cada botão */
+}
 
 </style>
 
@@ -608,6 +623,15 @@ window.addEventListener("load", () => {
   setTimeout(() => preloader.style.display = 'none', 800);
 });
 </script>
-
+<script>
+  window.addEventListener('load', () => {
+    const container = document.querySelector('.footer-inner');
+    const activeBtn = container.querySelector('button.active');
+    if (activeBtn) {
+      // Rola horizontalmente até o botão ativo
+      container.scrollLeft = activeBtn.offsetLeft;
+    }
+  });
+</script>
 </body>
 </html>
