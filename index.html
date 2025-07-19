@@ -343,9 +343,6 @@ footer {
   scroll-behavior: smooth; /* rolagem suave */
   overscroll-behavior-x: contain; /* evita efeitos estranhos no scroll horizontal */
 }
-.footer-inner {
-  scroll-snap-type: none !important; /* garante que não tenha snap */
-}
 
 footer::-webkit-scrollbar {
   display: none;
@@ -521,6 +518,7 @@ footer::-webkit-scrollbar {
 
 <footer>
   <div class="footer-inner">
+    <button data-section="live" class="active" tabindex="0"><span>🔴</span> Live</button>
     <button data-section="meta" tabindex="0"><span>📋</span> Meta</button>
     <button data-section="traits" tabindex="0"><span>💎</span> Traits</button>
     <button data-section="novidades" tabindex="0"><span>📰</span> Novidades</button>
