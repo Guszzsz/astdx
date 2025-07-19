@@ -312,10 +312,6 @@ footer::-webkit-scrollbar {
   display: none;
 }
 footer {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-
   position: fixed;
   bottom: 0;
   left: 0;
@@ -324,65 +320,14 @@ footer {
   background: linear-gradient(90deg, #292963 60%, #7289da 100%);
   display: flex;
   flex-direction: column; /* empilha verticalmente */
-  align-items: center;     /* centraliza horizontalmente */
-  padding: 10px 0 6px;     /* um pouco menos embaixo */
-  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.8);
+  align-items: center;    /* centraliza horizontalmente */
+  padding: 10px 0 6px;    /* um pouco menos embaixo */
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
   z-index: 100;
   margin: 0 auto;
   right: 0;
-
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: flex-start;
-  min-width: 0;
-  gap: 8px;
-  width: max-content;
-  overflow-x: auto;
   scrollbar-width: none;
-}
-.footer-inner {
-  scroll-behavior: smooth; /* rolagem suave */
-  overscroll-behavior-x: contain; /* evita efeitos estranhos no scroll horizontal */
-}
-
-footer::-webkit-scrollbar {
-  display: none;
-}
-
-.scroll-hint {
-  margin-top: 6px;
-  font-size: 0.8rem;
-  color: #ffd700cc;
-  font-weight: bold;
-  user-select: none;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-shadow: 1px 1px 3px #0008;
-  opacity: 0.8;
-  animation: pulse 2.5s infinite;
-  text-align: center;
-  width: 100%;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
-}
-.footer-inner {
-  display: flex;
-  justify-content: flex-start;
-  min-width: 0;
-  gap: 8px;
-  width: max-content;
-  overflow-x: auto;
-  scrollbar-width: none;
-
-  scroll-snap-type: x mandatory; /* ativa snap no eixo X */
-}
-
-.footer-inner > button {
-  scroll-snap-align: start; /* snap em cada botão */
+  -webkit-overflow-scrolling: touch;
 }
 
 </style>
@@ -630,15 +575,6 @@ window.addEventListener("load", () => {
   setTimeout(() => preloader.style.display = 'none', 800);
 });
 </script>
-<script>
-  window.addEventListener('load', () => {
-    const container = document.querySelector('.footer-inner');
-    const activeBtn = container.querySelector('button.active');
-    if (activeBtn) {
-      // Rola horizontalmente até o botão ativo
-      container.scrollLeft = activeBtn.offsetLeft;
-    }
-  });
-</script>
+
 </body>
 </html>
