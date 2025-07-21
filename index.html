@@ -21,13 +21,12 @@ body {
   background-size: cover;
   color: #fff;
   min-height: 100vh;
-  padding-bottom: 120px; /* Corrigido para garantir espaço para o footer */
+  padding-bottom: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Overlay escurecido com blur para legibilidade */
 body::before {
   content: "";
   position: absolute;
@@ -39,7 +38,6 @@ body::before {
   z-index: -1;
 }
 
-/* Mobile: troca de fundo */
 @media (max-width: 600px) {
   body {
     background-image: url('https://i.pinimg.com/1200x/24/79/c1/2479c17119652c468be03b465f3ad214.jpg');
@@ -49,7 +47,6 @@ body::before {
   }
 }
 
-/* Loader animado */
 #preloader {
   position: fixed;
   top: 0; left: 0;
@@ -358,19 +355,18 @@ ul li {
 }
 /* --- FIM DOS ESTILOS PARA SHOWCASE E COMENTÁRIOS --- */
 
-/* --- FOOTER FIX --- */
+/* --- FOOTER OTIMIZADO --- */
 footer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100%;
-  max-width: 720px;
+  width: 100vw;
   background: linear-gradient(90deg, #292963 60%, #7289da 100%);
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Corrigido para alinhar à esquerda */
-  padding: 10px 0 6px;
+  align-items: center;
+  padding: 8px 0 4px;
   box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
   z-index: 100;
   margin: 0;
@@ -384,7 +380,6 @@ footer::-webkit-scrollbar {
 .footer-inner {
   display: flex;
   gap: 8px;
-  min-width: 100%;
   width: max-content;
   justify-content: flex-start;
 }
@@ -431,32 +426,23 @@ footer button:active {
 footer button span {
   font-size: 1.5rem;
 }
+.scroll-hint {
+  font-size: 0.95em;
+  color: rgba(255,255,255,0.7);
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
 @media (max-width: 600px) {
-  iframe {
-    height: 200px;
-  }
-  .image-gallery img {
-    max-width: 100%;
-  }
-  header img {
-    width: 90px;
-    height: 90px;
-  }
-  header h1 {
-    font-size: 1.5rem;
-  }
-  footer button {
-    font-size: 1rem;
-  }
-  footer button span {
-    font-size: 1.2rem;
-  }
   .footer-inner {
     gap: 2px;
-    min-width: 100%;
   }
   footer {
-    padding-bottom: 18px;
+    padding-bottom: 12px;
+  }
+}
+@media (min-width: 601px) {
+  .scroll-hint {
+    display: none;
   }
 }
 
@@ -809,8 +795,8 @@ body.light .discord-btn:hover {
     <button data-section="atualizacao" tabindex="0"><span>⚙️</span> Atualização<span class="notification-dot"></span></button>
     <button data-section="showcase" tabindex="0"><span>🌟</span> Showcase</button>
   </div>
-  <div class="scroll-hint">⬅️➡️ Role para o lado</div>
-  <p style="font-size: 0.75em; color: rgba(255,255,255,0.6); margin-top: 10px;">
+  <div class="scroll-hint">➡️ Role para o lado</div>
+  <p style="font-size: 0.75em; color: rgba(255,255,255,0.6); margin-top: 2px;">
     © Desenvolvido por Gus & collab yuki
   </p>
 </footer>
@@ -880,11 +866,10 @@ const originalSections = Array.from(sections).filter(sec =>
   sec.id !== 'showcase'
 );
 
-// Função para garantir que o scroll vá até o final da seção
 function scrollSectionIntoView(section) {
   section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   setTimeout(() => {
-    window.scrollBy({ top: 120, behavior: 'smooth' }); // 120px é a altura do footer
+    window.scrollBy({ top: 120, behavior: 'smooth' });
   }, 400);
 }
 
@@ -969,11 +954,3 @@ themeBtn.addEventListener("click", () => {
   const greet = h < 12 ? "Bom dia!" : h < 18 ? "Boa tarde!" : "Boa noite!";
   document.getElementById("greeting").textContent = greet;
   window.addEventListener('DOMContentLoaded', () => {
-    originalSections.forEach(sec => sec.style.display = '');
-    if (doarSection) doarSection.style.display = 'none';
-    if (atualizacaoSection) atualizacaoSection.style.display = 'none';
-    if (showcaseSection) showcaseSection.style.display = 'none';
-  });
-</script>
-</body>
-</html>
