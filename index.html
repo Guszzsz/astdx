@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -54,7 +53,8 @@ body::before {
 #preloader {
   position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   background-color: #0f2027;
   display: flex;
   align-items: center;
@@ -214,6 +214,149 @@ ul li {
   border-bottom: 1px solid #444;
   color: #ffd700;
 }
+
+/* --- ESTILOS PARA SHOWCASE E COMENTÁRIOS (Novos estilos) --- */
+.video-item {
+    margin-bottom: 30px;
+    background-color: rgba(45, 45, 70, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.video-item h3 {
+    color: #ffcc00;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+.video-item iframe {
+    width: 100%;
+    height: 350px; /* Ajuste a altura conforme necessário */
+    margin-bottom: 15px;
+}
+.video-item p {
+    color: #eee;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.comments-area {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    text-align: left;
+}
+.comments-area h3 {
+    color: #7289da;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    text-align: center;
+}
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #7289da;
+    background-color: rgba(30, 30, 47, 0.7);
+    color: white;
+    resize: vertical;
+    min-height: 80px;
+}
+.comment-form textarea::placeholder {
+    color: #ccc;
+}
+.comment-form button {
+    background-color: #7289da;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.comment-form button:hover {
+    background-color: #5b6eae;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.comment-item {
+    background-color: rgba(40, 40, 60, 0.8);
+    padding: 12px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.comment-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #7289da;
+}
+.comment-author {
+    font-weight: bold;
+    color: #7289da;
+}
+.comment-date {
+    font-size: 0.85em;
+    color: #aaa;
+    margin-left: auto;
+}
+.comment-text {
+    color: #eee;
+    line-height: 1.3;
+}
+
+.auth-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #ffcc00;
+}
+.auth-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #7289da;
+}
+.auth-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.auth-buttons button {
+    background-color: #7289da;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.auth-buttons button:hover {
+    background-color: #5b6eae;
+}
+/* --- FIM DOS ESTILOS PARA SHOWCASE E COMENTÁRIOS --- */
 
 footer {
   position: fixed;
@@ -389,13 +532,24 @@ body.light .discord-btn:hover {
   background: #5b6eae;
   transform: scale(1.1);
 }
+.notification-dot {
+    position: absolute;
+    top: 5px;   /* Ajuste a posição vertical conforme necessário */
+    right: 5px; /* Ajuste a posição horizontal conforme necessário */
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    border: 1px solid white; /* Pequena borda branca para contraste */
+}
 
 </style>
 
-<!-- Script Firebase e contagem online -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, onValue, onDisconnect, set, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"; // Importação para autenticação
+
 
   const firebaseConfig = {
     apiKey: "AIzaSyA8a-ARdGjPfQh3jDgykJL1JOUVr_80Dzk",
@@ -409,6 +563,9 @@ body.light .discord-btn:hover {
 
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
+  const auth = getAuth(app); // Inicializa autenticação
+  const provider = new GoogleAuthProvider(); // Provedor de Google Auth
+
 
   // Usuário online
   const userRef = push(ref(db, 'onlineUsers'));
@@ -426,6 +583,110 @@ body.light .discord-btn:hover {
 const novidadesListDiv = document.getElementById("novidades-list");
 const novidadesTextUl = document.getElementById("novidades-text");
 const codigosUl = document.getElementById("codigos-list");
+
+// --- Elementos para a nova seção Showcase e Comentários ---
+const commentsListDiv = document.getElementById("comments-list");
+const commentForm = document.getElementById("comment-form");
+const commentInput = document.getElementById("comment-input");
+const userInfoDiv = document.getElementById("user-info");
+const loginBtn = document.getElementById("login-btn");
+const logoutBtn = document.getElementById("logout-btn");
+let currentUser = null; // Variável para armazenar o usuário logado
+
+// --- Lógica de Autenticação Firebase ---
+loginBtn.addEventListener('click', () => {
+    signInWithPopup(auth, provider)
+        .catch((error) => {
+            console.error("Erro no login: ", error);
+            // Aqui você pode adicionar um feedback para o usuário, tipo alert("Erro ao fazer login.")
+        });
+});
+
+logoutBtn.addEventListener('click', () => {
+    signOut(auth).catch((error) => {
+        console.error("Erro no logout: ", error);
+        // feedback para o usuário
+    });
+});
+
+// Listener para o estado de autenticação
+onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+    if (user) {
+        // Usuário logado
+        userInfoDiv.innerHTML = `
+            <img src="${user.photoURL || 'https://via.placeholder.com/40'}" alt="Avatar do usuário" class="comment-avatar">
+            <span>Olá, ${user.displayName || user.email}!</span>
+        `;
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+        commentForm.style.display = 'flex'; // Mostra o formulário para usuários logados
+    } else {
+        // Usuário deslogado
+        userInfoDiv.innerHTML = '<span>Faça login para comentar.</span>';
+        loginBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+        commentForm.style.display = 'none'; // Esconde o formulário para visitantes
+    }
+    loadComments(); // Recarrega os comentários para refletir o estado de login
+});
+
+// --- Lógica de Envio de Comentários ---
+commentForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const commentText = commentInput.value.trim();
+
+    if (commentText === '') {
+        alert('Por favor, digite seu comentário.');
+        return;
+    }
+
+    if (currentUser) {
+        const newCommentRef = push(ref(db, 'showcaseComments')); // Armazena em 'showcaseComments'
+        set(newCommentRef, {
+            author: currentUser.displayName || currentUser.email,
+            avatar: currentUser.photoURL || 'https://via.placeholder.com/40',
+            text: commentText,
+            timestamp: Date.now() // Data/hora para ordenação
+        }).then(() => {
+            commentInput.value = ''; // Limpa o input após o envio
+        }).catch((error) => {
+            console.error("Erro ao enviar comentário: ", error);
+            alert("Erro ao enviar comentário. Tente novamente.");
+        });
+    } else {
+        alert("Você precisa estar logado para comentar.");
+    }
+});
+
+// --- Lógica de Carregamento e Exibição de Comentários ---
+function loadComments() {
+    onValue(ref(db, 'showcaseComments'), (snapshot) => {
+        commentsListDiv.innerHTML = ''; // Limpa antes de adicionar os novos
+        const comments = snapshot.val();
+        if (comments) {
+            // Converte o objeto de comentários em um array e ordena por timestamp
+            const sortedComments = Object.values(comments).sort((a, b) => a.timestamp - b.timestamp);
+            sortedComments.forEach(comment => {
+                const commentDate = new Date(comment.timestamp).toLocaleString('pt-BR'); // Formata a data
+                const commentItem = document.createElement('div');
+                commentItem.classList.add('comment-item');
+                commentItem.innerHTML = `
+                    <div class="comment-header">
+                        <img src="${comment.avatar}" alt="Avatar" class="comment-avatar">
+                        <span class="comment-author">${comment.author}</span>
+                        <span class="comment-date">${commentDate}</span>
+                    </div>
+                    <p class="comment-text">${comment.text}</p>
+                `;
+                commentsListDiv.appendChild(commentItem);
+            });
+        }
+    });
+}
+
+// Carrega os comentários quando o script é executado (e no onAuthStateChanged)
+loadComments();
 
 onValue(ref(db, 'novidades'), (snapshot) => {
   const novidades = snapshot.val();
@@ -459,7 +720,6 @@ onValue(ref(db, 'codigos'), (snapshot) => {
 </head>
 <body>
 
-<!-- Tela de carregamento -->
 <div id="preloader"><div class="estrela"></div></div>
 
 <header>
@@ -473,12 +733,10 @@ onValue(ref(db, 'codigos'), (snapshot) => {
   <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
 <button id="toggle-theme" style="margin-top:10px;" class="discord-btn">🌙 Tema Escuro</button>
 <p id="greeting" style="font-weight: bold; color: #ffcc00; margin-top: 8px;"></p>
-  <!-- Contador de pessoas online -->
   <p style="margin-top:10px; font-weight:bold; color:#ffcc00;">
     👥 Pessoas Online Site: <span id="contador">0</span>
   </p>
 </header>
-
 <main>
   <section id="live">
     <h2><span>🔴</span> Live Ao Vivo</h2>
@@ -527,7 +785,6 @@ onValue(ref(db, 'codigos'), (snapshot) => {
     <a href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" class="discord-btn">Entrar no Servidor VIP</a>
   </section>
 
-  <!-- NOVA SEÇÃO DE DOAÇÃO -->
   <section id="doar" style="display:none;">
     <h2><span>💖</span> Doação para Sorteios</h2>
     <p>Contribua para os sorteios do nosso servidor Discord!<br>
@@ -541,9 +798,11 @@ onValue(ref(db, 'codigos'), (snapshot) => {
       <strong>Ou clique para doar via RecargaPay:</strong><br>
       <a href="https://recargapay.com.br/pagar/zy30Vgl" target="_blank" class="discord-btn" style="margin-top:10px;">Doar com RecargaPay</a>
     </div>
-    <p style="font-size:0.95em; color:#ffd700;">Toda doação será usada para sorteios e eventos no Discord!</p> </section>
+    <p style="font-size:0.95em; color:#ffd700;">Toda doação será usada para sorteios e eventos no Discord!</p>
+  </section>
+
 <section id="atualizacao" style="display:none;">
-  <h2><span>⚙️</span> Atualização do Site</h2>
+    <h2><span>⚙️</span> Atualização do Site</h2>
   <ul style="text-align: left; max-width: 680px; margin: 20px auto; font-size: 0.95rem; line-height: 1.5; color:#ffd700;">
     <li>🔧 Novo sistema de doações adicionado.</li>
     <li>📢 Área de atualizações criada para mostrar novidades.</li>
@@ -553,10 +812,43 @@ onValue(ref(db, 'codigos'), (snapshot) => {
     <li><strong>Botão Voltar ao Topo:</strong> aparece ao rolar e leva ao topo da página.</li>
     <li><strong>Saudação Dinâmica:</strong> mensagem no cabeçalho que muda conforme o horário.</li>
     <li><strong>Acessibilidade e SEO:</strong> uso de alt em imagens e marcação semântica.</li>
+    <li>✨ Seção Showcase: Nova área com vídeos de personagens e sistema de comentários via login Google.</li>
+    <li>🔒 Sistema de Login/Comentários: Integração com Firebase Auth para comentários e identificação de usuário.</li>
+    <li>📝 Créditos do Criador: Pequena menção no rodapé do site.</li>
+    <li>🔔 Sistema de Notificação: Aviso discreto no topo da tela para novidades importantes (ex: novo showcase).</li>
   </ul>
+</section>
 
-  </section>
-</main>
+    <section id="showcase" style="display:none;">
+        <h2><span>🌟</span> Showcase de Personagens</h2>
+        <p>Confira os novos personagens!</p>
+
+        <div class="video-item">
+            <h3>Killua 5 Estrelas - Combo Perfeito</h3>
+              <iframe src="https://www.youtube.com/embed/0grGStWyDKA" title="SHOWCASE KILLUA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <p>Assista ao Killua 5 Estrelas novo meta e starter.</p>
+        </div>
+
+        <div class="comments-area">
+            <h3>Comentários</h3>
+            <div class="auth-info">
+                <span id="user-info">Faça login para comentar.</span>
+                <div class="auth-buttons">
+                    <button id="login-btn">Entrar com Google</button>
+                    <button id="logout-btn" style="display:none;">Sair</button>
+                </div>
+            </div>
+            
+            <form id="comment-form" style="display:none;">
+                <textarea id="comment-input" placeholder="Escreva seu comentário aqui..."></textarea>
+                <button type="submit">Enviar Comentário</button>
+            </form>
+
+            <div id="comments-list" class="comments-list">
+                </div>
+        </div>
+    </section>
+    </main>
 
 <footer>
   <div class="footer-inner">
@@ -567,13 +859,15 @@ onValue(ref(db, 'codigos'), (snapshot) => {
     <button data-section="codigos" tabindex="0"><span>🎁</span> Códigos</button>
     <button data-section="vip" tabindex="0"><span>👑</span> VIP</button>
     <button data-section="doar" tabindex="0"><span>💖</span> Doar</button>
-    <button data-section="atualizacao" tabindex="0"><span>⚙️</span>    Atualização</button>
-  </div>
+   <button data-section="atualizacao" tabindex="0"><span>⚙️</span> Atualização<span class="notification-dot"></span></button>
+    <button data-section="showcase" tabindex="0"><span>🌟</span> Showcase</button>
+    </div>
   <div class="scroll-hint">⬅️➡️ Role para o lado</div>
+ <p style="font-size: 0.75em; color: rgba(255,255,255,0.6); margin-top: 10px;">
+    © Desenvolvido por Gus & collab yuki
 
 </footer>
 
-<!-- Player YouTube invisível para áudio -->
 <div id="player" style="display:none;"></div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -631,7 +925,14 @@ const buttons = document.querySelectorAll('footer button');
 const sections = document.querySelectorAll('main section');
 const doarSection = document.getElementById('doar');
 const atualizacaoSection = document.getElementById('atualizacao');
-const originalSections = Array.from(sections).filter(sec => sec.id !== 'doar' && sec.id !== 'atualizacao');
+const showcaseSection = document.getElementById('showcase'); // Referência para a nova seção Showcase
+
+// Filtra as seções "originais" que devem ser mostradas por padrão
+const originalSections = Array.from(sections).filter(sec => 
+    sec.id !== 'doar' && 
+    sec.id !== 'atualizacao' && 
+    sec.id !== 'showcase' // Adiciona a nova seção ao filtro
+);
 
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -639,20 +940,25 @@ buttons.forEach(btn => {
     btn.classList.add('active');
     const target = btn.getAttribute('data-section');
 
+    // Esconde todas as seções especiais antes de mostrar a desejada
+    doarSection.style.display = 'none';
+    atualizacaoSection.style.display = 'none';
+    showcaseSection.style.display = 'none'; // Esconde Showcase
+
     if (target === 'doar') {
       originalSections.forEach(sec => sec.style.display = 'none');
-      atualizacaoSection.style.display = 'none';
       doarSection.style.display = '';
       doarSection.scrollIntoView({ behavior: 'smooth' });
     } else if (target === 'atualizacao') {
       originalSections.forEach(sec => sec.style.display = 'none');
-      doarSection.style.display = 'none';
       atualizacaoSection.style.display = '';
       atualizacaoSection.scrollIntoView({ behavior: 'smooth' });
+    } else if (target === 'showcase') { // Lógica para a nova aba Showcase
+        originalSections.forEach(sec => sec.style.display = 'none');
+        showcaseSection.style.display = '';
+        showcaseSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      originalSections.forEach(sec => sec.style.display = '');
-      doarSection.style.display = 'none';
-      atualizacaoSection.style.display = 'none';
+      originalSections.forEach(sec => sec.style.display = ''); // Mostra as seções padrão
       const targetSection = document.getElementById(target);
       if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -665,11 +971,14 @@ buttons.forEach(btn => {
   });
 });
 
-// Ao carregar, mostra todas as seções originais e esconde a de doação
+// Ao carregar, mostra as seções originais e esconde as especiais
 window.addEventListener('DOMContentLoaded', () => {
   originalSections.forEach(sec => sec.style.display = '');
   if (doarSection) doarSection.style.display = 'none';
+  if (atualizacaoSection) atualizacaoSection.style.display = 'none';
+  if (showcaseSection) showcaseSection.style.display = 'none'; // Esconde Showcase ao carregar
 });
+
 
 window.addEventListener("load", () => {
   const preloader = document.getElementById('preloader');
@@ -696,7 +1005,6 @@ themeBtn.addEventListener("click", () => {
   localStorage.setItem("theme", isLight ? "light" : "dark");
 });
 </script>
-<!-- Botão Voltar ao Topo -->
 <button id="backToTop" title="Voltar ao topo">⬆️</button>
 
 <script>
@@ -710,10 +1018,12 @@ themeBtn.addEventListener("click", () => {
 const h = new Date().getHours();
 const greet = h < 12 ? "Bom dia!" : h < 18 ? "Boa tarde!" : "Boa noite!";
 document.getElementById("greeting").textContent = greet;
+// O listener DOMContentLoaded já foi ajustado acima, mas deixo este para garantir que não haja conflitos
 window.addEventListener('DOMContentLoaded', () => {
   originalSections.forEach(sec => sec.style.display = '');
   if (doarSection) doarSection.style.display = 'none';
   if (atualizacaoSection) atualizacaoSection.style.display = 'none';
+  if (showcaseSection) showcaseSection.style.display = 'none';
 });
 
 </script>
