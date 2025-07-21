@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Comunidade ASTDX</title>
 <style>
+html {
+  scroll-behavior: smooth;
+}
 * {
   margin: 0;
   padding: 0;
@@ -143,6 +146,21 @@ section h2 {
   justify-content: center;
   gap: 8px;
   text-shadow: 1px 1px 8px #000;
+}
+
+section {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 iframe {
@@ -329,6 +347,48 @@ footer {
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
+body.light {
+  background-color: #f4f4f4;
+  color: #222;
+}
+body.light::before {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(1px);
+}
+body.light section {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(200,200,255,0.3));
+  color: #111;
+}
+body.light h2, body.light p, body.light li {
+  color: #222;
+}
+body.light .discord-btn {
+  background: linear-gradient(90deg, #444 60%, #888 100%);
+  color: white;
+}
+body.light .discord-btn:hover {
+  background: linear-gradient(90deg, #666 60%, #444 100%);
+}
+#backToTop {
+  position: fixed;
+  bottom: 80px;
+  right: 15px;
+  background: #7289da;=
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #000;
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
+  font-size: 1.2rem;
+  transition: background 0.3s, transform 0.2s;
+}
+#backToTop:hover {
+  background: #5b6eae;
+  transform: scale(1.1);
+}
 
 </style>
 
@@ -350,21 +410,50 @@ footer {
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // Cria uma entrada única para este usuário na lista de online
+  // Usuário online
   const userRef = push(ref(db, 'onlineUsers'));
-
-  // Remove a entrada quando o usuário desconectar
   onDisconnect(userRef).remove();
-
-  // Marca que o usuário está online (true)
   set(userRef, true);
 
-  // Atualiza o contador de pessoas online no HTML
+  // Atualiza contador de online
   onValue(ref(db, 'onlineUsers'), snapshot => {
     const users = snapshot.val();
     const count = users ? Object.keys(users).length : 0;
     document.getElementById("contador").textContent = count;
   });
+
+// Carrega novidades e códigos
+const novidadesListDiv = document.getElementById("novidades-list");
+const novidadesTextUl = document.getElementById("novidades-text");
+const codigosUl = document.getElementById("codigos-list");
+
+onValue(ref(db, 'novidades'), (snapshot) => {
+  const novidades = snapshot.val();
+  if (!novidades) return;
+
+  novidadesListDiv.innerHTML = '';  // Limpa (não vai mostrar imagens pois seu JSON não tem)
+  novidadesTextUl.innerHTML = '';
+
+  // Percorre o array de novidades e monta lista com ícone, título e descrição
+  novidades.forEach(item => {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${item.icone} ${item.titulo}</strong>: ${item.descricao}`;
+    novidadesTextUl.appendChild(li);
+  });
+});
+
+onValue(ref(db, 'codigos'), (snapshot) => {
+  const codigos = snapshot.val();
+  if (!codigos) return;
+
+  codigosUl.innerHTML = '';
+
+  codigos.forEach(codigo => {
+    const li = document.createElement("li");
+    li.textContent = codigo;
+    codigosUl.appendChild(li);
+  });
+});
 </script>
 
 </head>
@@ -375,8 +464,15 @@ footer {
 
 <header>
   <img src="https://cdn.discordapp.com/icons/1384335086656159788/b6328b1a1cd895b2d0496900f0ba7e8e.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Site oficial da Comunidade ASTDX com novidades, lives e códigos." />
+  <meta name="keywords" content="ASTDX, comunidade, jogos, live, códigos" />
+  <meta name="author" content="Gustavo" />
   <h1>Comunidade ASTDX</h1>
   <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
+<button id="toggle-theme" style="margin-top:10px;" class="discord-btn">🌙 Tema Escuro</button>
+<p id="greeting" style="font-weight: bold; color: #ffcc00; margin-top: 8px;"></p>
   <!-- Contador de pessoas online -->
   <p style="margin-top:10px; font-weight:bold; color:#ffcc00;">
     👥 Pessoas Online Site: <span id="contador">0</span>
@@ -410,34 +506,19 @@ footer {
       </a>
     </div>
     <p>Confira os melhores traits para farm, dano e suporte.</p>
-  </section>
 
-  <section id="novidades">
-    <h2><span>📰</span> Novidades e Postagens</h2>
-  <div class="image-gallery">
-    <a href="https://imgbb.com/" target="_blank" rel="noopener">
-      <img src="https://i.ibb.co/v61GHvZh/sodapdf-converted.jpg" alt="sodapdf-converted" />
-    </a>
-    <a href="https://imgbb.com/" target="_blank" rel="noopener">
-      <img src="https://i.ibb.co/wr0f1QNG/sodapdf-converted-3.jpg" alt="sodapdf-converted-3" />
-    </a>
-  </div>
-  <p>Mais atualizações em breve, se atualize no nosso servidor.</p>
   </section>
+  
+  <section id="novidades">
+  <h2><span>📰</span> Novidades e Postagens</h2>
+  <div id="novidades-list" class="image-gallery"></div>
+  <ul id="novidades-text" style="text-align: left; max-width: 680px; margin: 20px auto; font-size: 0.9rem; line-height: 1.5;"></ul>
+
+</section>
 
   <section id="codigos">
-    <h2><span>🎁</span> Códigos do Jogo</h2>
-    <ul>
-      <li>FREENIMBUSMOUNT</li>
-      <li>AFIRSTTIME3001</li>
-      <li>VERYHIGHLIKEB</li>
-      <li>THREEHUNDREDTHOUSANDPLAYERS</li>
-      <li>THANKYOUFORSUPPORT</li>
-      <li>LIKEF5</li>
-      <li>UPD1</li>
-      <li>FOLLOWS10KBREAD</li>
-      <li>MADAO90YAY</li>
-    </ul>
+      <h2><span>🎁</span> Códigos do Jogo</h2>
+  <ul id="codigos-list"></ul>
   </section>
 
   <section id="vip">
@@ -460,7 +541,20 @@ footer {
       <strong>Ou clique para doar via RecargaPay:</strong><br>
       <a href="https://recargapay.com.br/pagar/zy30Vgl" target="_blank" class="discord-btn" style="margin-top:10px;">Doar com RecargaPay</a>
     </div>
-    <p style="font-size:0.95em; color:#ffd700;">Toda doação será usada para sorteios e eventos no Discord!</p>
+    <p style="font-size:0.95em; color:#ffd700;">Toda doação será usada para sorteios e eventos no Discord!</p> </section>
+<section id="atualizacao" style="display:none;">
+  <h2><span>⚙️</span> Atualização do Site</h2>
+  <ul style="text-align: left; max-width: 680px; margin: 20px auto; font-size: 0.95rem; line-height: 1.5; color:#ffd700;">
+    <li>🔧 Novo sistema de doações adicionado.</li>
+    <li>📢 Área de atualizações criada para mostrar novidades.</li>
+    <li><strong>Tema Claro/Escuro:</strong> botão no topo para alternar, com salvamento da preferência.</li>
+    <li><strong>Rolagem Suave:</strong> scroll suave entre seções com CSS.</li>
+    <li><strong>Animação ao Exibir Seções:</strong> fade-in e leve movimento.</li>
+    <li><strong>Botão Voltar ao Topo:</strong> aparece ao rolar e leva ao topo da página.</li>
+    <li><strong>Saudação Dinâmica:</strong> mensagem no cabeçalho que muda conforme o horário.</li>
+    <li><strong>Acessibilidade e SEO:</strong> uso de alt em imagens e marcação semântica.</li>
+  </ul>
+
   </section>
 </main>
 
@@ -473,6 +567,7 @@ footer {
     <button data-section="codigos" tabindex="0"><span>🎁</span> Códigos</button>
     <button data-section="vip" tabindex="0"><span>👑</span> VIP</button>
     <button data-section="doar" tabindex="0"><span>💖</span> Doar</button>
+    <button data-section="atualizacao" tabindex="0"><span>⚙️</span>    Atualização</button>
   </div>
   <div class="scroll-hint">⬅️➡️ Role para o lado</div>
 
@@ -535,27 +630,34 @@ document.addEventListener('touchstart', playMusicAfterInteraction);
 const buttons = document.querySelectorAll('footer button');
 const sections = document.querySelectorAll('main section');
 const doarSection = document.getElementById('doar');
-const originalSections = Array.from(sections).filter(sec => sec.id !== 'doar');
+const atualizacaoSection = document.getElementById('atualizacao');
+const originalSections = Array.from(sections).filter(sec => sec.id !== 'doar' && sec.id !== 'atualizacao');
 
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     buttons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const target = btn.getAttribute('data-section');
-    if (target === 'doar') {
-      // Mostra só a doação
-      originalSections.forEach(sec => sec.style.display = 'none');
-      doarSection.style.display = '';
-      doarSection.scrollIntoView({behavior: 'smooth'});
-    } else {
-      // Mostra todas as seções originais, esconde a doação
-      originalSections.forEach(sec => sec.style.display = '');
-doarSection.style.display = 'none';
-const targetSection = document.getElementById(target);
-if (targetSection) targetSection.scrollIntoView({behavior: 'smooth'});
 
+    if (target === 'doar') {
+      originalSections.forEach(sec => sec.style.display = 'none');
+      atualizacaoSection.style.display = 'none';
+      doarSection.style.display = '';
+      doarSection.scrollIntoView({ behavior: 'smooth' });
+    } else if (target === 'atualizacao') {
+      originalSections.forEach(sec => sec.style.display = 'none');
+      doarSection.style.display = 'none';
+      atualizacaoSection.style.display = '';
+      atualizacaoSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      originalSections.forEach(sec => sec.style.display = '');
+      doarSection.style.display = 'none';
+      atualizacaoSection.style.display = 'none';
+      const targetSection = document.getElementById(target);
+      if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
     }
   });
+
   btn.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       btn.click();
@@ -574,7 +676,46 @@ window.addEventListener("load", () => {
   preloader.style.opacity = '0';
   setTimeout(() => preloader.style.display = 'none', 800);
 });
-</script>
+const themeBtn = document.getElementById("toggle-theme");
+const htmlBody = document.body;
 
+// Verifica se tema está salvo no localStorage
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "light") {
+  htmlBody.classList.add("light");
+  themeBtn.textContent = "🌙 Tema Escuro";
+} else {
+  htmlBody.classList.remove("light");
+  themeBtn.textContent = "🌞 Tema Claro";
+}
+
+themeBtn.addEventListener("click", () => {
+  htmlBody.classList.toggle("light");
+  const isLight = htmlBody.classList.contains("light");
+  themeBtn.textContent = isLight ? "🌙 Tema Escuro" : "🌞 Tema Claro";
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+});
+</script>
+<!-- Botão Voltar ao Topo -->
+<button id="backToTop" title="Voltar ao topo">⬆️</button>
+
+<script>
+  const backBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+  });
+  backBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+const h = new Date().getHours();
+const greet = h < 12 ? "Bom dia!" : h < 18 ? "Boa tarde!" : "Boa noite!";
+document.getElementById("greeting").textContent = greet;
+window.addEventListener('DOMContentLoaded', () => {
+  originalSections.forEach(sec => sec.style.display = '');
+  if (doarSection) doarSection.style.display = 'none';
+  if (atualizacaoSection) atualizacaoSection.style.display = 'none';
+});
+
+</script>
 </body>
 </html>
