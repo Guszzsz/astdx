@@ -230,7 +230,7 @@ ul li {
 }
 .video-item iframe {
     width: 100%;
-    height: 350px; /* Ajuste a altura conforme necessário */
+    height: 350px;
     margin-bottom: 15px;
 }
 .video-item p {
@@ -358,6 +358,7 @@ ul li {
 }
 /* --- FIM DOS ESTILOS PARA SHOWCASE E COMENTÁRIOS --- */
 
+/* --- FOOTER FIX --- */
 footer {
   position: fixed;
   bottom: 0;
@@ -366,13 +367,26 @@ footer {
   max-width: 720px;
   background: linear-gradient(90deg, #292963 60%, #7289da 100%);
   display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0 6px;
   box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
   z-index: 100;
   margin: 0 auto;
   right: 0;
-  left: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+footer::-webkit-scrollbar {
+  display: none;
+}
+.footer-inner {
+  display: flex;
+  gap: 8px;
+  min-width: 100%;
+  width: max-content;
+  justify-content: flex-start;
 }
 footer button {
   background: none;
@@ -417,7 +431,6 @@ footer button:active {
 footer button span {
   font-size: 1.5rem;
 }
-
 @media (max-width: 600px) {
   iframe {
     height: 200px;
@@ -438,58 +451,15 @@ footer button span {
   footer button span {
     font-size: 1.2rem;
   }
-}
-
-/* --- ROLAGEM HORIZONTAL NO FOOTER --- */
-footer {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-footer::-webkit-scrollbar {
-  display: none;
-}
-footer {
-  scrollbar-width: none;
-}
-.footer-inner {
-  display: flex;
-  justify-content: flex-start;
-  min-width: 0;
-  gap: 8px;
-  width: max-content;
-}
-@media (max-width: 720px) {
   .footer-inner {
-    gap: 4px;
-    min-width: 0;
+    gap: 2px;
+    min-width: 100%;
+  }
+  footer {
+    padding-bottom: 18px;
   }
 }
-footer {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-footer::-webkit-scrollbar {
-  display: none;
-}
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  max-width: 720px;
-  background: linear-gradient(90deg, #292963 60%, #7289da 100%);
-  display: flex;
-  flex-direction: column; /* empilha verticalmente */
-  align-items: center;    /* centraliza horizontalmente */
-  padding: 10px 0 6px;    /* um pouco menos embaixo */
-  box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
-  z-index: 100;
-  margin: 0 auto;
-  right: 0;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
+
 body.light {
   background-color: #f4f4f4;
   color: #222;
@@ -516,7 +486,7 @@ body.light .discord-btn:hover {
   position: fixed;
   bottom: 80px;
   right: 15px;
-  background: #7289da;=
+  background: #7289da;
   border: none;
   color: white;
   padding: 10px 15px;
@@ -533,23 +503,21 @@ body.light .discord-btn:hover {
   transform: scale(1.1);
 }
 .notification-dot {
-    position: absolute;
-    top: 5px;   /* Ajuste a posição vertical conforme necessário */
-    right: 5px; /* Ajuste a posição horizontal conforme necessário */
-    width: 8px;
-    height: 8px;
-    background-color: red;
-    border-radius: 50%;
-    border: 1px solid white; /* Pequena borda branca para contraste */
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+  border: 1px solid white;
 }
-
 </style>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, onValue, onDisconnect, set, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"; // Importação para autenticação
-
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA8a-ARdGjPfQh3jDgykJL1JOUVr_80Dzk",
@@ -563,9 +531,8 @@ body.light .discord-btn:hover {
 
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
-  const auth = getAuth(app); // Inicializa autenticação
-  const provider = new GoogleAuthProvider(); // Provedor de Google Auth
-
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
   // Usuário online
   const userRef = push(ref(db, 'onlineUsers'));
@@ -579,144 +546,131 @@ body.light .discord-btn:hover {
     document.getElementById("contador").textContent = count;
   });
 
-// Carrega novidades e códigos
-const novidadesListDiv = document.getElementById("novidades-list");
-const novidadesTextUl = document.getElementById("novidades-text");
-const codigosUl = document.getElementById("codigos-list");
+  // Carrega novidades e códigos
+  const novidadesListDiv = document.getElementById("novidades-list");
+  const novidadesTextUl = document.getElementById("novidades-text");
+  const codigosUl = document.getElementById("codigos-list");
 
-// --- Elementos para a nova seção Showcase e Comentários ---
-const commentsListDiv = document.getElementById("comments-list");
-const commentForm = document.getElementById("comment-form");
-const commentInput = document.getElementById("comment-input");
-const userInfoDiv = document.getElementById("user-info");
-const loginBtn = document.getElementById("login-btn");
-const logoutBtn = document.getElementById("logout-btn");
-let currentUser = null; // Variável para armazenar o usuário logado
+  // --- Elementos para a nova seção Showcase e Comentários ---
+  const commentsListDiv = document.getElementById("comments-list");
+  const commentForm = document.getElementById("comment-form");
+  const commentInput = document.getElementById("comment-input");
+  const userInfoDiv = document.getElementById("user-info");
+  const loginBtn = document.getElementById("login-btn");
+  const logoutBtn = document.getElementById("logout-btn");
+  let currentUser = null;
 
-// --- Lógica de Autenticação Firebase ---
-loginBtn.addEventListener('click', () => {
+  // --- Lógica de Autenticação Firebase ---
+  loginBtn.addEventListener('click', () => {
     signInWithPopup(auth, provider)
-        .catch((error) => {
-            console.error("Erro no login: ", error);
-            // Aqui você pode adicionar um feedback para o usuário, tipo alert("Erro ao fazer login.")
-        });
-});
+      .catch((error) => {
+        console.error("Erro no login: ", error);
+      });
+  });
 
-logoutBtn.addEventListener('click', () => {
+  logoutBtn.addEventListener('click', () => {
     signOut(auth).catch((error) => {
-        console.error("Erro no logout: ", error);
-        // feedback para o usuário
+      console.error("Erro no logout: ", error);
     });
-});
+  });
 
-// Listener para o estado de autenticação
-onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, (user) => {
     currentUser = user;
     if (user) {
-        // Usuário logado
-        userInfoDiv.innerHTML = `
-            <img src="${user.photoURL || 'https://via.placeholder.com/40'}" alt="Avatar do usuário" class="comment-avatar">
-            <span>Olá, ${user.displayName || user.email}!</span>
-        `;
-        loginBtn.style.display = 'none';
-        logoutBtn.style.display = 'inline-block';
-        commentForm.style.display = 'flex'; // Mostra o formulário para usuários logados
+      userInfoDiv.innerHTML = `
+        <img src="${user.photoURL || 'https://via.placeholder.com/40'}" alt="Avatar do usuário" class="comment-avatar">
+        <span>Olá, ${user.displayName || user.email}!</span>
+      `;
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'inline-block';
+      commentForm.style.display = 'flex';
     } else {
-        // Usuário deslogado
-        userInfoDiv.innerHTML = '<span>Faça login para comentar.</span>';
-        loginBtn.style.display = 'inline-block';
-        logoutBtn.style.display = 'none';
-        commentForm.style.display = 'none'; // Esconde o formulário para visitantes
+      userInfoDiv.innerHTML = '<span>Faça login para comentar.</span>';
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
+      commentForm.style.display = 'none';
     }
-    loadComments(); // Recarrega os comentários para refletir o estado de login
-});
+    loadComments();
+  });
 
-// --- Lógica de Envio de Comentários ---
-commentForm.addEventListener('submit', (e) => {
+  commentForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const commentText = commentInput.value.trim();
 
     if (commentText === '') {
-        alert('Por favor, digite seu comentário.');
-        return;
+      alert('Por favor, digite seu comentário.');
+      return;
     }
 
     if (currentUser) {
-        const newCommentRef = push(ref(db, 'showcaseComments')); // Armazena em 'showcaseComments'
-        set(newCommentRef, {
-            author: currentUser.displayName || currentUser.email,
-            avatar: currentUser.photoURL || 'https://via.placeholder.com/40',
-            text: commentText,
-            timestamp: Date.now() // Data/hora para ordenação
-        }).then(() => {
-            commentInput.value = ''; // Limpa o input após o envio
-        }).catch((error) => {
-            console.error("Erro ao enviar comentário: ", error);
-            alert("Erro ao enviar comentário. Tente novamente.");
-        });
+      const newCommentRef = push(ref(db, 'showcaseComments'));
+      set(newCommentRef, {
+        author: currentUser.displayName || currentUser.email,
+        avatar: currentUser.photoURL || 'https://via.placeholder.com/40',
+        text: commentText,
+        timestamp: Date.now()
+      }).then(() => {
+        commentInput.value = '';
+      }).catch((error) => {
+        console.error("Erro ao enviar comentário: ", error);
+        alert("Erro ao enviar comentário. Tente novamente.");
+      });
     } else {
-        alert("Você precisa estar logado para comentar.");
+      alert("Você precisa estar logado para comentar.");
     }
-});
+  });
 
-// --- Lógica de Carregamento e Exibição de Comentários ---
-function loadComments() {
+  function loadComments() {
     onValue(ref(db, 'showcaseComments'), (snapshot) => {
-        commentsListDiv.innerHTML = ''; // Limpa antes de adicionar os novos
-        const comments = snapshot.val();
-        if (comments) {
-            // Converte o objeto de comentários em um array e ordena por timestamp
-            const sortedComments = Object.values(comments).sort((a, b) => a.timestamp - b.timestamp);
-            sortedComments.forEach(comment => {
-                const commentDate = new Date(comment.timestamp).toLocaleString('pt-BR'); // Formata a data
-                const commentItem = document.createElement('div');
-                commentItem.classList.add('comment-item');
-                commentItem.innerHTML = `
-                    <div class="comment-header">
-                        <img src="${comment.avatar}" alt="Avatar" class="comment-avatar">
-                        <span class="comment-author">${comment.author}</span>
-                        <span class="comment-date">${commentDate}</span>
-                    </div>
-                    <p class="comment-text">${comment.text}</p>
-                `;
-                commentsListDiv.appendChild(commentItem);
-            });
-        }
+      commentsListDiv.innerHTML = '';
+      const comments = snapshot.val();
+      if (comments) {
+        const sortedComments = Object.values(comments).sort((a, b) => a.timestamp - b.timestamp);
+        sortedComments.forEach(comment => {
+          const commentDate = new Date(comment.timestamp).toLocaleString('pt-BR');
+          const commentItem = document.createElement('div');
+          commentItem.classList.add('comment-item');
+          commentItem.innerHTML = `
+            <div class="comment-header">
+              <img src="${comment.avatar}" alt="Avatar" class="comment-avatar">
+              <span class="comment-author">${comment.author}</span>
+              <span class="comment-date">${commentDate}</span>
+            </div>
+            <p class="comment-text">${comment.text}</p>
+          `;
+          commentsListDiv.appendChild(commentItem);
+        });
+      }
     });
-}
+  }
+  loadComments();
 
-// Carrega os comentários quando o script é executado (e no onAuthStateChanged)
-loadComments();
+  onValue(ref(db, 'novidades'), (snapshot) => {
+    const novidades = snapshot.val();
+    if (!novidades) return;
 
-onValue(ref(db, 'novidades'), (snapshot) => {
-  const novidades = snapshot.val();
-  if (!novidades) return;
+    novidadesListDiv.innerHTML = '';
+    novidadesTextUl.innerHTML = '';
 
-  novidadesListDiv.innerHTML = '';  // Limpa (não vai mostrar imagens pois seu JSON não tem)
-  novidadesTextUl.innerHTML = '';
-
-  // Percorre o array de novidades e monta lista com ícone, título e descrição
-  novidades.forEach(item => {
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${item.icone} ${item.titulo}</strong>: ${item.descricao}`;
-    novidadesTextUl.appendChild(li);
+    novidades.forEach(item => {
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${item.icone} ${item.titulo}</strong>: ${item.descricao}`;
+      novidadesTextUl.appendChild(li);
+    });
   });
-});
 
-onValue(ref(db, 'codigos'), (snapshot) => {
-  const codigos = snapshot.val();
-  if (!codigos) return;
+  onValue(ref(db, 'codigos'), (snapshot) => {
+    const codigos = snapshot.val();
+    if (!codigos) return;
 
-  codigosUl.innerHTML = '';
-
-  codigos.forEach(codigo => {
-    const li = document.createElement("li");
-    li.textContent = codigo;
-    codigosUl.appendChild(li);
+    codigosUl.innerHTML = '';
+    codigos.forEach(codigo => {
+      const li = document.createElement("li");
+      li.textContent = codigo;
+      codigosUl.appendChild(li);
+    });
   });
-});
 </script>
-
 </head>
 <body>
 
@@ -731,8 +685,8 @@ onValue(ref(db, 'codigos'), (snapshot) => {
   <meta name="author" content="Gustavo" />
   <h1>Comunidade ASTDX</h1>
   <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
-<button id="toggle-theme" style="margin-top:10px;" class="discord-btn">🌙 Tema Escuro</button>
-<p id="greeting" style="font-weight: bold; color: #ffcc00; margin-top: 8px;"></p>
+  <button id="toggle-theme" style="margin-top:10px;" class="discord-btn">🌙 Tema Escuro</button>
+  <p id="greeting" style="font-weight: bold; color: #ffcc00; margin-top: 8px;"></p>
   <p style="margin-top:10px; font-weight:bold; color:#ffcc00;">
     👥 Pessoas Online Site: <span id="contador">0</span>
   </p>
@@ -764,19 +718,17 @@ onValue(ref(db, 'codigos'), (snapshot) => {
       </a>
     </div>
     <p>Confira os melhores traits para farm, dano e suporte.</p>
-
   </section>
   
   <section id="novidades">
-  <h2><span>📰</span> Novidades e Postagens</h2>
-  <div id="novidades-list" class="image-gallery"></div>
-  <ul id="novidades-text" style="text-align: left; max-width: 680px; margin: 20px auto; font-size: 0.9rem; line-height: 1.5;"></ul>
-
-</section>
+    <h2><span>📰</span> Novidades e Postagens</h2>
+    <div id="novidades-list" class="image-gallery"></div>
+    <ul id="novidades-text" style="text-align: left; max-width: 680px; margin: 20px auto; font-size: 0.9rem; line-height: 1.5;"></ul>
+  </section>
 
   <section id="codigos">
-      <h2><span>🎁</span> Códigos do Jogo</h2>
-  <ul id="codigos-list"></ul>
+    <h2><span>🎁</span> Códigos do Jogo</h2>
+    <ul id="codigos-list"></ul>
   </section>
 
   <section id="vip">
@@ -801,54 +753,49 @@ onValue(ref(db, 'codigos'), (snapshot) => {
     <p style="font-size:0.95em; color:#ffd700;">Toda doação será usada para sorteios e eventos no Discord!</p>
   </section>
 
-<section id="atualizacao" style="display:none;">
+  <section id="atualizacao" style="display:none;">
     <h2><span>⚙️</span> Atualização do Site</h2>
-  <ul style="text-align: left; max-width: 680px; margin: 20px auto; font-size: 0.95rem; line-height: 1.5; color:#ffd700;">
-    <li>🔧 Novo sistema de doações adicionado.</li>
-    <li>📢 Área de atualizações criada para mostrar novidades.</li>
-    <li><strong>Tema Claro/Escuro:</strong> botão no topo para alternar, com salvamento da preferência.</li>
-    <li><strong>Rolagem Suave:</strong> scroll suave entre seções com CSS.</li>
-    <li><strong>Animação ao Exibir Seções:</strong> fade-in e leve movimento.</li>
-    <li><strong>Botão Voltar ao Topo:</strong> aparece ao rolar e leva ao topo da página.</li>
-    <li><strong>Saudação Dinâmica:</strong> mensagem no cabeçalho que muda conforme o horário.</li>
-    <li><strong>Acessibilidade e SEO:</strong> uso de alt em imagens e marcação semântica.</li>
-    <li>✨ Seção Showcase: Nova área com vídeos de personagens e sistema de comentários via login Google.</li>
-    <li>🔒 Sistema de Login/Comentários: Integração com Firebase Auth para comentários e identificação de usuário.</li>
-    <li>📝 Créditos do Criador: Pequena menção no rodapé do site.</li>
-    <li>🔔 Sistema de Notificação: Aviso discreto no topo da tela para novidades importantes (ex: novo showcase).</li>
-  </ul>
-</section>
+    <ul style="text-align: left; max-width: 680px; margin: 20px auto; font-size: 0.95rem; line-height: 1.5; color:#ffd700;">
+      <li>🔧 Novo sistema de doações adicionado.</li>
+      <li>📢 Área de atualizações criada para mostrar novidades.</li>
+      <li><strong>Tema Claro/Escuro:</strong> botão no topo para alternar, com salvamento da preferência.</li>
+      <li><strong>Rolagem Suave:</strong> scroll suave entre seções com CSS.</li>
+      <li><strong>Animação ao Exibir Seções:</strong> fade-in e leve movimento.</li>
+      <li><strong>Botão Voltar ao Topo:</strong> aparece ao rolar e leva ao topo da página.</li>
+      <li><strong>Saudação Dinâmica:</strong> mensagem no cabeçalho que muda conforme o horário.</li>
+      <li><strong>Acessibilidade e SEO:</strong> uso de alt em imagens e marcação semântica.</li>
+      <li>✨ Seção Showcase: Nova área com vídeos de personagens e sistema de comentários via login Google.</li>
+      <li>🔒 Sistema de Login/Comentários: Integração com Firebase Auth para comentários e identificação de usuário.</li>
+      <li>📝 Créditos do Criador: Pequena menção no rodapé do site.</li>
+      <li>🔔 Sistema de Notificação: Aviso discreto no topo da tela para novidades importantes (ex: novo showcase).</li>
+    </ul>
+  </section>
 
-    <section id="showcase" style="display:none;">
-        <h2><span>🌟</span> Showcase de Personagens</h2>
-        <p>Confira os novos personagens!</p>
-
-        <div class="video-item">
-            <h3>Killua 5 Estrelas - Combo Perfeito</h3>
-              <iframe src="https://www.youtube.com/embed/0grGStWyDKA" title="SHOWCASE KILLUA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <p>Assista ao Killua 5 Estrelas novo meta e starter.</p>
+  <section id="showcase" style="display:none;">
+    <h2><span>🌟</span> Showcase de Personagens</h2>
+    <p>Confira os novos personagens!</p>
+    <div class="video-item">
+      <h3>Killua 5 Estrelas - Combo Perfeito</h3>
+      <iframe src="https://www.youtube.com/embed/0grGStWyDKA" title="SHOWCASE KILLUA" frameborder="0" allowfullscreen></iframe>
+      <p>Assista ao Killua 5 Estrelas novo meta e starter.</p>
+    </div>
+    <div class="comments-area">
+      <h3>Comentários</h3>
+      <div class="auth-info">
+        <span id="user-info">Faça login para comentar.</span>
+        <div class="auth-buttons">
+          <button id="login-btn">Entrar com Google</button>
+          <button id="logout-btn" style="display:none;">Sair</button>
         </div>
-
-        <div class="comments-area">
-            <h3>Comentários</h3>
-            <div class="auth-info">
-                <span id="user-info">Faça login para comentar.</span>
-                <div class="auth-buttons">
-                    <button id="login-btn">Entrar com Google</button>
-                    <button id="logout-btn" style="display:none;">Sair</button>
-                </div>
-            </div>
-            
-            <form id="comment-form" style="display:none;">
-                <textarea id="comment-input" placeholder="Escreva seu comentário aqui..."></textarea>
-                <button type="submit">Enviar Comentário</button>
-            </form>
-
-            <div id="comments-list" class="comments-list">
-                </div>
-        </div>
-    </section>
-    </main>
+      </div>
+      <form id="comment-form" style="display:none;">
+        <textarea id="comment-input" placeholder="Escreva seu comentário aqui..."></textarea>
+        <button type="submit">Enviar Comentário</button>
+      </form>
+      <div id="comments-list" class="comments-list"></div>
+    </div>
+  </section>
+</main>
 
 <footer>
   <div class="footer-inner">
@@ -859,13 +806,13 @@ onValue(ref(db, 'codigos'), (snapshot) => {
     <button data-section="codigos" tabindex="0"><span>🎁</span> Códigos</button>
     <button data-section="vip" tabindex="0"><span>👑</span> VIP</button>
     <button data-section="doar" tabindex="0"><span>💖</span> Doar</button>
-   <button data-section="atualizacao" tabindex="0"><span>⚙️</span> Atualização<span class="notification-dot"></span></button>
+    <button data-section="atualizacao" tabindex="0"><span>⚙️</span> Atualização<span class="notification-dot"></span></button>
     <button data-section="showcase" tabindex="0"><span>🌟</span> Showcase</button>
-    </div>
+  </div>
   <div class="scroll-hint">⬅️➡️ Role para o lado</div>
- <p style="font-size: 0.75em; color: rgba(255,255,255,0.6); margin-top: 10px;">
+  <p style="font-size: 0.75em; color: rgba(255,255,255,0.6); margin-top: 10px;">
     © Desenvolvido por Gus & collab yuki
-
+  </p>
 </footer>
 
 <div id="player" style="display:none;"></div>
@@ -925,13 +872,12 @@ const buttons = document.querySelectorAll('footer button');
 const sections = document.querySelectorAll('main section');
 const doarSection = document.getElementById('doar');
 const atualizacaoSection = document.getElementById('atualizacao');
-const showcaseSection = document.getElementById('showcase'); // Referência para a nova seção Showcase
+const showcaseSection = document.getElementById('showcase');
 
-// Filtra as seções "originais" que devem ser mostradas por padrão
 const originalSections = Array.from(sections).filter(sec => 
-    sec.id !== 'doar' && 
-    sec.id !== 'atualizacao' && 
-    sec.id !== 'showcase' // Adiciona a nova seção ao filtro
+  sec.id !== 'doar' && 
+  sec.id !== 'atualizacao' && 
+  sec.id !== 'showcase'
 );
 
 buttons.forEach(btn => {
@@ -940,10 +886,9 @@ buttons.forEach(btn => {
     btn.classList.add('active');
     const target = btn.getAttribute('data-section');
 
-    // Esconde todas as seções especiais antes de mostrar a desejada
     doarSection.style.display = 'none';
     atualizacaoSection.style.display = 'none';
-    showcaseSection.style.display = 'none'; // Esconde Showcase
+    showcaseSection.style.display = 'none';
 
     if (target === 'doar') {
       originalSections.forEach(sec => sec.style.display = 'none');
@@ -953,12 +898,12 @@ buttons.forEach(btn => {
       originalSections.forEach(sec => sec.style.display = 'none');
       atualizacaoSection.style.display = '';
       atualizacaoSection.scrollIntoView({ behavior: 'smooth' });
-    } else if (target === 'showcase') { // Lógica para a nova aba Showcase
-        originalSections.forEach(sec => sec.style.display = 'none');
-        showcaseSection.style.display = '';
-        showcaseSection.scrollIntoView({ behavior: 'smooth' });
+    } else if (target === 'showcase') {
+      originalSections.forEach(sec => sec.style.display = 'none');
+      showcaseSection.style.display = '';
+      showcaseSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      originalSections.forEach(sec => sec.style.display = ''); // Mostra as seções padrão
+      originalSections.forEach(sec => sec.style.display = '');
       const targetSection = document.getElementById(target);
       if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -971,14 +916,12 @@ buttons.forEach(btn => {
   });
 });
 
-// Ao carregar, mostra as seções originais e esconde as especiais
 window.addEventListener('DOMContentLoaded', () => {
   originalSections.forEach(sec => sec.style.display = '');
   if (doarSection) doarSection.style.display = 'none';
   if (atualizacaoSection) atualizacaoSection.style.display = 'none';
-  if (showcaseSection) showcaseSection.style.display = 'none'; // Esconde Showcase ao carregar
+  if (showcaseSection) showcaseSection.style.display = 'none';
 });
-
 
 window.addEventListener("load", () => {
   const preloader = document.getElementById('preloader');
@@ -988,7 +931,6 @@ window.addEventListener("load", () => {
 const themeBtn = document.getElementById("toggle-theme");
 const htmlBody = document.body;
 
-// Verifica se tema está salvo no localStorage
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "light") {
   htmlBody.classList.add("light");
@@ -1015,17 +957,15 @@ themeBtn.addEventListener("click", () => {
   backBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-const h = new Date().getHours();
-const greet = h < 12 ? "Bom dia!" : h < 18 ? "Boa tarde!" : "Boa noite!";
-document.getElementById("greeting").textContent = greet;
-// O listener DOMContentLoaded já foi ajustado acima, mas deixo este para garantir que não haja conflitos
-window.addEventListener('DOMContentLoaded', () => {
-  originalSections.forEach(sec => sec.style.display = '');
-  if (doarSection) doarSection.style.display = 'none';
-  if (atualizacaoSection) atualizacaoSection.style.display = 'none';
-  if (showcaseSection) showcaseSection.style.display = 'none';
-});
-
+  const h = new Date().getHours();
+  const greet = h < 12 ? "Bom dia!" : h < 18 ? "Boa tarde!" : "Boa noite!";
+  document.getElementById("greeting").textContent = greet;
+  window.addEventListener('DOMContentLoaded', () => {
+    originalSections.forEach(sec => sec.style.display = '');
+    if (doarSection) doarSection.style.display = 'none';
+    if (atualizacaoSection) atualizacaoSection.style.display = 'none';
+    if (showcaseSection) showcaseSection.style.display = 'none';
+  });
 </script>
 </body>
 </html>
