@@ -21,7 +21,7 @@ body {
   background-size: cover;
   color: #fff;
   min-height: 100vh;
-  padding-bottom: 80px;
+  padding-bottom: 120px; /* Corrigido para garantir espaço para o footer */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -363,17 +363,17 @@ footer {
   position: fixed;
   bottom: 0;
   left: 0;
+  right: 0;
   width: 100%;
   max-width: 720px;
   background: linear-gradient(90deg, #292963 60%, #7289da 100%);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Corrigido para alinhar à esquerda */
   padding: 10px 0 6px;
   box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
   z-index: 100;
-  margin: 0 auto;
-  right: 0;
+  margin: 0;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -880,6 +880,14 @@ const originalSections = Array.from(sections).filter(sec =>
   sec.id !== 'showcase'
 );
 
+// Função para garantir que o scroll vá até o final da seção
+function scrollSectionIntoView(section) {
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => {
+    window.scrollBy({ top: 120, behavior: 'smooth' }); // 120px é a altura do footer
+  }, 400);
+}
+
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     buttons.forEach(b => b.classList.remove('active'));
@@ -893,19 +901,19 @@ buttons.forEach(btn => {
     if (target === 'doar') {
       originalSections.forEach(sec => sec.style.display = 'none');
       doarSection.style.display = '';
-      doarSection.scrollIntoView({ behavior: 'smooth' });
+      scrollSectionIntoView(doarSection);
     } else if (target === 'atualizacao') {
       originalSections.forEach(sec => sec.style.display = 'none');
       atualizacaoSection.style.display = '';
-      atualizacaoSection.scrollIntoView({ behavior: 'smooth' });
+      scrollSectionIntoView(atualizacaoSection);
     } else if (target === 'showcase') {
       originalSections.forEach(sec => sec.style.display = 'none');
       showcaseSection.style.display = '';
-      showcaseSection.scrollIntoView({ behavior: 'smooth' });
+      scrollSectionIntoView(showcaseSection);
     } else {
       originalSections.forEach(sec => sec.style.display = '');
       const targetSection = document.getElementById(target);
-      if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
+      if (targetSection) scrollSectionIntoView(targetSection);
     }
   });
 
