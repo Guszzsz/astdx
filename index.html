@@ -895,10 +895,8 @@ const originalSections = Array.from(sections).filter(sec =>
 );
 
 function scrollSectionIntoView(section) {
-  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  setTimeout(() => {
-    window.scrollBy({ top: 120, behavior: 'smooth' });
-  }, 400);
+  const offset = section.getBoundingClientRect().top + window.pageYOffset - 100; // ajusta a posição
+  window.scrollTo({ top: offset, behavior: 'smooth' });
 }
 
 buttons.forEach(btn => {
