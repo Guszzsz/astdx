@@ -366,7 +366,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px 0 4px;
+  padding: 6px 0 4px;
   box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
   z-index: 100;
   margin: 0;
@@ -377,17 +377,19 @@ footer {
 footer::-webkit-scrollbar {
   display: none;
 }
+
 .footer-inner {
   display: flex;
   gap: 8px;
   width: max-content;
   justify-content: flex-start;
 }
+
 footer button {
   background: none;
   border: none;
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   cursor: pointer;
   padding: 5px 10px;
   transition: color 0.3s, transform 0.2s;
@@ -398,6 +400,7 @@ footer button {
   outline: none;
   position: relative;
 }
+
 footer button.active {
   color: #ffcc00;
   transform: scale(1.12);
@@ -424,28 +427,49 @@ footer button:active {
   transform: scale(0.98);
 }
 footer button span {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
+
 .scroll-hint {
-  font-size: 0.95em;
+  font-size: 0.9em;
   color: rgba(255,255,255,0.7);
   margin-top: 2px;
   margin-bottom: 2px;
 }
+
+/* 🔧 Ajuste para mobile */
 @media (max-width: 600px) {
   .footer-inner {
+    gap: 3px;
+  }
+
+  footer button {
+    font-size: 0.8rem;
+    padding: 3px 6px;
     gap: 2px;
   }
+
+  footer button span {
+    font-size: 1.1rem;
+  }
+
   footer {
-    padding-bottom: 12px;
+    padding: 4px 0 6px;
+  }
+
+  .scroll-hint {
+    font-size: 0.75rem;
   }
 }
+
+/* Oculta dica em telas grandes */
 @media (min-width: 601px) {
   .scroll-hint {
     display: none;
   }
 }
 
+/* Tema claro */
 body.light {
   background-color: #f4f4f4;
   color: #222;
@@ -458,7 +482,9 @@ body.light section {
   background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(200,200,255,0.3));
   color: #111;
 }
-body.light h2, body.light p, body.light li {
+body.light h2,
+body.light p,
+body.light li {
   color: #222;
 }
 body.light .discord-btn {
@@ -468,6 +494,8 @@ body.light .discord-btn {
 body.light .discord-btn:hover {
   background: linear-gradient(90deg, #666 60%, #444 100%);
 }
+
+/* Botão flutuante */
 #backToTop {
   position: fixed;
   bottom: 80px;
@@ -488,6 +516,8 @@ body.light .discord-btn:hover {
   background: #5b6eae;
   transform: scale(1.1);
 }
+
+/* Notificação no botão */
 .notification-dot {
   position: absolute;
   top: 5px;
@@ -785,20 +815,18 @@ body.light .discord-btn:hover {
 
 <footer>
   <div class="footer-inner">
-    <button data-section="live" class="active" tabindex="0"><span>🔴</span> Live</button>
-    <button data-section="meta" tabindex="0"><span>📋</span> Meta</button>
-    <button data-section="traits" tabindex="0"><span>💎</span> Traits</button>
-    <button data-section="novidades" tabindex="0"><span>📰</span> Novidades</button>
-    <button data-section="codigos" tabindex="0"><span>🎁</span> Códigos</button>
-    <button data-section="vip" tabindex="0"><span>👑</span> VIP</button>
-    <button data-section="doar" tabindex="0"><span>💖</span> Doar</button>
-    <button data-section="atualizacao" tabindex="0"><span>⚙️</span> Atualização<span class="notification-dot"></span></button>
-    <button data-section="showcase" tabindex="0"><span>🌟</span> Showcase</button>
+    <button data-section="live" class="active" tabindex="0"><span>🔴</span><small>Live</small></button>
+    <button data-section="meta" tabindex="0"><span>📋</span><small>Meta</small></button>
+    <button data-section="traits" tabindex="0"><span>💎</span><small>Traits</small></button>
+    <button data-section="novidades" tabindex="0"><span>📰</span><small>Novidades</small></button>
+    <button data-section="codigos" tabindex="0"><span>🎁</span><small>Códigos</small></button>
+    <button data-section="vip" tabindex="0"><span>👑</span><small>VIP</small></button>
+    <button data-section="doar" tabindex="0"><span>💖</span><small>Doar</small></button>
+    <button data-section="atualizacao" tabindex="0"><span>⚙️</span><small>Update</small><span class="notification-dot"></span></button>
+    <button data-section="showcase" tabindex="0"><span>🌟</span><small>Show</small></button>
   </div>
   <div class="scroll-hint">➡️ Role para o lado</div>
-  <p style="font-size: 0.75em; color: rgba(255,255,255,0.6); margin-top: 2px;">
-    © Desenvolvido por Gus & collab yuki
-  </p>
+  <p style="font-size: 0.7em; color: rgba(255,255,255,0.6); margin-top: 2px;">© Desenvolvido por Gus & collab yuki</p>
 </footer>
 
 <div id="player" style="display:none;"></div>
