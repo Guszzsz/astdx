@@ -4,547 +4,537 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Comunidade ASTDX</title>
-<link rel="icon" type="image/png" href="https://i.ibb.co/QFXcb0gk/Gemini-Generated-Image-36doj236doj236do.png">
+ <link rel="icon" type="image/png" href="https://i.ibb.co/QFXcb0gk/Gemini-Generated-Image-36doj236doj236do.png">
 <meta name="description" content="Site oficial da Comunidade ASTDX com novidades, lives e códigos." />
 <meta name="keywords" content="ASTDX, comunidade, jogos, live, códigos" />
 <meta name="author" content="Gustavo" />
 <style>
 html {
-  scroll-behavior: smooth;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  position: relative;
-  background: url('https://i.ibb.co/bRMLThLg/paisagem-urbana-de-area-urbana-inspirada-em-anime.jpg') no-repeat center center;
-  background-size: cover;
-  color: #fff;
-  min-height: 100vh;
-  padding-bottom: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-body::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(15, 32, 39, 0.85);
-  backdrop-filter: blur(2px);
-  z-index: -1;
-}
-
-@media (max-width: 600px) {
+    scroll-behavior: smooth;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
   body {
-    background-image: url('https://i.pinimg.com/1200x/24/79/c1/2479c17119652c468be03b465f3ad214.jpg');
+    position: relative;
+    background: url('https://i.ibb.co/bRMLThLg/paisagem-urbana-de-area-urbana-inspirada-em-anime.jpg') no-repeat center center;
     background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    color: #fff;
+    min-height: 100vh;
+    padding-bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-}
-
-#preloader {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #0f2027;
-  display: flex;
-  flex-direction: column; /* CORREÇÃO/ADIÇÃO: Alinha estrela e mensagem em coluna */
-  align-items: center;
-  justify-content: center;
-  gap: 15px; /* ADIÇÃO: Espaçamento entre estrela e mensagem */
-  z-index: 9999;
-  transition: opacity 0.8s ease;
-}
-.estrela {
-  width: 60px;
-  height: 60px;
-  background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
-  background-size: contain;
-  animation: fadeInStar 2s ease-in-out infinite;
-}
-@keyframes fadeInStar {
-  0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1.1) rotate(180deg); }
-  100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
-}
-
-/* ADIÇÃO: Estilos para a mensagem de carregamento */
-#loading-message {
-  color: #ffcc00;
-  margin-top: 20px;
-  font-size: 1.1em;
-  text-align: center;
-  max-width: 80%;
-  padding: 0 10px;
-}
-
-header {
-  width: 100%;
-  max-width: 720px;
-  text-align: center;
-  padding: 20px 0 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.7);
-  background: linear-gradient(135deg, #1c1c3c 60%, #7289da 100%);
-  flex-shrink: 0;
-  margin: 0 auto;
-}
-
-header img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  box-shadow: 0 0 20px #7289da;
-  object-fit: cover;
-}
-
-header h1 {
-  margin-top: 12px;
-  font-size: 2rem;
-  color: #ffcc00;
-  text-shadow: 1px 1px 8px #000;
-}
-
-.discord-btn {
-  display: inline-block;
-  margin-top: 10px;
-  background: linear-gradient(90deg, #7289da 60%, #5b6eae 100%);
-  color: white;
-  padding: 10px 25px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 0 0 12px #7289da;
-  transition: background 0.3s, transform 0.2s;
-  border: none;
-  outline: none;
-}
-.discord-btn:hover, .discord-btn:focus {
-  background: linear-gradient(90deg, #5b6eae 60%, #7289da 100%);
-  transform: scale(1.05);
-}
-
-main {
-  width: 100%;
-  max-width: 720px;
-  margin: 15px auto;
-  padding: 0 10px;
-  box-sizing: border-box;
-}
-
-section {
-  background: linear-gradient(135deg, rgba(30,30,47,0.95) 80%, rgba(114,137,218,0.2) 100%);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 15px 0;
-  box-shadow: 0 0 15px rgba(0,0,0,0.7);
-  text-align: center;
-}
-
-section h2 {
-  margin-bottom: 20px;
-  font-size: 1.8rem;
-  color: #ffcc00;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-shadow: 1px 1px 8px #000;
-}
-
-section {
-  animation: fadeIn 0.5s ease-in;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(28, 30, 45, 0.85); /* Fundo escuro azulado (mantido) */
+    backdrop-filter: blur(2px);
+    z-index: -1;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  @media (max-width: 600px) {
+    body {
+      background-image: url('https://i.pinimg.com/1200x/24/79/c1/2479c17119652c468be03b465f3ad214.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
   }
-}
-
-iframe {
-  width: 100%;
-  height: 300px;
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(255,255,0,0.6);
-  border: none;
-  transition: box-shadow 0.3s ease;
-}
-iframe:hover, iframe:focus {
-  box-shadow: 0 0 40px rgba(255,255,0,0.9);
-}
-
-.image-gallery {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.image-gallery img {
-  max-width: 320px;
-  width: 100%;
-  border-radius: 15px;
-  box-shadow:
-    0 0 8px #fff,
-    0 0 15px #ffcc00,
-    0 0 30px #ffcc00;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-.image-gallery img:hover, .image-gallery img:focus {
-  transform: scale(1.05);
-  box-shadow:
-    0 0 15px #fff,
-    0 0 30px #ffcc00,
-    0 0 50px #ffcc00;
-}
-
-ul {
-  list-style: none;
-  text-align: left;
-  max-width: 400px;
-  margin: 0 auto;
-  padding-left: 0;
-}
-ul li {
-  padding: 8px 0;
-  font-weight: bold;
-  border-bottom: 1px solid #444;
-  color: #ffd700;
-}
-
-/* --- ESTILOS PARA SHOWCASE E COMENTÁRIOS (Novos estilos) --- */
-.video-item {
-  margin-bottom: 30px;
-  background-color: rgba(45, 45, 70, 0.9);
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-.video-item h3 {
-  color: #ffcc00;
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-}
-.video-item iframe {
-  width: 100%;
-  height: 350px;
-  margin-bottom: 15px;
-}
-.video-item p {
-  color: #eee;
-  font-size: 1rem;
-  line-height: 1.4;
-}
-
-.comments-area {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.2);
-  text-align: left;
-}
-.comments-area h3 {
-  color: #7289da;
-  margin-bottom: 20px;
-  font-size: 1.6rem;
-  text-align: center;
-}
-.comment-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.comment-form textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #7289da;
-  background-color: rgba(30, 30, 47, 0.7);
-  color: white;
-  resize: vertical;
-  min-height: 80px;
-}
-.comment-form textarea::placeholder {
-  color: #ccc;
-}
-.comment-form button {
-  background-color: #7289da;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-.comment-form button:hover {
-  background-color: #5b6eae;
-}
-
-.comments-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.comment-item {
-  background-color: rgba(40, 40, 60, 0.8);
-  padding: 12px 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-.comment-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-.comment-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #7289da;
-}
-.comment-author {
-  font-weight: bold;
-  color: #7289da;
-}
-.comment-date {
-  font-size: 0.85em;
-  color: #aaa;
-  margin-left: auto;
-}
-.comment-text {
-  color: #eee;
-  line-height: 1.3;
-}
-
-.auth-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #ffcc00;
-}
-.auth-info img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid #7289da;
-}
-.auth-buttons {
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-.auth-buttons button {
-  background-color: #7289da;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-.auth-buttons button:hover {
-  background-color: #5b6eae;
-}
-/* --- FIM DOS ESTILOS PARA SHOWCASE E COMENTÁRIOS --- */
-
-/* --- FOOTER OTIMIZADO --- */
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  background: linear-gradient(90deg, #292963 60%, #7289da 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 6px 0 4px;
-  box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
-  z-index: 100;
-  margin: 0;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-footer::-webkit-scrollbar {
-  display: none;
-}
-
-.footer-inner {
-  display: flex;
-  gap: 8px;
-  width: max-content;
-  justify-content: flex-start;
-}
-
-footer button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.1rem;
-  cursor: pointer;
-  padding: 5px 10px;
-  transition: color 0.3s, transform 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  outline: none;
-  position: relative;
-}
-
-footer button.active {
-  color: #ffcc00;
-  transform: scale(1.12);
-}
-footer button.active::after {
-  content: '';
-  display: block;
-  width: 80%;
-  height: 3px;
-  background: #ffcc00;
-  border-radius: 2px;
-  margin: 4px auto 0;
-  animation: underline 0.4s;
-}
-@keyframes underline {
-  from { width: 0; }
-  to { width: 80%; }
-}
-footer button:focus {
-  outline: 2px solid #ffcc00;
-}
-footer button:active {
-  color: #ffd700;
-  transform: scale(0.98);
-}
-footer button span {
-  font-size: 1.4rem;
-}
-
-.scroll-hint {
-  font-size: 0.9em;
-  color: rgba(255,255,255,0.7);
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-/* 🔧 Ajuste para mobile */
-@media (max-width: 600px) {
-  .footer-inner {
-    gap: 3px;
+  #preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1c2b; /* Fundo do preloader mais escuro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    z-index: 9999;
+    transition: opacity 0.8s ease;
   }
-
-  footer button {
-    font-size: 0.8rem;
-    padding: 3px 6px;
-    gap: 2px;
+  .estrela {
+    width: 60px;
+    height: 60px;
+    background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
+    background-size: contain;
+    animation: fadeInStar 2s ease-in-out infinite;
   }
-
-  footer button span {
-    font-size: 1.1rem;
+  @keyframes fadeInStar {
+    0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.1) rotate(180deg); }
+    100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
   }
-
+  #loading-message {
+    color: #9381ff; /* Lavanda suave */
+    margin-top: 20px;
+    font-size: 1.1em;
+    text-align: center;
+    max-width: 80%;
+    padding: 0 10px;
+  }
+  header {
+    width: 100%;
+    max-width: 720px;
+    text-align: center;
+    padding: 20px 0 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    background: linear-gradient(135deg, #1f2231 60%, #3a4269 100%); /* Gradiente de azul escuro */
+    flex-shrink: 0;
+    margin: 0 auto;
+  }
+  header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #5d75bc; /* Sombra do avatar em azul suave */
+    object-fit: cover;
+  }
+  header h1 {
+    margin-top: 12px;
+    font-size: 2rem;
+    color: #9381ff; /* Lavanda suave */
+    text-shadow: 1px 1px 8px #000;
+  }
+  .discord-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #5d75bc 60%, #4a5c9f 100%); /* Azul suave */
+    color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 0 12px #5d75bc;
+    transition: background 0.3s, transform 0.2s;
+    border: none;
+    outline: none;
+  }
+  .discord-btn:hover, .discord-btn:focus {
+    background: linear-gradient(90deg, #4a5c9f 60%, #5d75bc 100%); /* Azul suave mais escuro para mais claro */
+    transform: scale(1.05);
+  }
+  main {
+    width: 100%;
+    max-width: 720px;
+    margin: 15px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+  section {
+    background: linear-gradient(135deg, rgba(31, 34, 49, 0.95) 80%, rgba(93, 117, 188, 0.2) 100%); /* Gradiente de azul escuro para azul suave */
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    text-align: center;
+  }
+  section h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #9381ff; /* Lavanda suave */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-shadow: 1px 1px 8px #000;
+  }
+  section {
+    animation: fadeIn 0.5s ease-in;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(147, 129, 255, 0.6); /* Sombra em lavanda suave */
+    border: none;
+    transition: box-shadow 0.3s ease;
+  }
+  iframe:hover, iframe:focus {
+    box-shadow: 0 0 40px rgba(147, 129, 255, 0.9); /* Sombra lavanda mais intensa */
+  }
+  .image-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .image-gallery img {
+    max-width: 320px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow:
+      0 0 8px #fff,
+      0 0 15px #9381ff, /* Sombra lavanda suave */
+      0 0 30px #9381ff; /* Sombra lavanda mais forte */
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .image-gallery img:hover, .image-gallery img:focus {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 15px #fff,
+      0 0 30px #9381ff, /* Sombra lavanda suave */
+      0 0 50px #9381ff; /* Sombra lavanda mais forte */
+  }
+  ul {
+    list-style: none;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+    padding-left: 0;
+  }
+  ul li {
+    padding: 8px 0;
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+    color: #e6e6ff; /* Cor do texto lavanda bem clara */
+  }
+  /* --- ESTILOS PARA SHOWCASE E COMENTÁRIOS (Novos estilos) --- */
+  .video-item {
+    margin-bottom: 30px;
+    background-color: rgba(31, 34, 49, 0.9); /* Azul escuro fechado */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  }
+  .video-item h3 {
+    color: #9381ff; /* Lavanda suave */
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+  }
+  .video-item iframe {
+    width: 100%;
+    height: 350px;
+    margin-bottom: 15px;
+  }
+  .video-item p {
+    color: #eee;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .comments-area {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    text-align: left;
+  }
+  .comments-area h3 {
+    color: #5d75bc; /* Azul suave */
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #5d75bc; /* Azul suave */
+    background-color: rgba(31, 34, 49, 0.7); /* Azul escuro */
+    color: white;
+    resize: vertical;
+    min-height: 80px;
+  }
+  .comment-form textarea::placeholder {
+    color: #ccc;
+  }
+  .comment-form button {
+    background-color: #5d75bc; /* Azul suave */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  .comment-form button:hover {
+    background-color: #4a5c9f; /* Azul mais escuro */
+  }
+  .comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .comment-item {
+    background-color: rgba(36, 39, 56, 0.8); /* Azul escuro fechado */
+    padding: 12px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .comment-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #5d75bc; /* Azul suave */
+  }
+  .comment-author {
+    font-weight: bold;
+    color: #5d75bc; /* Azul suave */
+  }
+  .comment-date {
+    font-size: 0.85em;
+    color: #aaa;
+    margin-left: auto;
+  }
+  .comment-text {
+    color: #eee;
+    line-height: 1.3;
+  }
+  .auth-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #9381ff; /* Lavanda suave */
+  }
+  .auth-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #5d75bc; /* Azul suave */
+  }
+  .auth-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  .auth-buttons button {
+    background-color: #5d75bc; /* Azul suave */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  .auth-buttons button:hover {
+    background-color: #4a5c9f; /* Azul mais escuro */
+  }
+  /* --- FIM DOS ESTILOS PARA SHOWCASE E COMENTÁRIOS --- */
+  /* --- FOOTER OTIMIZADO --- */
   footer {
-    padding: 4px 0 6px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    background: linear-gradient(90deg, #1f2231 60%, #3a4269 100%); /* Gradiente de azul escuro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 0 4px;
+    box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
+    z-index: 100;
+    margin: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
-
-  .scroll-hint {
-    font-size: 0.75rem;
-  }
-}
-
-/* Oculta dica em telas grandes */
-@media (min-width: 601px) {
-  .scroll-hint {
+  footer::-webkit-scrollbar {
     display: none;
   }
-}
-
-/* Tema claro */
-body.light {
-  background-color: #f4f4f4;
-  color: #222;
-}
-body.light::before {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(1px);
-}
-body.light section {
-  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(200,200,255,0.3));
-  color: #111;
-}
-body.light h2,
-body.light p,
-body.light li {
-  color: #222;
-}
-body.light .discord-btn {
-  background: linear-gradient(90deg, #444 60%, #888 100%);
-  color: white;
-}
-body.light .discord-btn:hover {
-  background: linear-gradient(90deg, #666 60%, #444 100%);
-}
-
-/* Botão flutuante */
-#backToTop {
-  position: fixed;
-  bottom: 80px;
-  right: 15px;
-  background: #7289da;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #000;
-  cursor: pointer;
-  display: none;
-  z-index: 1000;
-  font-size: 1.2rem;
-  transition: background 0.3s, transform 0.2s;
-}
-#backToTop:hover {
-  background: #5b6eae;
-  transform: scale(1.1);
-}
-
-/* Notificação no botão */
-.notification-dot {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 8px;
-  height: 8px;
-  background-color: red;
-  border-radius: 50%;
-  border: 1px solid white;
-}
-
+  .footer-inner {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+    justify-content: flex-start;
+  }
+  footer button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.3s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    outline: none;
+    position: relative;
+  }
+  footer button.active {
+    color: #9381ff; /* Lavanda suave */
+    transform: scale(1.12);
+  }
+  footer button.active::after {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 3px;
+    background: #9381ff; /* Lavanda suave */
+    border-radius: 2px;
+    margin: 4px auto 0;
+    animation: underline 0.4s;
+  }
+  @keyframes underline {
+    from { width: 0; }
+    to { width: 80%; }
+  }
+  footer button:focus {
+    outline: 2px solid #9381ff; /* Lavanda suave */
+  }
+  footer button:active {
+    color: #e6e6ff; /* Lavanda ainda mais clara */
+    transform: scale(0.98);
+  }
+  footer button span {
+    font-size: 1.4rem;
+  }
+  .scroll-hint {
+    font-size: 0.9em;
+    color: rgba(255,255,255,0.7);
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  /* 🔧 Ajuste para mobile */
+  @media (max-width: 600px) {
+    .footer-inner {
+      gap: 3px;
+    }
+    footer button {
+      font-size: 0.8rem;
+      padding: 3px 6px;
+      gap: 2px;
+    }
+    footer button span {
+      font-size: 1.1rem;
+    }
+    footer {
+      padding: 4px 0 6px;
+    }
+    .scroll-hint {
+      font-size: 0.75rem;
+    }
+  }
+  /* Oculta dica em telas grandes */
+  @media (min-width: 601px) {
+    .scroll-hint {
+      display: none;
+    }
+  }
+  /* Tema claro */
+  body.light {
+    background-color: #f0f4fa; /* Cinza azulado bem claro */
+    color: #3b4266; /* Azul escuro */
+  }
+  body.light::before {
+    background: rgba(240, 244, 250, 0.8); /* Cinza azulado bem claro */
+    backdrop-filter: blur(1px);
+  }
+  body.light section {
+    background: linear-gradient(135deg, rgba(240, 244, 250, 0.9), rgba(147, 129, 255, 0.3)); /* Cinza claro para lavanda suave */
+    color: #3b4266; /* Azul escuro */
+  }
+  body.light h2,
+  body.light p,
+  body.light li {
+    color: #3b4266; /* Azul escuro */
+  }
+  body.light .discord-btn {
+    background: linear-gradient(90deg, #5d75bc 60%, #4a5c9f 100%); /* Azul suave */
+    color: white;
+  }
+  body.light .discord-btn:hover {
+    background: linear-gradient(90deg, #4a5c9f 60%, #5d75bc 100%); /* Azul mais escuro para mais claro */
+  }
+  body.light header {
+    background: linear-gradient(135deg, #c5d0e8 60%, #5d75bc 100%); /* Azul claro para azul escuro */
+    box-shadow: 0 2px 8px rgba(59, 66, 102, 0.7); /* Sombra azul */
+  }
+  body.light header h1 {
+    color: #3b4266; /* Azul escuro */
+    text-shadow: 1px 1px 8px rgba(147, 129, 255, 0.5); /* Sombra lavanda suave */
+  }
+  body.light footer {
+    background: linear-gradient(90deg, #5d75bc 60%, #4a5c9f 100%); /* Azul suave */
+    box-shadow: 0 -3px 10px rgba(59, 66, 102, 0.8); /* Sombra azul */
+  }
+  body.light footer button.active {
+    color: #3b4266; /* Azul escuro */
+    text-shadow: none;
+  }
+  body.light footer button.active::after {
+    background: #3b4266; /* Azul escuro */
+  }
+  body.light iframe {
+    box-shadow: 0 0 25px rgba(93, 117, 188, 0.6); /* Sombra azul */
+  }
+  body.light iframe:hover, body.light iframe:focus {
+    box-shadow: 0 0 40px rgba(93, 117, 188, 0.9); /* Sombra azul mais intensa */
+  }
+  body.light .auth-info {
+    color: #3b4266; /* Azul escuro */
+  }
+  /* Botão flutuante */
+  #backToTop {
+    position: fixed;
+    bottom: 80px;
+    right: 15px;
+    background: #5d75bc; /* Azul suave */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #000;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+    font-size: 1.2rem;
+    transition: background 0.3s, transform 0.2s;
+  }
+  #backToTop:hover {
+    background: #4a5c9f; /* Azul mais escuro */
+    transform: scale(1.1);
+  }
+  /* Notificação no botão */
+  .notification-dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    border: 1px solid white;
+  }
 </style>
 
 </head>
