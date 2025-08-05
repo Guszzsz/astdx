@@ -61,25 +61,39 @@ html {
     z-index: 9999;
     transition: opacity 0.8s ease;
   }
-  .estrela {
-    width: 60px;
-    height: 60px;
-    background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
-    background-size: contain;
-    animation: fadeInStar 2s ease-in-out infinite;
+.estrela {
+  width: 60px;
+  height: 60px;
+  background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
+  background-size: contain;
+  animation: fadeInStar 2s ease-in-out infinite;
+}
+
+@keyframes fadeInStar {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+    filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0)); /* Sombra inicial transparente */
   }
-  @keyframes fadeInStar {
-    0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-    50% { opacity: 1; transform: scale(1.1) rotate(180deg); }
-    100% { opacity: 0; transform: scale(0.5) rotate(360deg); }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) rotate(180deg);
+    filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.8)); /* Sombra máxima e brilho */
   }
-  #loading-message {
-    color: #9381ff; /* Lavanda suave */
-    margin-top: 20px;
-    font-size: 1.1em;
-    text-align: center;
-    max-width: 80%;
-    padding: 0 10px;
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(360deg);
+    filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0)); /* Sombra final transparente */
+  }
+}
+
+#loading-message {
+  color: #9381ff; /* Lavanda suave */
+  margin-top: 20px;
+  font-size: 1.1em;
+  text-align: center;
+  max-width: 80%;
+  padding: 0 10px;
   }
   header {
     width: 100%;
@@ -171,30 +185,30 @@ html {
   iframe:hover, iframe:focus {
     box-shadow: 0 0 40px rgba(147, 129, 255, 0.9); /* Sombra lavanda mais intensa */
   }
-  .image-gallery {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .image-gallery img {
-    max-width: 320px;
-    width: 100%;
-    border-radius: 15px;
-    box-shadow:
-      0 0 8px #fff,
-      0 0 15px #9381ff, /* Sombra lavanda suave */
-      0 0 30px #9381ff; /* Sombra lavanda mais forte */
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-  }
-  .image-gallery img:hover, .image-gallery img:focus {
-    transform: scale(1.05);
-    box-shadow:
-      0 0 15px #fff,
-      0 0 30px #9381ff, /* Sombra lavanda suave */
-      0 0 50px #9381ff; /* Sombra lavanda mais forte */
-  }
+ .image-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.image-gallery img {
+  max-width: 450px; /* Alterado para um tamanho maior */
+  width: 100%;
+  border-radius: 15px;
+  box-shadow:
+    0 0 8px #fff,
+    0 0 15px #9381ff,
+    0 0 30px #9381ff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+.image-gallery img:hover, .image-gallery img:focus {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 15px #fff,
+    0 0 30px #9381ff,
+    0 0 50px #9381ff;
+}
   ul {
     list-style: none;
     text-align: left;
@@ -535,6 +549,60 @@ html {
     border-radius: 50%;
     border: 1px solid white;
   }
+/* Efeito de texto RGB animado */
+@keyframes rainbow-animation {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.rainbow-text {
+  /* O gradiente de cores que irá se mover */
+  background-image: linear-gradient(
+    90deg,
+    #ff0000 0%, #ff7f00 16%, #ffff00 33%, #00ff00 50%, #0000ff 66%, #4b0082 83%, #9400d3 100%
+  );
+  /* Ajusta o tamanho do background para ser maior que o texto */
+  background-size: 200% auto;
+  /* Aplica o gradiente como cor de fundo do texto */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Garante que o elemento se comporte corretamente */
+  display: inline-block;
+  /* Aplica a animação: 4s de duração, movimento linear, e repete infinitamente */
+  animation: rainbow-animation 4s linear infinite;
+}
+
+@keyframes purple-blue-white-gradient {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.purple-blue-white-animated {
+  background-image: linear-gradient(
+    90deg,
+    #8a2be2 0%, /* Roxo */
+    #0000ff 50%, /* Azul */
+    #ffffff 100%  /* Branco */
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  animation: purple-blue-white-gradient 3s linear infinite;
+}
+/* Novo CSS para o botão animado */
+.discord-btn.animated-btn {
+  background: none; /* Remove o fundo sólido do botão */
+  box-shadow: none; /* Remove a sombra sólida */
+  transition: none; /* Remove a transição de fundo */
+}
+.discord-btn.animated-btn:hover {
+  background: none; /* Remove a mudança de fundo no hover */
+  transform: none; /* Remove a animação de escala no hover */
+}
+
 </style>
 
 </head>
@@ -547,7 +615,9 @@ html {
 <header>
   <img src="https://cdn.discordapp.com/icons/1384335086656159788/72cd0dffccd9ddd6872174422d088075.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
   <h1>Comunidade ASTDX</h1>
-  <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">Entrar no Discord</a>
+ <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">
+  <span class="purple-blue-white-animated">Entrar no Discord</span>
+</a>
   <button id="toggle-theme" style="margin-top:10px;" class="discord-btn">🌙 Tema Escuro</button>
   <p id="greeting" style="font-weight: bold; color: #ffcc00; margin-top: 8px;"></p>
   <p style="margin-top:10px; font-weight:bold; color:#ffcc00;">
@@ -592,11 +662,13 @@ html {
     <ul id="codigos-list"></ul>
   </section>
 
-  <section id="vip">
+ <section id="vip">
     <h2><span>👑</span> Servidor VIP</h2>
     <p>Entre no servidor VIP do discord!</p>
-    <a href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" class="discord-btn">Entrar no Servidor VIP</a>
-  </section>
+    <a href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" class="discord-btn">
+        <span class="rainbow-text">Entrar no Servidor VIP</span>
+    </a>
+</section>
 
   <section id="doar" style="display:none;">
     <h2><span>💖</span> Doação para Sorteios</h2>
@@ -647,31 +719,71 @@ max-width: 680px; margin: 20px auto; font-size: 0.95rem; line-height: 1.5; color
 </section>
   
 
-  <section id="showcase" style="display:none;">
+<section id="showcase" style="display:none;">
     <h2><span>🌟</span> Showcase de Personagens</h2>
     <p>Confira os novos personagens!</p>
-    <div class="video-item">
-      <h3>Killua 5 Estrelas - Combo Perfeito</h3>
-      <iframe src="https://www.youtube.com/embed/0grGStWyDKA" title="SHOWCASE KILLUA" frameborder="0" allowfullscreen></iframe>
-      <p>Assista ao Killua 5 Estrelas novo meta e starter.</p>
+
+    <div id="showcase-videos">
+
+        <div class="video-item">
+            <h3>Killua 5 Estrelas - Combo Perfeito</h3>
+            <iframe src="https://www.youtube.com/embed/0grGStWyDKA" title="SHOWCASE KILLUA" frameborder="0" allowfullscreen></iframe>
+            <p>Assista ao Killua 5 Estrelas novo meta e starter.</p>
+        </div>
+
+        <div class="video-item">
+            <h3>Cooler 5 Estrelas - Level Max</h3>
+            <iframe 
+                src="https://www.youtube.com/embed/Fbarht9zPIo?si=8d0G4D8AMCp1NC2j" 
+                title="SHOWCASE COOLER" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+            ></iframe>
+            <p>Assista ao showcase do Cooler (Freezer Final Form), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
+        </div>
+
+<div class="video-item">
+            <h3>Frieza - Level Max</h3>
+            <iframe 
+                src="https://www.youtube.com/embed/Znn9RFgVi9Q?si=gD05xv3mY5hhgCPm" 
+                title="SHOWCASE FRIEZA" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+            ></iframe>
+            <p>Assista ao showcase do  (Frieza), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
+        </div>
+
+<div class="video-item">
+            <h3>Trunks - Level Max</h3>
+            <iframe 
+                src="https://www.youtube.com/embed/Ns2UuU2qXmc?si=L78fp5bXy95cSVoL" 
+                title="SHOWCASE FUTURE TRUNKS" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+            ></iframe>
+            <p>Assista ao showcase do  (Trunks), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
+        </div>
+
     </div>
     <div class="comments-area">
-      <h3>Comentários</h3>
-      <div class="auth-info">
-        <span id="user-info">Faça login para comentar.</span>
-        <div class="auth-buttons">
-          <button id="login-btn">Entrar com Google</button>
-          <button id="logout-btn" style="display:none;">Sair</button>
+        <h3>Comentários</h3>
+        <div class="auth-info">
+            <span id="user-info">Faça login para comentar.</span>
+            <div class="auth-buttons">
+                <button id="login-btn">Entrar com Google</button>
+                <button id="logout-btn" style="display:none;">Sair</button>
+            </div>
         </div>
-      </div>
-      <form id="comment-form" style="display:none;">
-        <textarea id="comment-input" placeholder="Escreva seu comentário aqui..."></textarea>
-        <button type="submit">Enviar Comentário</button>
-      </form>
-      <div id="comments-list" class="comments-list"></div>
+        <form id="comment-form" style="display:none;">
+            <textarea id="comment-input" placeholder="Escreva seu comentário aqui..."></textarea>
+            <button type="submit">Enviar Comentário</button>
+        </form>
+        <div id="comments-list" class="comments-list"></div>
     </div>
-  </section>
-</main>
+</section>
 
 <footer>
   <div class="footer-inner">
@@ -685,7 +797,7 @@ max-width: 680px; margin: 20px auto; font-size: 0.95rem; line-height: 1.5; color
     <button data-section="atualizacao" tabindex="0"><span>⚙️</span><small>Update</small><span class="notification-dot"></span></button>
     <button data-section="showcase" tabindex="0"><span>🌟</span><small>Show</small></button>
   </div>
-  <p style="font-size: 0.7em; color: rgba(255,255,255,0.6); margin-top: 2px;">© Desenvolvido por Gus & collab yuki</p>
+  <p style="font-size: 0.7em; color: rgba(255,255,255,0.6); margin-top: 2px;">© Desenvolvido por <span class="rainbow-text">Gus</span> & collab <span class="rainbow-text">Yuki</span></p>>
 </footer>
 
 <div id="player" style="display:none;"></div>
