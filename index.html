@@ -1,1153 +1,817 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Comunidade ASTDX</title>
- <link rel="icon" type="image/png" href="https://i.ibb.co/QFXcb0gk/Gemini-Generated-Image-36doj236doj236do.png">
-<meta name="description" content="Site oficial da Comunidade ASTDX com novidades, lives e códigos." />
-<meta name="keywords" content="ASTDX, comunidade, jogos, live, códigos" />
-<meta name="author" content="Gustavo" />
-<style>
-html {
-    scroll-behavior: smooth;
-  }
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  body {
-    position: relative;
-    background: url('https://i.ibb.co/bRMLThLg/paisagem-urbana-de-area-urbana-inspirada-em-anime.jpg') no-repeat center center;
-    background-size: cover;
-    color: #fff;
-    min-height: 100vh;
-    padding-bottom: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  body::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(28, 30, 45, 0.85); /* Fundo escuro azulado (mantido) */
-    backdrop-filter: blur(2px);
-    z-index: -1;
-  }
-  @media (max-width: 600px) {
-    body {
-      background-image: url('https://i.pinimg.com/1200x/24/79/c1/2479c17119652c468be03b465f3ad214.jpg');
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-    }
-  }
-  #preloader {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #1a1c2b; /* Fundo do preloader mais escuro */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    z-index: 9999;
-    transition: opacity 0.8s ease;
-  }
-.estrela {
-  width: 60px;
-  height: 60px;
-  background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
-  background-size: contain;
-  animation: fadeInStar 2s ease-in-out infinite;
-}
-
-@keyframes fadeInStar {
-  0% {
-    opacity: 0;
-    transform: scale(0.5) rotate(0deg);
-    filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0)); /* Sombra inicial transparente */
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1) rotate(180deg);
-    filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.8)); /* Sombra máxima e brilho */
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.5) rotate(360deg);
-    filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0)); /* Sombra final transparente */
-  }
-}
-
-#loading-message {
-  color: #9381ff; /* Lavanda suave */
-  margin-top: 20px;
-  font-size: 1.1em;
-  text-align: center;
-  max-width: 80%;
-  padding: 0 10px;
-  }
-  header {
-    width: 100%;
-    max-width: 720px;
-    text-align: center;
-    padding: 20px 0 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
-    background: linear-gradient(135deg, #1f2231 60%, #3a4269 100%); /* Gradiente de azul escuro */
-    flex-shrink: 0;
-    margin: 0 auto;
-  }
-  header img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    box-shadow: 0 0 20px #5d75bc; /* Sombra do avatar em azul suave */
-    object-fit: cover;
-  }
-  header h1 {
-    margin-top: 12px;
-    font-size: 2rem;
-    color: #9381ff; /* Lavanda suave */
-    text-shadow: 1px 1px 8px #000;
-  }
-  .discord-btn {
-    display: inline-block;
-    margin-top: 10px;
-    background: linear-gradient(90deg, #5d75bc 60%, #4a5c9f 100%); /* Azul suave */
-    color: white;
-    padding: 10px 25px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 0 12px #5d75bc;
-    transition: background 0.3s, transform 0.2s;
-    border: none;
-    outline: none;
-  }
-  .discord-btn:hover, .discord-btn:focus {
-    background: linear-gradient(90deg, #4a5c9f 60%, #5d75bc 100%); /* Azul suave mais escuro para mais claro */
-    transform: scale(1.05);
-  }
-  main {
-    width: 100%;
-    max-width: 720px;
-    margin: 15px auto;
-    padding: 0 10px;
-    box-sizing: border-box;
-  }
-  section {
-    background: linear-gradient(135deg, rgba(31, 34, 49, 0.95) 80%, rgba(93, 117, 188, 0.2) 100%); /* Gradiente de azul escuro para azul suave */
-    border-radius: 12px;
-    padding: 20px;
-    margin: 15px 0;
-    box-shadow: 0 0 15px rgba(0,0,0,0.7);
-    text-align: center;
-  }
-  section h2 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #9381ff; /* Lavanda suave */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    text-shadow: 1px 1px 8px #000;
-  }
-  section {
-    animation: fadeIn 0.5s ease-in;
-  }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  iframe {
-    width: 100%;
-    height: 300px;
-    border-radius: 12px;
-    box-shadow: 0 0 25px rgba(147, 129, 255, 0.6); /* Sombra em lavanda suave */
-    border: none;
-    transition: box-shadow 0.3s ease;
-  }
-  iframe:hover, iframe:focus {
-    box-shadow: 0 0 40px rgba(147, 129, 255, 0.9); /* Sombra lavanda mais intensa */
-  }
- .image-gallery {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-.image-gallery img {
-  max-width: 450px; /* Alterado para um tamanho maior */
-  width: 100%;
-  border-radius: 15px;
-  box-shadow:
-    0 0 8px #fff,
-    0 0 15px #9381ff,
-    0 0 30px #9381ff;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-.image-gallery img:hover, .image-gallery img:focus {
-  transform: scale(1.05);
-  box-shadow:
-    0 0 15px #fff,
-    0 0 30px #9381ff,
-    0 0 50px #9381ff;
-}
-  ul {
-    list-style: none;
-    text-align: left;
-    max-width: 400px;
-    margin: 0 auto;
-    padding-left: 0;
-  }
-  ul li {
-    padding: 8px 0;
-    font-weight: bold;
-    border-bottom: 1px solid #555;
-    color: #e6e6ff; /* Cor do texto lavanda bem clara */
-  }
-  /* --- ESTILOS PARA SHOWCASE E COMENTÁRIOS (Novos estilos) --- */
-  .video-item {
-    margin-bottom: 30px;
-    background-color: rgba(31, 34, 49, 0.9); /* Azul escuro fechado */
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  }
-  .video-item h3 {
-    color: #9381ff; /* Lavanda suave */
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-  }
-  .video-item iframe {
-    width: 100%;
-    height: 350px;
-    margin-bottom: 15px;
-  }
-  .video-item p {
-    color: #eee;
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-  .comments-area {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    text-align: left;
-  }
-  .comments-area h3 {
-    color: #5d75bc; /* Azul suave */
-    margin-bottom: 20px;
-    font-size: 1.6rem;
-    text-align: center;
-  }
-  .comment-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .comment-form textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #5d75bc; /* Azul suave */
-    background-color: rgba(31, 34, 49, 0.7); /* Azul escuro */
-    color: white;
-    resize: vertical;
-    min-height: 80px;
-  }
-  .comment-form textarea::placeholder {
-    color: #ccc;
-  }
-  .comment-form button {
-    background-color: #5d75bc; /* Azul suave */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  .comment-form button:hover {
-    background-color: #4a5c9f; /* Azul mais escuro */
-  }
-  .comments-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  .comment-item {
-    background-color: rgba(36, 39, 56, 0.8); /* Azul escuro fechado */
-    padding: 12px 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-  }
-  .comment-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-  .comment-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #5d75bc; /* Azul suave */
-  }
-  .comment-author {
-    font-weight: bold;
-    color: #5d75bc; /* Azul suave */
-  }
-  .comment-date {
-    font-size: 0.85em;
-    color: #aaa;
-    margin-left: auto;
-  }
-  .comment-text {
-    color: #eee;
-    line-height: 1.3;
-  }
-  .auth-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-    font-weight: bold;
-    color: #9381ff; /* Lavanda suave */
-  }
-  .auth-info img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid #5d75bc; /* Azul suave */
-  }
-  .auth-buttons {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  .auth-buttons button {
-    background-color: #5d75bc; /* Azul suave */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  .auth-buttons button:hover {
-    background-color: #4a5c9f; /* Azul mais escuro */
-  }
-  /* --- FIM DOS ESTILOS PARA SHOWCASE E COMENTÁRIOS --- */
-  /* --- FOOTER OTIMIZADO --- */
-  footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100vw;
-    background: linear-gradient(90deg, #1f2231 60%, #3a4269 100%); /* Gradiente de azul escuro */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 6px 0 4px;
-    box-shadow: 0 -3px 10px rgba(0,0,0,0.8);
-    z-index: 100;
-    margin: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  footer::-webkit-scrollbar {
-    display: none;
-  }
-  .footer-inner {
-    display: flex;
-    gap: 8px;
-    width: max-content;
-    justify-content: flex-start;
-  }
-  footer button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.1rem;
-    cursor: pointer;
-    padding: 5px 10px;
-    transition: color 0.3s, transform 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    outline: none;
-    position: relative;
-  }
-  footer button.active {
-    color: #9381ff; /* Lavanda suave */
-    transform: scale(1.12);
-  }
-  footer button.active::after {
-    content: '';
-    display: block;
-    width: 80%;
-    height: 3px;
-    background: #9381ff; /* Lavanda suave */
-    border-radius: 2px;
-    margin: 4px auto 0;
-    animation: underline 0.4s;
-  }
-  @keyframes underline {
-    from { width: 0; }
-    to { width: 80%; }
-  }
-  footer button:focus {
-    outline: 2px solid #9381ff; /* Lavanda suave */
-  }
-  footer button:active {
-    color: #e6e6ff; /* Lavanda ainda mais clara */
-    transform: scale(0.98);
-  }
-  footer button span {
-    font-size: 1.4rem;
-  }
-  .scroll-hint {
-    font-size: 0.9em;
-    color: rgba(255,255,255,0.7);
-    margin-top: 2px;
-    margin-bottom: 2px;
-  }
-  /* 🔧 Ajuste para mobile */
-  @media (max-width: 600px) {
-    .footer-inner {
-      gap: 3px;
-    }
-    footer button {
-      font-size: 0.8rem;
-      padding: 3px 6px;
-      gap: 2px;
-    }
-    footer button span {
-      font-size: 1.1rem;
-    }
-    footer {
-      padding: 4px 0 6px;
-    }
-    .scroll-hint {
-      font-size: 0.75rem;
-    }
-  }
-  /* Oculta dica em telas grandes */
-  @media (min-width: 601px) {
-    .scroll-hint {
-      display: none;
-    }
-  }
-  /* Tema claro */
-  body.light {
-    background-color: #f0f4fa; /* Cinza azulado bem claro */
-    color: #3b4266; /* Azul escuro */
-  }
-  body.light::before {
-    background: rgba(240, 244, 250, 0.8); /* Cinza azulado bem claro */
-    backdrop-filter: blur(1px);
-  }
-  body.light section {
-    background: linear-gradient(135deg, rgba(240, 244, 250, 0.9), rgba(147, 129, 255, 0.3)); /* Cinza claro para lavanda suave */
-    color: #3b4266; /* Azul escuro */
-  }
-  body.light h2,
-  body.light p,
-  body.light li {
-    color: #3b4266; /* Azul escuro */
-  }
-  body.light .discord-btn {
-    background: linear-gradient(90deg, #5d75bc 60%, #4a5c9f 100%); /* Azul suave */
-    color: white;
-  }
-  body.light .discord-btn:hover {
-    background: linear-gradient(90deg, #4a5c9f 60%, #5d75bc 100%); /* Azul mais escuro para mais claro */
-  }
-  body.light header {
-    background: linear-gradient(135deg, #c5d0e8 60%, #5d75bc 100%); /* Azul claro para azul escuro */
-    box-shadow: 0 2px 8px rgba(59, 66, 102, 0.7); /* Sombra azul */
-  }
-  body.light header h1 {
-    color: #3b4266; /* Azul escuro */
-    text-shadow: 1px 1px 8px rgba(147, 129, 255, 0.5); /* Sombra lavanda suave */
-  }
-  body.light footer {
-    background: linear-gradient(90deg, #5d75bc 60%, #4a5c9f 100%); /* Azul suave */
-    box-shadow: 0 -3px 10px rgba(59, 66, 102, 0.8); /* Sombra azul */
-  }
-  body.light footer button.active {
-    color: #3b4266; /* Azul escuro */
-    text-shadow: none;
-  }
-  body.light footer button.active::after {
-    background: #3b4266; /* Azul escuro */
-  }
-  body.light iframe {
-    box-shadow: 0 0 25px rgba(93, 117, 188, 0.6); /* Sombra azul */
-  }
-  body.light iframe:hover, body.light iframe:focus {
-    box-shadow: 0 0 40px rgba(93, 117, 188, 0.9); /* Sombra azul mais intensa */
-  }
-  body.light .auth-info {
-    color: #3b4266; /* Azul escuro */
-  }
-  /* Botão flutuante */
-  #backToTop {
-    position: fixed;
-    bottom: 80px;
-    right: 15px;
-    background: #5d75bc; /* Azul suave */
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #000;
-    cursor: pointer;
-    display: none;
-    z-index: 1000;
-    font-size: 1.2rem;
-    transition: background 0.3s, transform 0.2s;
-  }
-  #backToTop:hover {
-    background: #4a5c9f; /* Azul mais escuro */
-    transform: scale(1.1);
-  }
-  /* Notificação no botão */
-  .notification-dot {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 8px;
-    height: 8px;
-    background-color: red;
-    border-radius: 50%;
-    border: 1px solid white;
-  }
-/* Efeito de texto RGB animado */
-@keyframes rainbow-animation {
-  to {
-    background-position: 200% center;
-  }
-}
-
-.rainbow-text {
-  /* O gradiente de cores que irá se mover */
-  background-image: linear-gradient(
-    90deg,
-    #ff0000 0%, #ff7f00 16%, #ffff00 33%, #00ff00 50%, #0000ff 66%, #4b0082 83%, #9400d3 100%
-  );
-  /* Ajusta o tamanho do background para ser maior que o texto */
-  background-size: 200% auto;
-  /* Aplica o gradiente como cor de fundo do texto */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* Garante que o elemento se comporte corretamente */
-  display: inline-block;
-  /* Aplica a animação: 4s de duração, movimento linear, e repete infinitamente */
-  animation: rainbow-animation 4s linear infinite;
-}
-
-@keyframes purple-blue-white-gradient {
-  to {
-    background-position: 200% center;
-  }
-}
-
-.purple-blue-white-animated {
-  background-image: linear-gradient(
-    90deg,
-    #8a2be2 0%, /* Roxo */
-    #0000ff 50%, /* Azul */
-    #ffffff 100%  /* Branco */
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  animation: purple-blue-white-gradient 3s linear infinite;
-}
-/* Novo CSS para o botão animado */
-.discord-btn.animated-btn {
-  background: none; /* Remove o fundo sólido do botão */
-  box-shadow: none; /* Remove a sombra sólida */
-  transition: none; /* Remove a transição de fundo */
-}
-.discord-btn.animated-btn:hover {
-  background: none; /* Remove a mudança de fundo no hover */
-  transform: none; /* Remove a animação de escala no hover */
-}
-
-</style>
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comunidade ASTDX — Oficial</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/QFXcb0gk/Gemini-Generated-Image-36doj236doj236do.png">
+    <meta name="description" content="Site oficial da Comunidade ASTDX com novidades, lives e códigos." />
+    <meta name="keywords" content="ASTDX, comunidade, jogos, live, códigos" />
+    <meta name="author" content="Gustavo" />
+    
+    <style>
+        /* Variáveis de cores */
+        :root {
+            --maxw: 720px;
+            --accent: #5d75bc;
+            --accent-2: #9381ff;
+            --bg-dark: #1a1c2b;
+            --glass: rgba(31, 34, 49, 0.9);
+            --glass-2: rgba(93, 117, 188, 0.12);
+            --text-light: #fff;
+            --muted: rgba(255, 255, 255, 0.7);
+        }
+        /* Configurações gerais do HTML e corpo da página */
+        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif; }
+        body {
+            min-height: 100vh;
+            color: var(--text-light);
+            background: url('https://i.ibb.co/bRMLThLg/paisagem-urbana-de-area-urbana-inspirada-em-anime.jpg') center/cover no-repeat fixed;
+            position: relative;
+            padding-bottom: 140px;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(180deg, rgba(10, 12, 20, 0.6), rgba(15, 17, 25, 0.7));
+            backdrop-filter: blur(2px);
+        }
+        @media (max-width: 600px) {
+            body { background-image: url('https://i.pinimg.com/1200x/24/79/c1/2479c17119652c468be03b465f3ad214.jpg'); }
+        }
+        .wrap {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: var(--maxw);
+            margin: 18px auto;
+            padding: 12px;
+        }
+        
+        /* Estilos da tela de carregamento (Preloader) */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 14px;
+            background: var(--bg-dark);
+            z-index: 9999;
+            transition: opacity .8s;
+        }
+        .estrela {
+            width: 60px;
+            height: 60px;
+            background: url('https://cdn-icons-png.flaticon.com/512/616/616490.png') no-repeat center center;
+            background-size: contain;
+            animation: fadeInStar 2s ease-in-out infinite;
+        }
+        @keyframes fadeInStar {
+            0% { opacity: 0; transform: scale(0.5) rotate(0deg); filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0)); }
+            50% { opacity: 1; transform: scale(1.1) rotate(180deg); filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.8)); }
+            100% { opacity: 0; transform: scale(0.5) rotate(360deg); filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0)); }
+        }
+        #loading-message {
+            color: var(--accent-2);
+            text-align: center;
+            max-width: 85%;
+            padding: 0 10px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000;
+        }
+        
+        /* Estilos do cabeçalho */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #1f2231 60%, #3a4269 100%);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        header img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 20px var(--accent);
+        }
+        header h1 {
+            font-size: 1.9rem;
+            color: var(--accent-2);
+            text-shadow: 1px 1px 2px #000;
+        }
+        .header-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn, .discord-btn {
+            background: linear-gradient(90deg, var(--accent) 40%, #4a5c9f 100%);
+            color: #fff;
+            padding: 9px 16px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:focus, .discord-btn:focus { outline: 3px solid rgba(147, 129, 255, .25); }
+        .btn.ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: none;
+        }
+        
+        /* Estilos da área principal de conteúdo e seções */
+        main { display: block; }
+        section {
+            background: linear-gradient(135deg, var(--glass), var(--glass-2));
+            padding: 18px;
+            border-radius: 12px;
+            margin: 14px 0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .45);
+        }
+        section h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--accent-2);
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            text-shadow: 1px 1px 2px #000;
+        }
+        iframe {
+            width: 100%;
+            height: 320px;
+            border-radius: 10px;
+            border: 0;
+            box-shadow: 0 0 20px rgba(147, 129, 255, .25);
+            transition: box-shadow .25s;
+        }
+        .image-gallery {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .image-gallery img {
+            max-width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px 2px rgba(147, 129, 255, .4);
+            cursor: pointer;
+            transition: transform .18s, box-shadow .3s;
+        }
+        .image-gallery img:hover { transform: scale(1.03); box-shadow: 0 0 25px 5px rgba(147, 129, 255, .6); }
+        ul { list-style: none; padding-left: 0; max-width: 700px; margin: 10px auto; }
+        li {
+            padding: 8px 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            font-weight: 700;
+            color: #e9e9ff;
+            text-shadow: 1px 1px 2px #000;
+        }
+        .video-item {
+            background: rgba(13, 15, 25, .55);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+        
+        /* Estilos da área de comentários */
+        .comments-area {
+            margin-top: 14px;
+            border-top: 1px dashed rgba(255, 255, 255, .04);
+            padding-top: 12px;
+        }
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(93, 117, 188, .2);
+            background: transparent;
+            color: var(--text-light);
+            min-height: 86px;
+        }
+        .comment-item {
+            background: rgba(20, 22, 34, .6);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        /* Estilos do rodapé */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            background: linear-gradient(90deg, #1f2231 60%, #3a4269 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 6px 0 4px;
+            box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            margin: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        footer::-webkit-scrollbar { display: none; }
+        .footer-inner {
+            display: flex;
+            gap: 8px;
+            width: max-content;
+            justify-content: flex-start;
+            padding: 2px 6px;
+        }
+        footer button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: color 0.3s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            outline: none;
+            position: relative;
+        }
+        footer button:hover:not(.active) { transform: translateY(-2px); color: var(--accent-2); }
+        footer button.active { color: #9381ff; transform: translateY(-4px); }
+        footer button.active::after {
+            content: '';
+            display: block;
+            width: 80%;
+            height: 3px;
+            background: #9381ff;
+            border-radius: 2px;
+            margin: 4px auto 0;
+            animation: underline 0.4s;
+        }
+        @keyframes underline { from { width: 0; } to { width: 80%; } }
+        footer button:focus { outline: none; }
+        footer button:active { color: #e6e6ff; transform: scale(0.98); }
+        footer button small { font-size: 0.74rem; }
+        .notification-dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background-color: red;
+            border-radius: 50%;
+            border: 1px solid white;
+        }
+        @media (max-width: 600px) {
+            .footer-inner { gap: 3px; }
+            footer button { font-size: 0.8rem; padding: 3px 6px; gap: 2px; }
+            footer button small { font-size: 0.6rem; }
+            footer { padding: 4px 0 6px; }
+        }
+        
+        /* Estilos do botão "Voltar ao Topo" */
+        #backToTop {
+            position: fixed;
+            right: 14px;
+            bottom: 86px;
+            z-index: 1000;
+            display: none;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        /* Estilos do tema claro (LIGHT) - Cores suaves */
+        body.light {
+            background-color: #f0f4f9;
+            color: #3b4266;
+        }
+        body.light::before {
+            background: rgba(240, 244, 249, 0.8);
+            backdrop-filter: blur(1px);
+        }
+        body.light header {
+            background: linear-gradient(135deg, #e1e9f5 60%, #c5d3ea 100%);
+            box-shadow: 0 2px 8px rgba(59, 66, 102, 0.5);
+        }
+        body.light h1, body.light h2, body.light p, body.light li {
+            color: #3b4266;
+        }
+        body.light section {
+            background: linear-gradient(180deg, #fff, #f4f6fb);
+            color: #253142;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        body.light .btn, body.light .discord-btn {
+            background: linear-gradient(90deg, #5d75bc 60%, #4a5c9f 100%);
+            color: white;
+        }
+        body.light footer {
+            background: linear-gradient(90deg, #5d75bc 60%, #4a5c9f 100%);
+            box-shadow: 0 -3px 10px rgba(59, 66, 102, 0.8);
+        }
+        body.light footer button.active {
+            color: #3b4266;
+            text-shadow: none;
+        }
+        body.light footer button.active::after { background: #3b4266; }
+        body.light .image-gallery img { box-shadow: 0 0 10px rgba(93, 117, 188, .25); }
+        body.light .image-gallery img:hover { box-shadow: 0 0 20px rgba(93, 117, 188, .5); }
+        body.light .video-item { background: rgba(255, 255, 255, 0.7); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        body.light iframe { box-shadow: 0 0 15px rgba(93, 117, 188, 0.4); }
+        body.light iframe:hover { box-shadow: 0 0 30px rgba(93, 117, 188, 0.7); }
+        
+        /* Estilos de texto com cores de arco-íris */
+        .rainbow-text {
+            background-image: linear-gradient(
+                90deg,
+                #ff0000 0%, #ff7f00 16%, #ffff00 33%, #00ff00 50%, #0000ff 66%, #4b0082 83%, #9400d3 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            animation: rainbow-animation 4s linear infinite;
+        }
+        @keyframes rainbow-animation { to { background-position: -200% center; } }
+        .discord-text-rainbow {
+            background-image: linear-gradient(90deg, #fff, #7289da, #9381ff, #fff, #7289da, #9381ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow-animation 4s linear infinite;
+        }
+    </style>
 </head>
 <body>
-
-<div id="preloader">
-  <div class="estrela"></div>
-  <p id="loading-message"></p> </div>
-
-<header>
-  <img src="https://cdn.discordapp.com/icons/1384335086656159788/72cd0dffccd9ddd6872174422d088075.png?size=2048" alt="Ícone do Servidor Discord ASTDX" />
-  <h1>Comunidade ASTDX</h1>
- <a href="https://discord.gg/t5HUNGPWkf" target="_blank" class="discord-btn">
-  <span class="purple-blue-white-animated">Entrar no Discord</span>
-</a>
-  <button id="toggle-theme" style="margin-top:10px;" class="discord-btn">🌙 Tema Escuro</button>
-  <p id="greeting" style="font-weight: bold; color: #ffcc00; margin-top: 8px;"></p>
-  <p style="margin-top:10px; font-weight:bold; color:#ffcc00;">
-    👥 Pessoas Online Site: <span id="contador">0</span>
-  </p>
-</header>
-<main>
-  <section id="live">
-    <h2><span>🔴</span> Live Ao Vivo</h2>
-    <iframe src="https://www.youtube.com/embed/NRLS1Acozgw?autoplay=0" allowfullscreen title="Live Ao Vivo"></iframe>
-  </section>
-
-  <section id="meta">
-    <h2><span>📋</span> Personagens Meta</h2>
-    <div class="image-gallery">
-      <a href="https://ibb.co/k23Kk3B5" target="_blank" rel="noopener"><img src="https://i.ibb.co/pjW2GWwb/image-162.png" alt="image-162" border="0" /></a>
+    <div id="preloader" role="status" aria-live="polite">
+        <div class="estrela" aria-hidden="true"></div>
+        <div id="loading-message">Carregando...</div>
     </div>
-    <p>Lista atualizada com os melhores personagens do meta.</p>
-  </section>
-
-  <section id="traits">
-    <h2><span>💎</span> Traits Meta</h2>
-    <div class="image-gallery">
-      <a href="https://imgbb.com/" target="_blank" rel="noopener">
-        <img src="https://i.ibb.co/rKmLDCcn/Imagem-do-Whats-App-de-2025-07-17-s-15-52-19-38401d0c.jpg" alt="Trait Meta 1" />
-      </a>
-      <a href="https://ibb.co/9krb4jqL" target="_blank" rel="noopener">
-        <img src="https://i.ibb.co/wFzSQ1KX/Imagem-do-Whats-App-de-2025-07-17-s-15-54-23-36ca423d.jpg" alt="Trait Meta 2" />
-      </a>
-    </div>
-    <p>Confira os melhores traits para farm, dano e suporte.</p>
-  </section>
-  
-  <section id="novidades">
-    <h2><span>📰</span> Novidades e Postagens</h2>
-    <div id="novidades-list" class="image-gallery"></div>
-    <ul id="novidades-text" style="text-align: left; max-width: 680px; margin: 20px auto; font-size: 0.9rem; line-height: 1.5;"></ul>
-  </section>
-
-  <section id="codigos">
-    <h2><span>🎁</span> Códigos do Jogo</h2>
-    <ul id="codigos-list"></ul>
-  </section>
-
- <section id="vip">
-    <h2><span>👑</span> Servidor VIP</h2>
-    <p>Entre no servidor VIP do discord!</p>
-    <a href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" class="discord-btn">
-        <span class="rainbow-text">Entrar no Servidor VIP</span>
-    </a>
-</section>
-
-  <section id="doar" style="display:none;">
-    <h2><span>💖</span> Doação para Sorteios</h2>
-    <p>Contribua para os sorteios do nosso servidor Discord!<br>
-    Você pode doar via Pix ou RecargaPay:</p>
-    <div style="margin: 20px 0;">
-      <strong>Chave Pix:</strong><br>
-      <code style="word-break: break-all; background: #222; color: #ffcc00; padding: 8px 12px; border-radius: 8px; display: inline-block;">
-        e9c71c55-19b1-4fa1-9427-8c75e7d28fca
-      </code>
-      <br><br>
-      <strong>Ou clique para doar via RecargaPay:</strong><br>
-      <a href="https://recargapay.com.br/pagar/zy30Vgl" target="_blank" class="discord-btn" style="margin-top:10px;">Doar com RecargaPay</a>
-    </div>
-    <p style="font-size:0.95em; color:#ffd700;">Toda doação será usada para sorteios e eventos no Discord!</p>
-  </section>
-
-<section id="atualizacao">
-  <h2><span>⚙️</span> Atualização do Site</h2>
-  <ul style="text-align: left;
-max-width: 680px; margin: 20px auto; font-size: 0.95rem; line-height: 1.5; color:#ffd700;">
-    <li>🔧 Novo sistema de doações adicionado.</li>
-    <li>📢 Área de atualizações criada para mostrar novidades.</li>
-    <li>🌟 Novo Canal de Showcase de Personagens!</li>
-    <li>🔔 Notificações Toast: um novo sistema de notificação por toast para avisos importantes.</li>
-    <li><strong>Tema Claro/Escuro:</strong> botão no topo para alternar, com salvamento da preferência.</li>
-    <li><strong>Rolagem Suave:</strong> scroll suave entre seções com CSS.</li>
-    <li><strong>Animação ao Exibir Seções:</strong> fade-in e leve movimento.</li>
-    <li><strong>Botão Voltar ao Topo:</strong> aparece ao rolar e leva ao topo da página.</li>
-    <li><strong>Saudação Dinâmica:</strong> mensagem no cabeçalho que muda conforme o horário.</li>
-    <li><strong>Acessibilidade e SEO:</strong> uso de alt em imagens e marcação semântica.</li>
-    <li>🎥 Novo vídeo com as atualizações mais recentes do site!</li>
-<li>💬 Sistema de menssagem no carregamento, (possue uma menssagem rara de se encontrar)</li>
-  </ul>
-
-  <div class="video-item">
-    <h3>Vídeo da Última Atualização do Site</h3>
-    <iframe
-      src="https://drive.google.com/file/d/1wYIYfdb-otkaF8i8ZgdpKQOAw3xQWWbI/preview"
-      title="Vídeo de Atualização do Site ASTDX"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-    ></iframe>
-    <p>Assista ao vídeo para ver as últimas novidades e mudanças implementadas no site da comunidade!</p>
-  </div>
-</section>
-  
-
-<section id="showcase" style="display:none;">
-    <h2><span>🌟</span> Showcase de Personagens</h2>
-    <p>Confira os novos personagens!</p>
-
-    <div id="showcase-videos">
-
-        <div class="video-item">
-            <h3>Killua 5 Estrelas - Combo Perfeito</h3>
-            <iframe src="https://www.youtube.com/embed/0grGStWyDKA" title="SHOWCASE KILLUA" frameborder="0" allowfullscreen></iframe>
-            <p>Assista ao Killua 5 Estrelas novo meta e starter.</p>
-        </div>
-
-        <div class="video-item">
-            <h3>Cooler 5 Estrelas - Level Max</h3>
-            <iframe 
-                src="https://www.youtube.com/embed/Fbarht9zPIo?si=8d0G4D8AMCp1NC2j" 
-                title="SHOWCASE COOLER" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-            ></iframe>
-            <p>Assista ao showcase do Cooler (Freezer Final Form), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
-        </div>
-
-<div class="video-item">
-            <h3>Frieza - Level Max</h3>
-            <iframe 
-                src="https://www.youtube.com/embed/Znn9RFgVi9Q?si=gD05xv3mY5hhgCPm" 
-                title="SHOWCASE FRIEZA" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-            ></iframe>
-            <p>Assista ao showcase do  (Frieza), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
-        </div>
-
-<div class="video-item">
-            <h3>Trunks - Level Max</h3>
-            <iframe 
-                src="https://www.youtube.com/embed/Ns2UuU2qXmc?si=L78fp5bXy95cSVoL" 
-                title="SHOWCASE FUTURE TRUNKS" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-            ></iframe>
-            <p>Assista ao showcase do  (Trunks), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
-        </div>
-
-    </div>
-    <div class="comments-area">
-        <h3>Comentários</h3>
-        <div class="auth-info">
-            <span id="user-info">Faça login para comentar.</span>
-            <div class="auth-buttons">
-                <button id="login-btn">Entrar com Google</button>
-                <button id="logout-btn" style="display:none;">Sair</button>
+    
+    <div class="wrap" id="page">
+        <header role="banner" aria-label="Cabeçalho do site">
+            <img src="https://cdn.discordapp.com/icons/1384335086656159788/72cd0dffccd9ddd6872174422d088075.png?size=2048" alt="Ícone do Servidor Discord ASTDX" loading="lazy" />
+            <h1>Comunidade ASTDX</h1>
+            <div class="header-row" role="navigation" aria-label="Ações rápidas">
+                <a class="btn" href="https://discord.gg/t5HUNGPWkf" target="_blank" rel="noopener" aria-label="Entrar no Discord">
+                    <span>🔗</span><span class="discord-text-rainbow">Entrar no Discord</span>
+                </a>
+                <button id="toggle-theme" class="btn ghost" aria-pressed="false" aria-label="Alternar tema">🌙 Tema</button>
+                <button id="music-toggle" class="btn ghost" aria-pressed="false" title="Ativar/Desativar música">🔊 Música</button>
             </div>
-        </div>
-        <form id="comment-form" style="display:none;">
-            <textarea id="comment-input" placeholder="Escreva seu comentário aqui..."></textarea>
-            <button type="submit">Enviar Comentário</button>
-        </form>
-        <div id="comments-list" class="comments-list"></div>
-    </div>
-</section>
-
-<footer>
-  <div class="footer-inner">
-    <button data-section="live" class="active" tabindex="0"><span>🔴</span><small>Live</small></button>
-    <button data-section="meta" tabindex="0"><span>📋</span><small>Meta</small></button>
-    <button data-section="traits" tabindex="0"><span>💎</span><small>Traits</small></button>
-    <button data-section="novidades" tabindex="0"><span>📰</span><small>Novidades</small></button>
-    <button data-section="codigos" tabindex="0"><span>🎁</span><small>Códigos</small></button>
-    <button data-section="vip" tabindex="0"><span>👑</span><small>VIP</small></button>
-    <button data-section="doar" tabindex="0"><span>💖</span><small>Doar</small></button>
-    <button data-section="atualizacao" tabindex="0"><span>⚙️</span><small>Update</small><span class="notification-dot"></span></button>
-    <button data-section="showcase" tabindex="0"><span>🌟</span><small>Show</small></button>
-  </div>
-  <p style="font-size: 0.7em; color: rgba(255,255,255,0.6); margin-top: 2px;">© Desenvolvido por <span class="rainbow-text">Gus</span> & collab <span class="rainbow-text">Yuki</span></p>
-</footer>
-
-<div id="player" style="display:none;"></div>
-
-<script src="https://www.youtube.com/iframe_api"></script> 
-
-<script>
-let player;
-let isPlaying = false;
-
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: '0',
-    width: '0',
-    videoId: 'xWV4y9lQOlA',
-    playerVars: {
-      autoplay: 0,
-      loop: 1,
-      playlist: 'xWV4y9lQOlA',
-      controls: 0,
-      modestbranding: 1,
-      iv_load_policy: 3,
-      disablekb: 1,
-      rel: 0,
-      fs: 0,
-      mute: 0
-    },
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
-  });
-}
-
-function onPlayerReady(event) {
-  event.target.setVolume(15);
-}
-
-function onPlayerStateChange(event) {
-  if(event.data === YT.PlayerState.ENDED) {
-    event.target.playVideo();
-  }
-}
-
-function playMusicAfterInteraction() {
-  if (!isPlaying && player && player.playVideo) {
-    player.playVideo().then(() => {
-      isPlaying = true;
-      document.removeEventListener('click', playMusicAfterInteraction);
-      document.removeEventListener('touchstart', playMusicAfterInteraction);
-    }).catch(() => {});
-  }
-}
-document.addEventListener('click', playMusicAfterInteraction);
-document.addEventListener('touchstart', playMusicAfterInteraction);
-
-const buttons = document.querySelectorAll('footer button');
-const sections = document.querySelectorAll('main section');
-const doarSection = document.getElementById('doar');
-const atualizacaoSection = document.getElementById('atualizacao');
-const showcaseSection = document.getElementById('showcase');
-
-const originalSections = Array.from(sections).filter(sec => 
-  sec.id !== 'doar' && 
-  sec.id !== 'atualizacao' && 
-  sec.id !== 'showcase'
-);
-
-function scrollSectionIntoView(section) {
-  const offset = section.getBoundingClientRect().top + window.pageYOffset - 100; // ajusta a posição
-  window.scrollTo({ top: offset, behavior: 'smooth' });
-}
-
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    buttons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const target = btn.getAttribute('data-section');
-
-    doarSection.style.display = 'none';
-    atualizacaoSection.style.display = 'none';
-    showcaseSection.style.display = 'none';
-
-    if (target === 'doar') {
-      originalSections.forEach(sec => sec.style.display = 'none');
-      doarSection.style.display = '';
-      scrollSectionIntoView(doarSection);
-    } else if (target === 'atualizacao') {
-      originalSections.forEach(sec => sec.style.display = 'none');
-      atualizacaoSection.style.display = '';
-      scrollSectionIntoView(atualizacaoSection);
-    } else if (target === 'showcase') {
-      originalSections.forEach(sec => sec.style.display = 'none');
-      showcaseSection.style.display = '';
-      scrollSectionIntoView(showcaseSection);
-    } else {
-      originalSections.forEach(sec => sec.style.display = '');
-      const targetSection = document.getElementById(target);
-      if (targetSection) scrollSectionIntoView(targetSection);
-    }
-  });
-
-  btn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      btn.click();
-    }
-  });
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-  originalSections.forEach(sec => sec.style.display = '');
-  if (doarSection) doarSection.style.display = 'none';
-  if (atualizacaoSection) atualizacaoSection.style.display = 'none';
-  if (showcaseSection) showcaseSection.style.display = 'none';
-});
-
-// --- NOVO BLOCO de CÓDIGO para as mensagens de carregamento ---
-const funFacts = [
-  "Sabia que nossa comunidade tem canais exclusivos no Discord?",
-  "A estrela em nosso preloader gira em agradecimento pela sua paciência!",
-  "Estamos sempre buscando os melhores personagens meta para você!",
-  "Não se esqueça de verificar a seção 'Códigos do Jogo' para brindes!",
-  "Faça login com sua conta Google para deixar um comentário no Showcase!",
-  "Seu feedback ajuda a ASTDX a crescer! Participe no Discord.",
-  "Sabia que o Gus namora o Yuki no off",
-  "A internet é como um abraço: quanto mais larga, melhor!"
-];
-
-const loadingMessageElement = document.getElementById("loading-message");
-let messageInterval;
-
-function displayRandomFact() {
-  const randomIndex = Math.floor(Math.random() * funFacts.length);
-  loadingMessageElement.textContent = funFacts[randomIndex];
-}
-
-// Inicia a primeira mensagem imediatamente e o intervalo
-displayRandomFact();
-messageInterval = setInterval(displayRandomFact, 5000); 
-// --- FIM DO NOVO BLOCO ---
-
-window.addEventListener("load", () => {
-  const preloader = document.getElementById('preloader');
-  preloader.style.opacity = '0';
-  clearInterval(messageInterval); // ADIÇÃO: Para a troca de mensagens
-  setTimeout(() => preloader.style.display = 'none', 800);
-});
-
-const themeBtn = document.getElementById("toggle-theme");
-const htmlBody = document.body;
-
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme === "light") {
-  htmlBody.classList.add("light");
-  themeBtn.textContent = "🌙 Tema Escuro";
-} else {
-  htmlBody.classList.remove("light");
-  themeBtn.textContent = "🌞 Tema Claro";
-}
-
-themeBtn.addEventListener("click", () => {
-  htmlBody.classList.toggle("light");
-  const isLight = htmlBody.classList.contains("light");
-  themeBtn.textContent = isLight ? "🌙 Tema Escuro" : "🌞 Tema Claro";
-  localStorage.setItem("theme", isLight ? "light" : "dark");
-});
-</script>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getDatabase, ref, onValue, onDisconnect, set, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyA8a-ARdGjPfQh3jDgykJL1JOUVr_80Dzk",
-    authDomain: "caramel-vim-336101.firebaseapp.com",
-    databaseURL: "https://caramel-vim-336101-default-rtdb.firebaseio.com",
-    projectId: "caramel-vim-336101",
-    storageBucket: "caramel-vim-336101.appspot.com",
-    messagingSenderId: "1000858070242",
-    appId: "1:1000858070242:web:6e8e08d02b27f7ddf582bb"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  // Usuário online
-  const userRef = push(ref(db, 'onlineUsers'));
-  onDisconnect(userRef).remove();
-  set(userRef, true);
-
-  // Atualiza contador de online
-  onValue(ref(db, 'onlineUsers'), snapshot => {
-    const users = snapshot.val();
-    const count = users ? Object.keys(users).length : 0;
-    document.getElementById("contador").textContent = count;
-  });
-
-  // Carrega novidades e códigos
-  const novidadesListDiv = document.getElementById("novidades-list");
-  const novidadesTextUl = document.getElementById("novidades-text");
-  const codigosUl = document.getElementById("codigos-list");
-
-  // --- Elementos para a nova seção Showcase e Comentários ---
-  const commentsListDiv = document.getElementById("comments-list");
-  const commentForm = document.getElementById("comment-form");
-  const commentInput = document.getElementById("comment-input");
-  const userInfoDiv = document.getElementById("user-info");
-  const loginBtn = document.getElementById("login-btn");
-  const logoutBtn = document.getElementById("logout-btn");
-  let currentUser = null;
-
-  // --- Lógica de Autenticação Firebase ---
-  loginBtn.addEventListener('click', () => {
-    signInWithPopup(auth, provider)
-      .catch((error) => {
-        console.error("Erro no login: ", error);
-      });
-  });
-
-  logoutBtn.addEventListener('click', () => {
-    signOut(auth).catch((error) => {
-      console.error("Erro no logout: ", error);
-    });
-  });
-
-  onAuthStateChanged(auth, (user) => {
-    currentUser = user;
-    if (user) {
-      userInfoDiv.innerHTML = `
-        <img src="${user.photoURL || 'https://via.placeholder.com/40'}" alt="Avatar do usuário" class="comment-avatar">
-        <span>Olá, ${user.displayName || user.email}!</span>
-      `;
-      loginBtn.style.display = 'none';
-      logoutBtn.style.display = 'inline-block';
-      commentForm.style.display = 'flex';
-    } else {
-      userInfoDiv.innerHTML = '<span>Faça login para comentar.</span>';
-      loginBtn.style.display = 'inline-block';
-      logoutBtn.style.display = 'none';
-      commentForm.style.display = 'none';
-    }
-    loadComments();
-  });
-
-  commentForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const commentText = commentInput.value.trim();
-
-    if (commentText === '') {
-      alert('Por favor, digite seu comentário.');
-      return;
-    }
-
-    if (currentUser) {
-      const newCommentRef = push(ref(db, 'showcaseComments'));
-      set(newCommentRef, {
-        author: currentUser.displayName || currentUser.email,
-        avatar: currentUser.photoURL || 'https://via.placeholder.com/40',
-        text: commentText,
-        timestamp: Date.now()
-      }).then(() => {
-        commentInput.value = '';
-      }).catch((error) => {
-        console.error("Erro ao enviar comentário: ", error);
-        alert("Erro ao enviar comentário. Tente novamente.");
-      });
-    } else {
-      alert("Você precisa estar logado para comentar.");
-    }
-  });
-
-  function loadComments() {
-    onValue(ref(db, 'showcaseComments'), (snapshot) => {
-      commentsListDiv.innerHTML = '';
-      const comments = snapshot.val();
-      if (comments) {
-        const sortedComments = Object.values(comments).sort((a, b) => a.timestamp - b.timestamp);
-        sortedComments.forEach(comment => {
-          const commentDate = new Date(comment.timestamp).toLocaleString('pt-BR');
-          const commentItem = document.createElement('div');
-          commentItem.classList.add('comment-item');
-          commentItem.innerHTML = `
-            <div class="comment-header">
-              <img src="${comment.avatar}" alt="Avatar" class="comment-avatar">
-              <span class="comment-author">${comment.author}</span>
-              <span class="comment-date">${commentDate}</span>
+            <p id="greeting" style="font-weight:700;color:#ffcc00;margin-top:6px;text-shadow: 1px 1px 2px #000;" aria-live="polite">Olá!</p>
+            <p style="margin-top:6px;font-weight:700;color:#ffcc00;text-shadow: 1px 1px 2px #000;">👥 Pessoas Online Site: <span id="contador">0</span></p>
+        </header>
+        
+        <main role="main" aria-label="Conteúdo principal">
+            <div id="main-content">
+                <section id="live" aria-labelledby="live-title">
+                    <h2 id="live-title">🔴 Live Ao Vivo</h2>
+                    <iframe src="https://www.youtube.com/embed/NRLS1Acozgw?autoplay=0" title="Live Ao Vivo ASTDX" loading="lazy" allowfullscreen></iframe>
+                </section>
+                
+                <section id="meta" aria-labelledby="meta-title">
+                    <h2 id="meta-title">📋 Personagens Meta</h2>
+                    <div class="image-gallery" aria-hidden="false">
+                        <a href="https://ibb.co/k23Kk3B5" target="_blank" rel="noopener"><img src="https://i.ibb.co/pjW2GWwb/image-162.png" alt="Personagem meta" loading="lazy"></a>
+                    </div>
+                    
+                </section>
+                
+                <section id="traits" aria-labelledby="traits-title">
+                    <h2 id="traits-title">💎 Traits Meta</h2>
+                    <div class="image-gallery">
+                        <a href="https://imgbb.com/" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKmLDCcn/Imagem-do-Whats-App-de-2025-07-17-s-15-52-19-38401d0c.jpg" alt="Trait Meta 1" loading="lazy"></a>
+                        <a href="https://ibb.co/9krb4jqL" target="_blank" rel="noopener"><img src="https://i.ibb.co/wFzSQ1KX/Imagem-do-Whats-App-de-2025-07-17-s-15-54-23-36ca423d.jpg" alt="Trait Meta 2" loading="lazy"></a>
+                    </div>
+                    
+                </section>
+                
+                <section id="novidades" aria-labelledby="novidades-title">
+                    <h2 id="novidades-title">📰 Novidades e Postagens</h2>
+                    <div id="novidades-list" class="image-gallery" aria-live="polite"></div>
+                    <ul id="novidades-text" aria-live="polite"></ul>
+                </section>
+                
+                <section id="codigos" aria-labelledby="codigos-title">
+                    <h2 id="codigos-title">🎁 Códigos do Jogo</h2>
+                    <ul id="codigos-list" aria-live="polite"></ul>
+                </section>
+                
+                <section id="vip" aria-labelledby="vip-title" style="text-align: center;">
+                    <h2 id="vip-title" style="font-size:2.2rem; margin-bottom:18px;"><span class="rainbow-text">⭐Servidor VIP</span></h2>
+                    <p>Entre no servidor VIP do nosso discord para jogar com a galera! O link é atualizado frequentemente.</p>
+                    <a class="btn" href="https://www.roblox.com/share?code=5c52ed5a40e4c54eb6b41d1d130a2433&type=Server" target="_blank" rel="noopener" style="margin-top:16px;">Entrar no Servidor VIP</a>
+                </section>
             </div>
-            <p class="comment-text">${comment.text}</p>
-          `;
-          commentsListDiv.appendChild(commentItem);
+            
+            <section id="doar" style="display:none; text-align:center;">
+                <h2 id="doar-title"><span>💖</span> Doação para Sorteios</h2>
+                <p>Contribua para os sorteios do nosso servidor Discord!<br>
+                Você pode doar via Pix ou RecargaPay:</p>
+                <div style="margin: 20px 0;">
+                    <strong>Chave Pix:</strong><br>
+                    <code style="word-break: break-all; background: #222; color: #ffcc00; padding: 8px 12px; border-radius: 8px; display: inline-block;">
+                        e9c71c55-19b1-4fa1-9427-8c75e7d28fca
+                    </code>
+                    <br><br>
+                    <strong>Ou clique para doar via RecargaPay:</strong><br>
+                    <a href="https://recargapay.com.br/pagar/zy30Vgl" target="_blank" class="discord-btn" style="margin-top:10px;">Doar com RecargaPay</a>
+                </div>
+                <p style="font-size:0.95em; color:#ffd700;">Toda doação será usada para sorteios e eventos no Discord!</p>
+            </section>
+            
+            <section id="atualizacao" aria-labelledby="atualizacao-title" style="display:none;">
+                <h2 id="atualizacao-title">⚙️ Atualização do Site</h2>
+                <ul style="color:#ffd700">
+                    <li>🔧 Novo sistema de doações (opcional)</li>
+                    <li>📢 Área de atualizações para mostrar novidades</li>
+                    <li>🌟 Showcase de Personagens com comentários</li>
+                    <li>🔔 Notificações estilo toast</li>
+                    <li><strong>Tema Claro/Escuro</strong> com preferência salva</li>
+                    <li>🔝 Botão "Voltar ao Topo"</li>
+                    <li>✨ Easter-egg: pressione "g" para alternar tema</li>
+                </ul>
+                <div class="video-item">
+                    <h3>Vídeo da Última Atualização do Site</h3>
+                    <iframe src="https://drive.google.com/file/d/1wYIYfdb-otkaF8i8ZgdpKQOAw3xQWWbI/preview" title="Vídeo de Atualização" loading="lazy" allowfullscreen></iframe>
+                    <p>Assista ao vídeo para ver as últimas novidades.</p>
+                </div>
+            </section>
+            
+            <section id="showcase" aria-labelledby="showcase-title" style="display:none;">
+                <h2 id="showcase-title">🌟 Showcase de Personagens</h2>
+                <p>Confira os novos personagens!</p>
+                
+                <div id="showcase-videos">
+                    <div class="video-item">
+                        <h3>Killua 5 Estrelas - Combo Perfeito</h3>
+                        <iframe src="https://www.youtube.com/embed/0grGStWyDKA" title="SHOWCASE KILLUA" loading="lazy" allowfullscreen></iframe>
+                        <p>Assista ao Killua 5 Estrelas novo meta e starter.</p>
+                    </div>
+                    
+                    <div class="video-item">
+                        <h3>Cooler 5 Estrelas - Level Max</h3>
+                        <iframe
+                            src="https://www.youtube.com/embed/Fbarht9zPIo?si=8d0G4D8AMCp1NC2j"
+                            title="SHOWCASE COOLER"
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        ></iframe>
+                        <p>Assista ao showcase do Cooler (Freezer Final Form), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
+                    </div>
+                    
+                    <div class="video-item">
+                        <h3>Frieza - Level Max</h3>
+                        <iframe
+                            src="https://www.youtube.com/embed/Znn9RFgVi9Q?si=gD05xv3mY5hhgCPm"
+                            title="SHOWCASE FRIEZA"
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        ></iframe>
+                        <p>Assista ao showcase do (Frieza), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
+                    </div>
+                    
+                    <div class="video-item">
+                        <h3>Trunks - Level Max</h3>
+                        <iframe
+                            src="https://www.youtube.com/embed/Ns2UuU2qXmc?si=L78fp5bXy95cSVoL"
+                            title="SHOWCASE FUTURE TRUNKS"
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        ></iframe>
+                        <p>Assista ao showcase do (Trunks), uma unidade 5 estrelas do jogo All-Star Tower Defense X, mostrando seus atributos e os upgrades em cada nível.</p>
+                    </div>
+                </div>
+                
+                <div class="comments-area" aria-live="polite">
+                    <h3>Comentários</h3>
+                    <div class="auth-info" style="display:flex;gap:12px;align-items:center;justify-content:center;margin:12px 0">
+                        <span id="user-info">Faça login para comentar.</span>
+                        <div class="auth-buttons">
+                            <button id="login-btn" class="btn ghost">Entrar com Google</button>
+                            <button id="logout-btn" class="btn ghost" style="display:none">Sair</button>
+                        </div>
+                    </div>
+                    <form id="comment-form" style="display:none">
+                        <textarea id="comment-input" placeholder="Escreva seu comentário..." aria-label="Comentário"></textarea>
+                        <div style="display:flex;justify-content:flex-end;margin-top:8px">
+                            <button type="submit" class="btn">Enviar Comentário</button>
+                        </div>
+                    </form>
+                    <div id="comments-list" style="margin-top:12px"></div>
+                </div>
+            </section>
+        </main>
+        
+        <footer role="contentinfo" aria-label="Rodapé">
+            <div class="footer-inner" role="toolbar" aria-label="Navegação inferior">
+                <button data-section="live" class="active" aria-pressed="true" title="Live">🔴<small>Live</small></button>
+                <button data-section="meta" title="Meta">📋<small>Meta</small></button>
+                <button data-section="traits" title="Traits">💎<small>Traits</small></button>
+                <button data-section="novidades" title="Novidades">📰<small>Novidades</small></button>
+                <button data-section="codigos" title="Códigos">🎁<small>Códigos</small></button>
+                <button data-section="vip" title="VIP">👑<small>VIP</small></button>
+                <button data-section="doar" title="Doar">💖<small>Doar</small></button>
+                <button data-section="atualizacao" title="Atualização">⚙️<small>Update</small><span class="notification-dot" aria-hidden="true"></span></button>
+                <button data-section="showcase" title="Showcase">🌟<small>Show</small></button>
+            </div>
+            <div style="text-align:center;margin-top:6px;color:rgba(255,255,255,.7);font-size:.74rem">
+                © Desenvolvido por <span class="rainbow-text">Gus</span> & collab <span class="rainbow-text">Yuki🥀</span>
+            </div>
+        </footer>
+    </div>
+    
+    <button id="backToTop" title="Voltar ao topo">⬆️</button>
+    
+    <div id="player" style="display:none" aria-hidden="true"></div>
+    
+    <script src="https://www.youtube.com/iframe_api" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js" type="module"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, onValue, onDisconnect, set, push, remove, child, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8a-ARdGjPfQh3jDgykJL1JOUVr_80Dzk",
+            authDomain: "caramel-vim-336101.firebaseapp.com",
+            databaseURL: "https://caramel-vim-336101-default-rtdb.firebaseio.com",
+            projectId: "caramel-vim-336101",
+            storageBucket: "caramel-vim-336101.appspot.com",
+            messagingSenderId: "1000858070242",
+            appId: "1:1000858070242:web:6e8e08d02b27f7ddf582bb"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Lógica de presença de usuários
+        const onlineRoot = ref(db, 'presence');
+        const myRef = push(onlineRoot);
+        set(myRef, { connectedAt: Date.now() }).catch(()=>{});
+        onDisconnect(myRef).remove().catch(()=>{});
+        onValue(onlineRoot, snap => {
+            const val = snap.val() || {};
+            const count = Object.keys(val).length;
+            const el = document.getElementById('contador');
+            if(el) el.textContent = count;
         });
-      }
-    });
-  }
-  loadComments();
 
-  onValue(ref(db, 'novidades'), (snapshot) => {
-    const novidades = snapshot.val();
-    if (!novidades) return;
+        // Lógica de carregamento de dados do banco
+        const novidadesListDiv = document.getElementById("novidades-list");
+        const novidadesTextUl = document.getElementById("novidades-text");
+        const codigosUl = document.getElementById("codigos-list");
+        
+        function safeForEach(val, cb){
+            if(!val) return;
+            if(Array.isArray(val)) val.forEach(cb);
+            else Object.values(val).forEach(cb);
+        }
 
-    novidadesListDiv.innerHTML = '';
-    novidadesTextUl.innerHTML = '';
+        onValue(ref(db,'novidades'), snapshot=>{
+            const novidades = snapshot.val();
+            novidadesListDiv.innerHTML = '';
+            novidadesTextUl.innerHTML = '';
+            if(!novidades) return;
+            safeForEach(novidades, item => {
+                const li = document.createElement('li');
+                const icon = item.icone || '🔔';
+                li.innerHTML = `<strong>${icon} ${item.titulo || 'Atualização'}</strong>: ${item.descricao || ''}`;
+                novidadesTextUl.appendChild(li);
+                if(item.imagem){
+                    const a = document.createElement('a'); a.href = item.link || '#'; a.target='_blank'; a.rel='noopener';
+                    const img = document.createElement('img'); img.src = item.imagem; img.alt = item.titulo || 'novidade'; img.loading='lazy';
+                    img.style.maxWidth = '300px'; img.style.borderRadius = '10px'; img.style.margin='6px';
+                    a.appendChild(img);
+                    novidadesListDiv.appendChild(a);
+                }
+            });
+        });
+        
+        onValue(ref(db,'codigos'), snapshot=>{
+            const cods = snapshot.val();
+            codigosUl.innerHTML = '';
+            if(!cods) return;
+            safeForEach(cods, c => {
+                const li = document.createElement('li');
+                li.textContent = typeof c === 'object' ? (c.code || JSON.stringify(c)) : c;
+                codigosUl.appendChild(li);
+            });
+        });
+        
+        // Lógica de comentários
+        const commentsListDiv = document.getElementById("comments-list");
+        const commentForm = document.getElementById("comment-form");
+        const commentInput = document.getElementById("comment-input");
+        const userInfoDiv = document.getElementById("user-info");
+        const loginBtn = document.getElementById("login-btn");
+        const logoutBtn = document.getElementById("logout-btn");
+        let currentUser = null;
+        
+        loginBtn.addEventListener('click', ()=> signInWithPopup(auth, provider).catch(e=> console.error(e)));
+        logoutBtn.addEventListener('click', ()=> signOut(auth).catch(e=> console.error(e)));
+        
+        onAuthStateChanged(auth, user => {
+            currentUser = user;
+            if(user){
+                userInfoDiv.innerHTML = `<img src="${user.photoURL || 'https://via.placeholder.com/40'}" alt="avatar" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:8px"> <span>Olá, ${user.displayName || user.email}</span>`;
+                loginBtn.style.display = 'none'; logoutBtn.style.display = '';
+                commentForm.style.display = 'block';
+            } else {
+                userInfoDiv.textContent = 'Faça login para comentar.';
+                loginBtn.style.display = ''; logoutBtn.style.display = 'none';
+                commentForm.style.display = 'none';
+            }
+            loadComments();
+        });
+        
+        commentForm.addEventListener('submit', (e)=>{
+            e.preventDefault();
+            const text = (commentInput.value || '').trim();
+            if(!text) return alert('Digite um comentário');
+            if(!currentUser) return alert('Faça login antes');
+            const newRef = push(ref(db, 'showcaseComments'));
+            set(newRef, { author: currentUser.displayName || currentUser.email, avatar: currentUser.photoURL || '', text, timestamp: Date.now() })
+                .then(()=> commentInput.value = '')
+                .catch(err => { console.error(err); alert('Erro ao enviar comentário'); });
+        });
+        
+        function loadComments(){
+            onValue(ref(db,'showcaseComments'), snap => {
+                commentsListDiv.innerHTML = '';
+                const val = snap.val();
+                if(!val) return;
+                const arr = Array.isArray(val) ? val : Object.values(val);
+                arr.sort((a,b)=> (a.timestamp||0) - (b.timestamp||0));
+                arr.forEach(c => {
+                    const d = new Date(c.timestamp||Date.now()).toLocaleString('pt-BR');
+                    const div = document.createElement('div'); div.className='comment-item';
+                    div.innerHTML = `<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><img src="${c.avatar||'https://via.placeholder.com/40'}" alt="avatar" style="width:36px;height:36px;border-radius:50%"><strong style="color:var(--accent)">${c.author||'Anônimo'}</strong><span style="margin-left:auto;color:var(--muted);font-size:.85rem">${d}</span></div><div>${escapeHtml(c.text||'')}</div>`;
+                    commentsListDiv.appendChild(div);
+                });
+            });
+        }
+        
+        function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+    </script>
+    <script>
+        (function(){
+            'use strict';
+            
+            // Lógica do Preloader
+            const funFacts = [
+                "Sabia que nossa comunidade tem canais exclusivos no Discord?",
+                "A estrela em nosso preloader gira em agradecimento pela sua paciência!",
+                "Confira a seção 'Códigos do Jogo' para brindes!",
+                "Faça login para comentar no Showcase!",
+                "Seu feedback ajuda a ASTDX a crescer!",
+                "Sabia que o Gus namora o Yuki no off",
+                "A internet é como um abraço: quanto mais larga, melhor!"
+            ];
+            const loadingEl = document.getElementById('loading-message');
+            let msgInterval = null;
+            function showRandomFact(){ loadingEl.textContent = funFacts[Math.floor(Math.random()*funFacts.length)]; }
+            showRandomFact();
+            msgInterval = setInterval(showRandomFact,5000);
+            window.addEventListener('load', ()=> {
+                const p = document.getElementById('preloader');
+                if(p){ p.style.opacity='0'; clearInterval(msgInterval); setTimeout(()=>p.style.display='none',800); }
+            });
+            
+            // Lógica de saudação
+            const h = new Date().getHours();
+            const greet = h < 12 ? "Bom dia!" : h < 18 ? "Boa tarde!" : "Boa noite!";
+            document.getElementById("greeting").textContent = greet;
+            
+            // Lógica de navegação do rodapé
+            const mainSections = document.getElementById('main-content');
+            const specialSections = document.querySelectorAll('#doar, #atualizacao, #showcase');
+            const buttons = document.querySelectorAll('footer .footer-inner button');
+            const showMainContent = () => {
+                mainSections.style.display = 'block';
+                specialSections.forEach(sec => sec.style.display = 'none');
+            };
+            const showSpecialSection = (id) => {
+                mainSections.style.display = 'none';
+                specialSections.forEach(sec => sec.style.display = 'none');
+                const activeSection = document.getElementById(id);
+                if (activeSection) {
+                    activeSection.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    button.classList.add('active');
+                    const sectionId = button.getAttribute('data-section');
+                    if (['doar', 'atualizacao', 'showcase'].includes(sectionId)) {
+                        showSpecialSection(sectionId);
+                    } else {
+                        showMainContent();
+                        const targetSection = document.getElementById(sectionId);
+                        if(targetSection) {
+                            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                });
+            });
+            showMainContent();
 
-    novidades.forEach(item => {
-      const li = document.createElement("li");
-      li.innerHTML = `<strong>${item.icone} ${item.titulo}</strong>: ${item.descricao}`;
-      novidadesTextUl.appendChild(li);
-    });
-  });
+            // Lógica do botão "Voltar ao Topo"
+            const backToTopBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', ()=> {
+                backToTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+            });
+            backToTopBtn.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+            
+            // Lógica de tema claro/escuro
+            const themeBtn = document.getElementById('toggle-theme');
+            const htmlBody = document.body;
+            const saved = localStorage.getItem('astdx_theme');
+            if(saved === 'light'){ htmlBody.classList.add('light'); themeBtn.textContent = '🌞 Tema Claro'; }
+            else { htmlBody.classList.remove('light'); themeBtn.textContent = '🌙 Tema'; }
+            themeBtn.addEventListener('click', ()=>{
+                htmlBody.classList.toggle('light');
+                const isLight = htmlBody.classList.contains('light');
+                themeBtn.textContent = isLight ? '🌞 Tema Claro' : '🌙 Tema';
+                localStorage.setItem('astdx_theme', isLight ? 'light' : 'dark');
+            });
+            window.addEventListener('keydown', (e)=> { if(e.key.toLowerCase() === 'g'){ themeBtn.click(); } });
 
-  onValue(ref(db, 'codigos'), (snapshot) => {
-    const codigos = snapshot.val();
-    if (!codigos) return;
-
-    codigosUl.innerHTML = '';
-    codigos.forEach(codigo => {
-      const li = document.createElement("li");
-      li.textContent = codigo;
-      codigosUl.appendChild(li);
-    });
-  });
-</script>
-
-<button id="backToTop" title="Voltar ao topo">⬆️</button>
-<script>
-  const backBtn = document.getElementById('backToTop');
-  window.addEventListener('scroll', () => {
-    backBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-  });
-  backBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-  const h = new Date().getHours();
-  const greet = h < 12 ? "Bom dia!" : h < 18 ? "Boa tarde!" : "Boa noite!";
-  document.getElementById("greeting").textContent = greet;
-  // Este listener DOMContentLoaded já foi ajustado no primeiro script, este é redundante mas não causa problema.
-  window.addEventListener('DOMContentLoaded', () => {});
-</script>  <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/688821bddb7610192eead4b4/1j19s7j6c';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+            // Lógica do player de música
+            let player, isPlaying=false, hasInteracted=false;
+            window.onYouTubeIframeAPIReady = function(){
+                try{
+                    player = new YT.Player('player', {
+                        height:'0', width:'0', videoId:'xWV4y9lQOlA',
+                        playerVars:{autoplay:0,loop:1,playlist:'xWV4y9lQOlA',controls:0,modestbranding:1,iv_load_policy:3,rel:0},
+                        events:{'onReady': e => { try{ e.target.setVolume(15); }catch(e){ } }, 'onStateChange': function(ev){ if(ev.data === YT.PlayerState.ENDED) ev.target.playVideo(); } }
+                    });
+                }catch(err){ console.warn('YT player init failed',err); }
+            };
+            const musicToggle = document.getElementById('music-toggle');
+            function tryPlay(){
+                if(player && player.playVideo && !isPlaying){
+                    player.playVideo();
+                    isPlaying = true;
+                    musicToggle.textContent='🔇 Mudo';
+                }
+            }
+            function tryPause(){
+                if(player && player.pauseVideo && isPlaying){
+                    player.pauseVideo();
+                    isPlaying=false;
+                    musicToggle.textContent='🔊 Música';
+                }
+            }
+            musicToggle.addEventListener('click', ()=>{
+                if(isPlaying){ tryPause(); }
+                else { tryPlay(); }
+            });
+        })();
+    </script>
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/688821bddb7610192eead4b4/1j19s7j6c';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+</body>
+</html>
